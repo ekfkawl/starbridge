@@ -1,7 +1,1 @@
-src/main/resources/static/js/ckeditor/* linguist-vendored
-src/main/resources/static/js/ckeditor/** linguist-vendored
-src/main/resources/static/js/ckeditor/adapters/* linguist-vendored
-src/main/resources/static/js/ckeditor/lang/* linguist-vendored
-src/main/resources/static/js/ckeditor/plugins/* linguist-vendored
-src/main/resources/static/js/ckeditor/skins/* linguist-vendored
-src/main/resources/static/js/ckeditor/vendor/* linguist-vendored
+*.js linguist-detectable=false
