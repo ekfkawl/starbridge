@@ -1,6 +1,8 @@
 package kr.starbridge.web.domain.member.controller;
 
 import kr.starbridge.web.domain.member.dto.MemberDTO;
+import kr.starbridge.web.global.common.enums.ExceptionEnum;
+import kr.starbridge.web.global.common.response.ApiException;
 import kr.starbridge.web.global.common.response.ApiResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +18,9 @@ public class TestController {
         MemberDTO memberDTO = new MemberDTO();
         memberDTO.setId("test");
 
-//        throw new ApiException(ExceptionEnum.ACCESS_DENIED_EXCEPTION);
+        throw new ApiException(ExceptionEnum.ACCESS_DENIED_EXCEPTION);
 
-        return new ApiResult<>(null, "view",false);
+//        return new ApiResult<>(null, "view",false);
 
     }
 }
