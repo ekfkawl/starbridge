@@ -38,11 +38,12 @@ public class MemberEntity {
     private String createDt;
 
     @Builder
-    public MemberEntity(String id, String pw, String name, Boolean isCm, String img) {
+    public MemberEntity(String id, String pw, String name, String img, Boolean isCm, String createDt) {
         this.id = id;
         this.pw = pw;
         this.name = name;
-        this.isCm = isCm;
         this.img = img;
+        this.isCm = isCm;
+        this.createDt = createDt;
     }
 }

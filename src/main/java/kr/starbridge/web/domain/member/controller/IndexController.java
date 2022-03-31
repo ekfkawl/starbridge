@@ -1,8 +1,8 @@
 package kr.starbridge.web.domain.member.controller;
 
-import kr.starbridge.web.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,13 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class IndexController {
 
-    private final MemberService memberService;
-
     @GetMapping("/")
     public ModelAndView index() {
-        ModelAndView mv = new ModelAndView("index");
-        mv.addObject("tick", System.currentTimeMillis());
-
-        return mv;
+        return new ModelAndView("index");
     }
 }

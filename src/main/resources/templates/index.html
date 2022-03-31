@@ -1,20 +1,144 @@
 <!DOCTYPE html>
 <html data-wf-page=612c76d0901fda2560965c5e data-wf-site=602eda09fc78afc76e9706b6>
 <head>
-    <meta http-equiv=Content-Type content="text/html; charset=UTF-8">
     <title>StarBridge</title>
-    <meta property=og:type content=website />
-    <meta content=summary_large_image name=twitter:card />
-    <meta content="width=device-width, initial-scale=1" name=viewport />
-    <link th:href="|./css/min.css?t=${tick}|" rel="stylesheet" type="text/css" />
-    <link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
-    <script src=https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js></script>
-    <script type=text/javascript>WebFont.load({google:{families:["Inter:300,regular,700,800"]}});</script>
-    <script type=text/javascript>!function(b,e){var d=e.documentElement,a=" w-mod-";d.className+=a+"js",("ontouchstart" in b||b.DocumentTouch&&e instanceof DocumentTouch)&&(d.className+=a+"touch")}(window,document);</script>
-    <link th:href="|./image/logo64.png?t=${tick}|" rel="shortcut icon" type=image/x-icon />
+    <th:block th:include="components/base :: base"></th:block>
     <style>.card{background-color:#fff!important}.rotating-headline span{position:absolute;opacity:0;overflow:hidden;border-bottom:4px solid transparent;line-height:1;-webkit-animation:rotateWord 15s ease-in-out infinite 0s;-ms-animation:rotateWord 15s ease-in-out infinite 0s;animation:rotateWord 15s ease-in-out infinite 0s}.rotating-headline span:nth-child(2){-webkit-animation-delay:3s;-ms-animation-delay:3s;animation-delay:3s}.rotating-headline span:nth-child(3){-webkit-animation-delay:6s;-ms-animation-delay:6s;animation-delay:6s}.rotating-headline span:nth-child(4){-webkit-animation-delay:9s;-ms-animation-delay:9s;animation-delay:9s}.rotating-headline span:nth-child(5){-webkit-animation-delay:12s;-ms-animation-delay:12s;animation-delay:12s}@-webkit-keyframes rotateWord{0%{opacity:0}2%{border-bottom-color:transparent;opacity:0;-webkit-transform:translateY(30px)}5%{border-bottom-color:#00d16d;opacity:1;-webkit-transform:translateY(0px)}21%{border-bottom-color:#00d16d;opacity:1;-webkit-transform:translateY(0px)}23%{border-bottom-color:transparent;opacity:0;-webkit-transform:translateY(-30px)}80%{opacity:0}100%{opacity:0}}@-ms-keyframes rotateWord{0%{opacity:0}2%{border-bottom-color:transparent;opacity:0;-ms-transform:translateY(30px)}5%{border-bottom-color:#00d16d;opacity:1;-ms-transform:translateY(0px)}21%{border-bottom-color:#00d16d;opacity:1;-ms-transform:translateY(0px)}23%{border-bottom-color:transparent;opacity:0;-ms-transform:translateY(-30px)}80%{opacity:0}100%{opacity:0}}@keyframes rotateWord{0%{opacity:0}2%{border-bottom-color:transparent;opacity:0;-webkit-transform:translateY(30px);transform:translateY(30px)}5%{border-bottom-color:#00d16d;opacity:1;-webkit-transform:translateY(0px);transform:translateY(0px)}21%{border-bottom-color:#00d16d;opacity:1;-webkit-transform:translateY(0px);transform:translateY(0px)}23%{border-bottom-color:transparent;opacity:0;-webkit-transform:translateY(-30px);transform:translateY(-30px)}80%{opacity:0}100%{opacity:0}}@media only screen and (max-width:767px){.rotating-headline span{border-bottom:0}}</style>
 </head>
 <body>
-<header th:replace="components/header :: header"></header>
+<header th:include="components/header :: header"></header>
+<div class="section homepage-hero wf-section" style=padding-top:60px>
+    <div class="container hero-headline">
+        <div class="columns-9 home-hero w-row">
+            <div class="column-7 w-col w-col-6">
+                <h1 class=rotating-headline>
+                    <span class=rotating-headline-span>Essential</span>
+                    <span class=rotating-headline-span>Reliable</span>
+                    <span class=rotating-headline-span>P2P</span>
+                    <span class=rotating-headline-span>Secure</span>
+                    <span class=rotating-headline-span>Freeware</span>
+                    <br />bridge between<br />starcraft1 and web.
+                </h1>
+                <div class="homepage-signup-form-container w-container">
+                    <div id=signup-form-block class=w-form>
+                        <div th:if="not ${is_login}">
+                            <form id=signin-form name=signin-form action=signin method=post>
+                                <div class="w-embed w-script">
+                                    <script>const satelliteInput=document.querySelector("#satellite-choice");const defaultSatellite=satelliteInput.options[0].innerText.trim();for(let i=1;i<satelliteInput.options.length;i++){if(satelliteInput.options[i].innerText.trim()===defaultSatellite){satelliteInput.options[i]=null}}</script>
+                                </div>
+                                <input type=text class="signup-input w-input" onkeyup=removeChar(event) maxlength=20 placeholder=아이디 id=signin-email name=signin-email required />
+                                <input type=password class="signup-input w-input" onkeyup=removeChar(event) maxlength=20 name=signin-password placeholder=비밀번호 id=signup-password required /><input type=submit value=로그인 data-wait="Please wait..." id=signup-submit2 class="button full-width _100 pt signup-button w-button" />
+                            </form>
+                        </div>
+                        <div th:if="${is_login}">
+                            <a th:href=@{/tools/ctag} class="button-13 download-report secondary resources w-button"><strong>환경설정</strong></a>
+                            <div style=visibility:hidden>
+                                <input type=text class="signup-input w-input" />
+                                <input type=text class="signup-input w-input" />
+                                <input type=button class="button full-width _100 pt signup-button w-button" />
+                            </div>
+                        </div>
+                        <p class=paragraph-23></p><br>
+                    </div>
+                </div>
+            </div>
+            <div class="w-col w-col-6">
+                <div data-w-id=67c29910-db1b-e5f5-5c68-63f2c41c90be data-animation-type=lottie th:data-src="|./json/codeedits.json?t=${tick}|" data-loop=1 data-direction=1 data-autoplay=1 data-is-ix2-target=0 data-renderer=svg data-default-duration=27.5 data-duration=0 class=home-hero-animation></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class=scroll-section-1>
+    <div class="div-block-14 benefits-section">
+        <h3 data-w-id=217d11eb-ac40-8b67-3761-153f8fc88c02 style=opacity:0 class="h2 benefits-section"><strong class="feature-title benefits-section">더 나은 환경을 제공합니다.</strong></h3>
+        <div data-w-id=0172f582-9fa5-166b-a914-70e0ae81ba44 style=opacity:0 class=p-m-left>스타브리지는 스타크래프트 기존의 불편함을 개선하여 게임 활성화 및 클린한 환경을 조성하기 위해 개발된 플랫폼 입니다.</div>
+        <div class=cards-section>
+            <div data-w-id=2c024e47-2554-ca72-0574-123bd4b84f20 class=cards-container>
+                <div class=cards-sticky>
+                    <div data-w-id=2c024e47-2554-ca72-0574-123bd4b84f22 class=card>
+                        <div class=card-text-container>
+                            <h3 class=card-title>방 자동 새로고침</h3>
+                            <p class=card-text>방 목록에서 다른 방에 의해 하단으로 밀려나면 자동으로 상단으로 노출되게끔 새로고침하여 빠른 진행과 게임 활성화를 도와줍니다.</p>
+                        </div>
+                        <div class=card-image-container>
+                            <div data-w-id=468a9cf4-5f56-536f-c844-8451f0e471e6 data-animation-type=lottie th:data-src="|./json/refresh.json?t=${tick}|" data-loop=1 data-direction=1 data-autoplay=1 data-is-ix2-target=0 data-renderer=svg data-default-duration=15 data-duration=0 class=card-image>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-w-id=2c024e47-2554-ca72-0574-123bd4b84f2a class="card _2">
+                        <div class=card-text-container>
+                            <div class=card-title>유저정보 상세 조회</div>
+                            <p class=card-text>전용 커스텀 뷰를 제공해 줍니다. 이는 게임에 참여한 플레이어의 전적, 배틀태그, 핑 상태 등을 조회할 수 있습니다. 블랙리스트 관리 및 비매너 플레이어 판별에 용이합니다.</p>
+                        </div>
+                        <div class=card-image-container>
+                            <div data-w-id=8f58cc0d-5140-f881-63d4-a44a3c1be2d7 data-animation-type=lottie th:data-src="|./json/scan.json?t=${tick}|" data-loop=1 data-direction=1 data-autoplay=1 data-is-ix2-target=0 data-renderer=svg data-default-duration=7 data-duration=0 class=card-image>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-w-id=2c024e47-2554-ca72-0574-123bd4b84f32 class="card _3">
+                        <div class=card-text-container>
+                            <div class=card-title>블랙리스트 관리 및 필터링</div>
+                            <p class=card-text>
+                                배틀태그 블랙리스트 지정으로 플레이어 자동 추방 및<br>
+                                특정 키워드 인식으로 방 목록 필터링을 지원합니다.<br>
+                            </p>
+                        </div>
+                        <div class=card-image-container>
+                            <div data-w-id=78878aee-9226-1db1-3916-d55f09a91552 data-animation-type=lottie th:data-src="|./json/private.json?t=${tick}|" data-loop=1 data-direction=1 data-autoplay=1 data-is-ix2-target=0 data-renderer=svg data-default-duration=12 data-duration=0 class=card-image>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-w-id=2c024e47-2554-ca72-0574-123bd4b84f32 class="card _4">
+                        <div class=card-text-container>
+                            <div class=card-title>인게임 강티 투표 시스템</div>
+                            <p class=card-text>
+                                특정 플레이어에 대한 추방 투표를 진행할 수 있습니다.
+                                모든 플레이어는 투표 권한이 존재하며 과반 수 이상이 찬성하면 해당 플레이어는 추방됩니다.
+                                <br>(현재 사용 불가)
+                            </p>
+                        </div>
+                        <div class=card-image-container>
+                            <div data-w-id=78878aee-9226-1db1-3916-d55f09a91552 data-animation-type=lottie th:data-src="|./json/think.json?t=${tick}|" data-loop=1 data-direction=1 data-autoplay=1 data-is-ix2-target=0 data-renderer=svg data-default-duration=12 data-duration=0 class=card-image>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-w-id=2c024e47-2554-ca72-0574-123bd4b84f32 class="card _5">
+                        <div class=card-text-container>
+                            <div class=card-title>다양한 편의 기능</div>
+                            <p class=card-text>
+                                미니맵 핑 플레이어 색상으로 변경<br>
+                                승률 N% 이상/이하만 입장 조건 설정<br>
+                                고의적 디스 유발 차단 등 다양한 편의 기능을 지원합니다.<br>
+                            </p>
+                        </div>
+                        <div class=card-image-container>
+                            <div data-w-id=78878aee-9226-1db1-3916-d55f09a91552 data-animation-type=lottie th:data-src="|./json/cube.json?t=${tick}|" data-loop=1 data-direction=1 data-autoplay=1 data-is-ix2-target=0 data-renderer=svg data-default-duration=12 data-duration=0 class=card-image>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id=stats-section class="stats-section wf-section">
+    <div class="stats-container w-container">
+        <h1 class=stats-heading>자유로운 제어 방식</h1>
+        <p class=stats-text>스타브리지는 클라이언트와 양방향 통신으로 웹에서 모든 것을 제어할 수 있습니다.<div class></div></p>
+        <img th:src="|./image/highly-configurable-slide.svg?t=${tick}|" loading=lazy alt class=stats-map-image>
+    </div>
+</div>
+<div id=stats-section class="stats-section wf-section">
+    <div class="stats-container w-container">
+        <h1 class=stats-heading>지금 무료로 사용해보세요.</h1>
+        <div class="stats-text">현재 <span th:utext=${memberCount} id="stat-active-nodes" class="stats-block-stat stats-block-active-node" style="margin-bottom: 0px;margin-top: 0px;"></span> 명의 회원이 함께합니다.</div>
+        <p class=stats-text>스타브리지는 상업적 이윤을 추구하지 않으며, 회원가입만 하면 누구나 사용 가능한 프리웨어 입니다.<br>지금 바로 더 나은 게임 환경을 시작해보세요!</p>
+        <a th:href="@{/install}" target=_blank class="button-10 download-report secondary resources w-button"><strong>스타브리지 다운로드</strong></a>
+    </div>
+</div>
+<footer th:include="components/footer :: footer"></footer>
+<script src=https://code.jquery.com/jquery-3.6.0.js integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin=anonymous></script>
+<script th:src="|./js/f2b74be3e.js?t=${tick}|"></script>
+<script th:src="|./js/valid.js?t=${tick}|"></script>
 </body>
 </html>

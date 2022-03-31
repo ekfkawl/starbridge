@@ -9,7 +9,7 @@ import org.springframework.test.context.TestPropertySource;
 import java.util.List;
 
 @SpringBootTest
-@TestPropertySource(properties = {"spring.config.location=classpath:application-dev.properties"})
+@TestPropertySource(properties = {"spring.config.location=classpath:application-dev.properties, classpath:application.properties"})
 class MemberServiceTest {
 
     @Autowired
