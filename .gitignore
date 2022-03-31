@@ -22,12 +22,12 @@ build
 rebel.xml
  
 # Compliled files
-/target/
+./target/
 **/target
  
-/example/
+./example/
  
 # Gradle
 .gradle
-/build/
+./build/
 .gradletasknamecache
