@@ -58,7 +58,7 @@ public class MemberService {
     }
 
     /**
-     * 아이디 존재 여부 체크
+     * 아이디 중복 체크
      * @param id
      * @return
      */
@@ -67,7 +67,7 @@ public class MemberService {
     }
 
     /**
-     * 닉네임 존재 여부 체크
+     * 닉네임 중복 체크
      * @param name
      * @return
      */
