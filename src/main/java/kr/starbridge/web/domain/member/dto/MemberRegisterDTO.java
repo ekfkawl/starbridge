@@ -2,7 +2,6 @@ package kr.starbridge.web.domain.member.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import kr.starbridge.web.global.Regex;
-import kr.starbridge.web.global.utils.GenerateUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -58,8 +57,8 @@ public class MemberRegisterDTO extends MemberMD5DTO {
         this.name = name;
         this.gRecaptchaResponse = gRecaptchaResponse;
 
-        /** 암호화 값 셋팅 */
-        super.setMd5id(GenerateUtils.StrToMD5(this.id));
-        super.setMd5pw(GenerateUtils.StrToMD5(this.pw1));
+        super.setMd5id(this.id);
+        super.setMd5pw(this.pw1);
     }
+
 }

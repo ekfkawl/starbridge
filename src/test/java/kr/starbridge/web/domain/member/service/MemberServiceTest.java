@@ -21,7 +21,7 @@ class MemberServiceTest {
 
     @Test
     void findAllTest() {
-        List<MemberEntity> all = memberService.findAll();
+        List<MemberEntity> all = memberService.selectAllMember();
         System.out.println("all = " + all);
     }
 

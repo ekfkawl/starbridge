@@ -28,7 +28,6 @@ public class GlobalAdvice {
 
         MemberDTO memberDTO = new MemberDTO();
         BeanUtils.copyProperties(memberEntity, memberDTO);
-        memberDTO.setId("123");
 
         model.addAttribute("memberDTO", memberDTO);
 

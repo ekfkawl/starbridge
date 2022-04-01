@@ -18,6 +18,7 @@ public class IndexController {
 
     @GetMapping("/")
     public ModelAndView index() {
+
         ModelAndView mv = new ModelAndView("index");
         /** 회원 수 */
         mv.addObject("memberCount", memberService.getMemberCount());

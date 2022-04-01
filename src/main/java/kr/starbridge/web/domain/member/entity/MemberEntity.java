@@ -1,5 +1,6 @@
 package kr.starbridge.web.domain.member.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,5 +41,6 @@ public class MemberEntity {
     /**
      * 계정 생성일
      */
+    @JsonIgnore
     private String createDt;
 }

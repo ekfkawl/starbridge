@@ -1,15 +1,19 @@
 package kr.starbridge.web.domain.member.service;
 
+import kr.starbridge.web.domain.member.dto.MemberDTO;
+import kr.starbridge.web.domain.member.dto.MemberMD5DTO;
 import kr.starbridge.web.domain.member.dto.MemberRegisterDTO;
 import kr.starbridge.web.domain.member.entity.MemberEntity;
 import kr.starbridge.web.domain.member.repository.MemberRepository;
 import kr.starbridge.web.global.Profile;
 import kr.starbridge.web.global.common.response.ApiResult;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -58,6 +62,21 @@ public class MemberService {
     }
 
     /**
+     * 로그인
+     * @param memberMD5DTO
+     * @return
+     */
+    public ApiResult<MemberEntity> signIn(MemberMD5DTO memberMD5DTO) {
+        if (isExistIdAndPw(memberMD5DTO.getMd5id(), memberMD5DTO.getMd5pw())) {
+
+            Optional<MemberEntity> memberEntity = selectMemberById(memberMD5DTO.getMd5id());
+            return new ApiResult<>(memberEntity.get(), null, "/", true);
+        }else {
+            return new ApiResult<>(null, "아이디 또는 비밀번호 오류 입니다", null, false);
+        }
+    }
+
+    /**
      * 아이디 중복 체크
      * @param id
      * @return
@@ -83,7 +102,19 @@ public class MemberService {
         return memberRepository.count();
     }
 
-    public List<MemberEntity> findAll() {
+    /**
+     * 로그인 아이디/비밀번호 체크
+     * @return
+     */
+    public boolean isExistIdAndPw(String id, String pw) {
+        return memberRepository.existsByIdAndPw(id, pw);
+    }
+
+    public List<MemberEntity> selectAllMember() {
         return memberRepository.findAll();
+    }
+
+    public Optional<MemberEntity> selectMemberById(String id) {
+        return memberRepository.findById(id);
     }
 }
