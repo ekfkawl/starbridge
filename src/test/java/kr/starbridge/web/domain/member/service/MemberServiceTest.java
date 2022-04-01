@@ -20,4 +20,10 @@ class MemberServiceTest {
         List<MemberEntity> all = memberService.findAll();
         System.out.println("all = " + all);
     }
+
+    @Test
+    void findById() {
+        boolean existId = memberService.isExistId("47a4f7c325931bd344fbe1ca7cd1709");
+        System.out.println("existId = " + existId);
+    }
 }

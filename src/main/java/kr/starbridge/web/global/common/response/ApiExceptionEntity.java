@@ -8,12 +8,12 @@ import lombok.ToString;
 @ToString
 public class ApiExceptionEntity {
 
-    private String errorCode;
-    private String errorMessage;
+    private String code;
+    private String message;
 
     @Builder
-    public ApiExceptionEntity(String errorCode, String errorMessage){
-        this.errorCode = errorCode;
-        this.errorMessage = errorMessage;
+    public ApiExceptionEntity(String code, String message){
+        this.code = code;
+        this.message = message;
     }
 }

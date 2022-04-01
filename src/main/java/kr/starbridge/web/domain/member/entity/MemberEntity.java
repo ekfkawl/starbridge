@@ -1,15 +1,20 @@
 package kr.starbridge.web.domain.member.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+@Entity(name = "member")
+@DynamicInsert
 @Data
 @NoArgsConstructor
-@Entity(name = "member")
+@AllArgsConstructor
+@Builder
 public class MemberEntity {
     /**
      * 아이디
@@ -36,14 +41,4 @@ public class MemberEntity {
      * 계정 생성일
      */
     private String createDt;
-
-    @Builder
-    public MemberEntity(String id, String pw, String name, String img, Boolean isCm, String createDt) {
-        this.id = id;
-        this.pw = pw;
-        this.name = name;
-        this.img = img;
-        this.isCm = isCm;
-        this.createDt = createDt;
-    }
 }

@@ -99,7 +99,7 @@
                             <div data-v-75befc30 class=label-container>
                                 <p data-v-75befc30 class=label-container__label style=color:#354049>닉네임</p>
                             </div>
-                            <input data-v-75befc30 id=register-name placeholder="사용할 닉네임" type=text maxlength=20
+                            <input data-v-75befc30 id=register_name placeholder="사용할 닉네임" type=text maxlength=20
                                    class=headerless-input onkeyup=removeCharForKrEn(event) style=width:100%;height:48px>
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                             <div data-v-75befc30 class=label-container>
                                 <p data-v-75befc30 class=label-container__label style=color:#354049>아이디</p>
                             </div>
-                            <input data-v-75befc30 id=register-id placeholder="사용할 아이디" type=text maxlength=20
+                            <input data-v-75befc30 id=register_id placeholder="사용할 아이디" type=text maxlength=20
                                    class=headerless-input onkeyup=removeChar(event) style=width:100%;height:48px>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                                 <div data-v-75befc30 class=label-container>
                                     <p data-v-75befc30 class=label-container__label style=color:#354049>비밀번호</p>
                                 </div>
-                                <input data-v-75befc30 id=register-pw1 placeholder="사용할 비밀번호" type=password maxlength=20
+                                <input data-v-75befc30 id=register_pw1 placeholder="사용할 비밀번호" type=password maxlength=20
                                        class="headerless-input password" onkeyup=removeChar(event)
                                        style=width:100%;height:48px>
                             </div>
@@ -129,7 +129,7 @@
                             <div data-v-75befc30 class=label-container>
                                 <p data-v-75befc30 class=label-container__label style=color:#354049>비밀번호 확인</p>
                             </div>
-                            <input data-v-75befc30 id=register-pw2 placeholder="비밀번호 확인" type=password maxlength=20
+                            <input data-v-75befc30 id=register_pw2 placeholder="비밀번호 확인" type=password maxlength=20
                                    class="headerless-input password" onkeyup=removeChar(event)
                                    style=width:100%;height:48px>
                         </div>
@@ -154,7 +154,7 @@
                     </div>
                     <input type=button value=회원가입 data-wait="Please wait..." id=signup-submit2
                            class="button full-width _100 pt signup-button w-button"/>
-                    <div class=g-recaptcha data-sitekey=6LcULO4cAAAAAB3YZ-FcJ21zy9ubJLzGZ34uQSAX></div>
+                    <div class=g-recaptcha data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
                 </div>
             </div>
         </div>
@@ -167,60 +167,18 @@
         crossorigin="anonymous"></script>
 <script src="https://www.google.com/recaptcha/api.js"></script>
 <script th:inline="javascript">
-    $(function () {
-
-        $('#signup-submit2').click(function () {
-            $.ajax({
-                url: 'verifyRegister.do',
-                type: 'post',
-                data: {
-                    recaptcha: $("#g-recaptcha-response").val(),
-                    name: $("#register-name").val(),
-                    id: $("#register-id").val(),
-                    pw1: $("#register-pw1").val(),
-                    pw2: $("#register-pw2").val()
-                },
-                success: function (data) {
-                    var isRegister = false;
-                    switch (data) {
-                        case -1:
-                            alert('입력 값 오류 입니다.');
-                            break;
-                        case 0:
-                            alert('reCAPTCHA 스팸방지 기능을 체크해 주십시오.');
-                            break;
-                        case 1:
-                            alert('빈 칸이 존재합니다.');
-                            break;
-                        case 2:
-                            alert('비밀번호와 비밀번호 확인란이 동일하지 않습니다.');
-                            break;
-                        case 3:
-                            alert('아이디와 비밀번호는 5글자 이상이여야 합니다.');
-                            break;
-                        case 4:
-                            alert('이미 존재하는 아이디 입니다.');
-                            break;
-                        case 5:
-                            alert('이미 존재하는 닉네임 입니다.');
-                            break;
-                        case 6:
-                            isRegister = true;
-                            alert('계정이 등록되었습니다.');
-                            location.href = [[@{/}]];
-                            break;
-                    }
-                    if (!isRegister) {
-                        location.reload();
-                    }
-
-                }
-                });
-        })
-            ;
-
+    $('#signup-submit2').click(function () {
+        post('api/register', {
+            recaptcha: $("#g-recaptcha-response").val(),
+            name: $("#register_name").val(),
+            id: $("#register_id").val(),
+            pw1: $("#register_pw1").val(),
+            pw2: $("#register_pw2").val()
         });
+    })
 </script>
+
 <script th:src="|./js/valid.js?t=${tick}|"></script>
+<script th:src="|./js/common.js?t=${tick}|"></script>
 </body>
 </html>

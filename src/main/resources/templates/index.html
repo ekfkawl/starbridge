@@ -23,9 +23,6 @@
                     <div id=signup-form-block class=w-form>
                         <div th:if="not ${is_login}">
                             <form id=signin-form name=signin-form action=signin method=post>
-                                <div class="w-embed w-script">
-                                    <script>const satelliteInput=document.querySelector("#satellite-choice");const defaultSatellite=satelliteInput.options[0].innerText.trim();for(let i=1;i<satelliteInput.options.length;i++){if(satelliteInput.options[i].innerText.trim()===defaultSatellite){satelliteInput.options[i]=null}}</script>
-                                </div>
                                 <input type=text class="signup-input w-input" onkeyup=removeChar(event) maxlength=20 placeholder=아이디 id=signin-email name=signin-email required />
                                 <input type=password class="signup-input w-input" onkeyup=removeChar(event) maxlength=20 name=signin-password placeholder=비밀번호 id=signup-password required /><input type=submit value=로그인 data-wait="Please wait..." id=signup-submit2 class="button full-width _100 pt signup-button w-button" />
                             </form>
