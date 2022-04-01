@@ -41,6 +41,5 @@ public class MemberEntity {
     /**
      * 계정 생성일
      */
-    @JsonIgnore
     private String createDt;
 }
