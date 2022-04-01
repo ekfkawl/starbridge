@@ -75,6 +75,14 @@ public class MemberService {
         return memberRepository.existsByName(name);
     }
 
+    /**
+     * 회원 수
+     * @return
+     */
+    public long getMemberCount() {
+        return memberRepository.count();
+    }
+
     public List<MemberEntity> findAll() {
         return memberRepository.findAll();
     }

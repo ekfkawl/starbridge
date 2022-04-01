@@ -1,6 +1,7 @@
 package kr.starbridge.web.domain.member.service;
 
 import kr.starbridge.web.domain.member.entity.MemberEntity;
+import kr.starbridge.web.domain.member.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +16,9 @@ class MemberServiceTest {
     @Autowired
     MemberService memberService;
 
+    @Autowired
+    MemberRepository memberRepository;
+
     @Test
     void findAllTest() {
         List<MemberEntity> all = memberService.findAll();
@@ -25,5 +29,11 @@ class MemberServiceTest {
     void findById() {
         boolean existId = memberService.isExistId("47a4f7c325931bd344fbe1ca7cd1709");
         System.out.println("existId = " + existId);
+    }
+
+    @Test
+    void countTest() {
+        long count = memberRepository.count();
+        System.out.println("count = " + count);
     }
 }
