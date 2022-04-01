@@ -63,7 +63,7 @@ public class MemberService {
      * @return
      */
     public boolean isExistId(String id) {
-        return memberRepository.findById(id).isPresent();
+        return memberRepository.existsById(id);
     }
 
     /**
@@ -72,7 +72,7 @@ public class MemberService {
      * @return
      */
     public boolean isExistName(String name) {
-        return memberRepository.findByName(name).isPresent();
+        return memberRepository.existsByName(name);
     }
 
     public List<MemberEntity> findAll() {
