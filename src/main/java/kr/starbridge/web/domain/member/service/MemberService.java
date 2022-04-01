@@ -67,9 +67,9 @@ public class MemberService {
      * @return
      */
     public ApiResult<MemberEntity> signIn(MemberMD5DTO memberMD5DTO) {
-        if (isExistIdAndPw(memberMD5DTO.getMd5id(), memberMD5DTO.getMd5pw())) {
 
-            Optional<MemberEntity> memberEntity = selectMemberById(memberMD5DTO.getMd5id());
+        Optional<MemberEntity> memberEntity = selectMemberByIdAndPw(memberMD5DTO.getMd5id(), memberMD5DTO.getMd5pw());
+        if (memberEntity.isPresent()) {
             return new ApiResult<>(memberEntity.get(), null, "/", true);
         }else {
             return new ApiResult<>(null, "아이디 또는 비밀번호 오류 입니다", null, false);
@@ -116,5 +116,9 @@ public class MemberService {
 
     public Optional<MemberEntity> selectMemberById(String id) {
         return memberRepository.findById(id);
+    }
+
+    public Optional<MemberEntity> selectMemberByIdAndPw(String id, String pw) {
+        return memberRepository.findByIdAndPw(id, pw);
     }
 }
