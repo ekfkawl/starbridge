@@ -1,7 +1,7 @@
 package kr.starbridge.web.domain.member.controller;
 
+import kr.starbridge.web.domain.member.dto.MemberDTO;
 import kr.starbridge.web.domain.member.dto.MemberMD5DTO;
-import kr.starbridge.web.domain.member.entity.MemberEntity;
 import kr.starbridge.web.domain.member.service.MemberService;
 import kr.starbridge.web.global.common.response.ApiResult;
 import lombok.RequiredArgsConstructor;
@@ -27,9 +27,9 @@ public class LoginController {
      * @return
      */
     @PostMapping("/api/signin")
-    public ApiResult<MemberEntity> apiSiginIn(@RequestBody MemberMD5DTO memberMD5DTO, HttpSession session) {
+    public ApiResult<MemberDTO> apiSiginIn(@RequestBody MemberMD5DTO memberMD5DTO, HttpSession session) {
 
-        ApiResult<MemberEntity> result = memberService.signIn(memberMD5DTO);
+        ApiResult<MemberDTO> result = memberService.signIn(memberMD5DTO);
 
         /** 로그인 성공시 세션에 저장 */
         if (result.isSuccess()) {

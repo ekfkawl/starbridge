@@ -66,11 +66,13 @@ public class MemberService {
      * @param memberMD5DTO
      * @return
      */
-    public ApiResult<MemberEntity> signIn(MemberMD5DTO memberMD5DTO) {
+    public ApiResult<MemberDTO> signIn(MemberMD5DTO memberMD5DTO) {
 
         Optional<MemberEntity> memberEntity = selectMemberByIdAndPw(memberMD5DTO.getMd5id(), memberMD5DTO.getMd5pw());
         if (memberEntity.isPresent()) {
-            return new ApiResult<>(memberEntity.get(), null, "/", true);
+            MemberDTO memberDTO = new MemberDTO();
+            BeanUtils.copyProperties(memberEntity.get(), memberDTO);
+            return new ApiResult<>(memberDTO, null, "/", true);
         }else {
             return new ApiResult<>(null, "아이디 또는 비밀번호 오류 입니다", null, false);
         }

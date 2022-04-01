@@ -23,11 +23,8 @@ public class GlobalAdvice {
      * @param model
      */
     @ModelAttribute
-    public void addAttrSignin(HttpSession session, Model model) {
-        MemberEntity memberEntity = Optional.ofNullable((MemberEntity)session.getAttribute(user)).orElseGet(MemberEntity::new);
-
-        MemberDTO memberDTO = new MemberDTO();
-        BeanUtils.copyProperties(memberEntity, memberDTO);
+    public void addAttrSignIn(HttpSession session, Model model) {
+        MemberDTO memberDTO = Optional.ofNullable((MemberDTO)session.getAttribute(user)).orElseGet(MemberDTO::new);
 
         model.addAttribute("memberDTO", memberDTO);
 
