@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * 로그인 컨트롤러
+ */
 @RestController
 @RequiredArgsConstructor
 public class LoginController {

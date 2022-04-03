@@ -6,13 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * 아이디, 비밀번호 -> MD5 HASH
+ */
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-/**
- * 아이디, 비밀번호 -> MD5 HASH
- */
 public class MemberMD5DTO {
 
     private String md5id;

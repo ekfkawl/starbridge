@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html data-wf-page=612c76d0901fda2560965c5e data-wf-site=602eda09fc78afc76e9706b6>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=UTF-8">
+    <title>StarBridge | MyPage</title>
+    <th:block th:include="components/base :: base(false)"></th:block>
+    <link th:href="|./css/chunk-vendors.e9eecb51.css?t=${tick}|" rel=stylesheet>
+    <link th:href="|./css/app.d0396536.css?t=${tick}|" rel=stylesheet>
+    <link th:href="|./css/chunk-548917b6.eec72010.css?t=${tick}|" rel=stylesheet>
+    <style type=text/css>img{vertical-align:middle;border-style:none}a,img{display:flex;justify-content:center;-webkit-user-drag:none}img.avatar{border-radius:50%}#file{display:none}</style>
+</head>
+<body>
+<div id=app>
+<div data-v-30374884 class=login-area>
+<div data-v-30374884 class=login-area__content-area>
+<div data-v-30374884 class=login-area__content-area>
+<div data-v-30374884 class=login-area__content-area__container>
+<form id=modifyimg-form name=modifyimg-form method=post enctype=multipart/form-data>
+<a id=profile-img href=#><img alt width=128 height=128 th:src="${#strings.isEmpty(memberDTO.img)} ? './image/default_profile.jpg' : ${memberDTO.img}" class=avatar title="클릭하여 이미지 변경"></a>
+<input type=file id=file name=file accept=image/* onchange=loadFile(this)>
+</form>
+<form id=modify-form name=modify-form action=modifyinfo method=post>
+<div data-v-30374884 class=login-area__input-wrapper>
+<div data-v-75befc30 data-v-30374884 aria-roledescription=email class=input-wrap>
+<div data-v-75befc30 class=label-container>
+<p data-v-75befc30 class=label-container__label style=color:#354049>닉네임</p>
+</div><input data-v-75befc30 id=name name=name th:value=${memberDTO.name} placeholder="새로운 닉네임" type=text maxlength=20 class=headerless-input autocomplete=off onkeyup=removeCharForKrEn(event) style=width:100%;height:48px>
+</div>
+</div>
+<div data-v-30374884 class=login-area__input-wrapper>
+<div data-v-75befc30 data-v-30374884 aria-roledescription=password class=input-wrap>
+<div data-v-75befc30 class=label-container>
+<p data-v-75befc30 class=label-container__label style=color:#354049>비밀번호</p>
+</div>
+<input data-v-75befc30 id=pw1 name=pw1 placeholder="새로운 비밀번호" type=password maxlength=20 class="headerless-input password" autocomplete=off onkeyup=removeChar(event) style=width:100%;height:48px>
+</div>
+</div>
+<div data-v-30374884 class=login-area__input-wrapper>
+<div data-v-75befc30 data-v-30374884 aria-roledescription=password class=input-wrap>
+<div data-v-75befc30 class=label-container>
+<p data-v-75befc30 class=label-container__label style=color:#354049>비밀번호 확인</p>
+</div><input data-v-75befc30 id=pw2 name=pw2 placeholder="비밀번호 확인" type=password maxlength=20 class="headerless-input password" autocomplete=off onkeyup=removeChar(event) style=width:100%;height:48px>
+</div>
+</div>
+<input id=modify-btn type=submit value="변경사항 저장" data-v-30374884 class=login-area__content-area__container__button />
+</form>
+</div>
+<a data-v-30374884 th:href=@{/} class=login-area__content-area__register-link>
+메인으로 </a>
+</div>
+</div>
+</div>
+</div>
+<script src=https://code.jquery.com/jquery-3.6.0.js integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin=anonymous></script>
+<script th:src="|./js/valid.js?t=${tick}|"></script>
+<script th:src="|./js/common.js?t=${tick}|"></script>
+<script type=text/javascript>function loadFile(a) {
+    var b = a.files[0];
+    var e = document.createElement("img");
+    e.setAttribute("class", "img");
+    e.src = URL.createObjectURL(b);
+    e.style.width = 128;
+    e.style.height = 128;
+    e.style.objectFit = "contain";
+    $("#profile-img img").attr("src", e.src);
+    var c = $("#modifyimg-form")[0];
+    var d = new FormData(c);
+    $.ajax({
+        type: "post",
+        enctype: "multipart/form-data",
+        url: "api/upload",
+        data: d,
+        async: false,
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        cache: false,
+        success: function (f) {
+            if (f.uploaded == 1) {
+                $.ajax({type: "post", url: "modifyimg", data: {url: f.url}})
+            }
+        }
+    })
+}
+
+$(document).on("click", "#profile-img", function () {
+    $("#file").trigger("click")
+})
+</script>
+</body>
+</html>

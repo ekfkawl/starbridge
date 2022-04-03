@@ -15,30 +15,30 @@ import org.springframework.web.servlet.ModelAndView;
 import java.io.IOException;
 
 /**
- * 회원가입 컨트롤러
+ * 회원 정보수정 컨트롤러
  */
 @RestController
 @RequiredArgsConstructor
-public class RegisterController {
+public class ModifyController {
     private final MemberService memberService;
 
     /**
-     * 회원가입 뷰로 이동
+     * 정보수정 뷰로 이동
      * @return
      */
-    @GetMapping("/register")
-    public ModelAndView register() {
-        return new ModelAndView("register");
+    @GetMapping("/modify")
+    public ModelAndView modify() {
+        return new ModelAndView("modify");
     }
 
     /**
-     * 회원가입 api
+     * 정보수정 api
      * @param registerDTO
      * @return
      * @throws IOException
      */
-    @PostMapping("/api/register")
-    public ApiResult<Object> apiRegister(@Validated(ValidationSequence.class) @RequestBody MemberRegisterDTO registerDTO) throws IOException {
+    @PostMapping("/api/modify")
+    public ApiResult<Object> apiModify(@Validated(ValidationSequence.class) @RequestBody MemberRegisterDTO registerDTO) throws IOException {
 
         return memberService.register(registerDTO);
     }
