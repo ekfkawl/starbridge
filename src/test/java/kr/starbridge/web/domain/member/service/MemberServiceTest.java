@@ -21,13 +21,13 @@ class MemberServiceTest {
 
     @Test
     void findAllTest() {
-        List<MemberEntity> all = memberService.selectAllMember();
+        List<MemberEntity> all = memberRepository.findAll();
         System.out.println("all = " + all);
     }
 
     @Test
     void findById() {
-        boolean existId = memberService.isExistId("47a4f7c325931bd344fbe1ca7cd1709");
+        boolean existId = memberRepository.existsById("47a4f7c325931bd344fbe1ca7cd1709");
         System.out.println("existId = " + existId);
     }
 

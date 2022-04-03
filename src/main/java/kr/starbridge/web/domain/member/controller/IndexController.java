@@ -1,6 +1,6 @@
 package kr.starbridge.web.domain.member.controller;
 
-import kr.starbridge.web.domain.member.service.MemberService;
+import kr.starbridge.web.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,14 +13,14 @@ import org.springframework.web.servlet.ModelAndView;
 @RequiredArgsConstructor
 public class IndexController {
 
-    private final MemberService memberService;
+    private final MemberRepository memberRepository;
 
     @GetMapping("/")
     public ModelAndView index() {
 
         ModelAndView mv = new ModelAndView("index");
         /** 회원 수 */
-        mv.addObject("memberCount", memberService.getMemberCount());
+        mv.addObject("memberCount", memberRepository.count());
 
         return mv;
     }

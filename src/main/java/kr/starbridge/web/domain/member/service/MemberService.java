@@ -12,7 +12,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,11 +42,13 @@ public class MemberService {
             return new ApiResult<>("비밀번호와 비밀번호 확인란이 동일하지 않습니다");
         }
 
-        if (isExistId(registerDTO.getMd5id())) {
+        /** 아이디 중복 체크 */
+        if (memberRepository.existsById(registerDTO.getMd5id())) {
             return new ApiResult<>("이미 존재하는 아이디 입니다");
         }
 
-        if (isExistName(registerDTO.getName())) {
+        /** 닉네임 중복 체크 */
+        if (memberRepository.existsByName(registerDTO.getName())) {
             return new ApiResult<>("이미 존재하는 닉네임 입니다");
         }
 
@@ -68,7 +69,7 @@ public class MemberService {
      */
     public ApiResult<MemberDTO> signIn(MemberMD5DTO memberMD5DTO) {
 
-        Optional<MemberEntity> memberEntity = selectMemberByIdAndPw(memberMD5DTO.getMd5id(), memberMD5DTO.getMd5pw());
+        Optional<MemberEntity> memberEntity = memberRepository.findByIdAndPw(memberMD5DTO.getMd5id(), memberMD5DTO.getMd5pw());
         if (memberEntity.isPresent()) {
             MemberDTO memberDTO = new MemberDTO();
             BeanUtils.copyProperties(memberEntity.get(), memberDTO);
@@ -76,51 +77,5 @@ public class MemberService {
         }else {
             return new ApiResult<>(null, "아이디 또는 비밀번호 오류 입니다", null, false);
         }
-    }
-
-    /**
-     * 아이디 중복 체크
-     * @param id
-     * @return
-     */
-    public boolean isExistId(String id) {
-        return memberRepository.existsById(id);
-    }
-
-    /**
-     * 닉네임 중복 체크
-     * @param name
-     * @return
-     */
-    public boolean isExistName(String name) {
-        return memberRepository.existsByName(name);
-    }
-
-    /**
-     * 회원 수
-     * @return
-     */
-    public long getMemberCount() {
-        return memberRepository.count();
-    }
-
-    /**
-     * 로그인 아이디/비밀번호 체크
-     * @return
-     */
-    public boolean isExistIdAndPw(String id, String pw) {
-        return memberRepository.existsByIdAndPw(id, pw);
-    }
-
-    public List<MemberEntity> selectAllMember() {
-        return memberRepository.findAll();
-    }
-
-    public Optional<MemberEntity> selectMemberById(String id) {
-        return memberRepository.findById(id);
-    }
-
-    public Optional<MemberEntity> selectMemberByIdAndPw(String id, String pw) {
-        return memberRepository.findByIdAndPw(id, pw);
     }
 }
