@@ -4,7 +4,6 @@ import kr.starbridge.web.domain.upload.dto.UploadedDTO;
 import kr.starbridge.web.domain.upload.service.FileUploadService;
 import kr.starbridge.web.global.common.enums.ExceptionEnum;
 import kr.starbridge.web.global.common.response.ApiException;
-import kr.starbridge.web.global.common.response.ApiResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
