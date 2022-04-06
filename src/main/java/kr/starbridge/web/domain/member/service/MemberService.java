@@ -43,4 +43,12 @@ public interface MemberService {
      * @return
      */
     boolean isExistsName(String name);
+
+    /**
+     * insert
+     * @param memberEntity
+     * @return
+     */
+    MemberEntity insert(MemberEntity memberEntity);
+
 }

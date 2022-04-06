@@ -9,13 +9,15 @@ import kr.starbridge.web.global.Profile;
 import kr.starbridge.web.global.common.response.ApiResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class MemberServiceImpl implements MemberService {
+public class MemberServiceImpl implements MemberService, Serializable {
 
     private final Profile profile;
     private final MemberRepository memberRepository;
@@ -58,29 +60,39 @@ public class MemberServiceImpl implements MemberService {
                 .pw(registerDTO.getMd5pw())
                 .name(registerDTO.getName())
                 .build();
-        memberRepository.save(memberEntity);
+        insert(memberEntity);
 
         return new ApiResult<>("계정이 등록되었습니다", "/");
     }
 
+    @Transactional
     @Override
     public Optional<MemberEntity> getMember(String id) {
         return memberRepository.findById(id);
     }
 
+    @Transactional
     @Override
     public long getMemberCount() {
         return memberRepository.count();
     }
 
+    @Transactional
     @Override
     public boolean isExistsId(String id) {
         return memberRepository.existsById(id);
     }
 
+    @Transactional
     @Override
     public boolean isExistsName(String name) {
         return memberRepository.existsByName(name);
+    }
+
+    @Transactional
+    @Override
+    public MemberEntity insert(MemberEntity memberEntity) {
+        return memberRepository.save(memberEntity);
     }
 
 }
