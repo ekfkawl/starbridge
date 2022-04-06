@@ -1,5 +1,6 @@
 package kr.starbridge.web.domain.member.dto;
 
+import kr.starbridge.web.domain.member.enums.Role;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -25,7 +26,7 @@ public class MemberDTO {
      */
     private String img;
     /**
-     * 포럼 관리자 권한
+     * 권한
      */
-    private Boolean isCm;
+    private Role auth;
 }

@@ -1,7 +1,7 @@
 package kr.starbridge.web.domain.member.controller;
 
 import kr.starbridge.web.domain.member.dto.MemberRegisterDTO;
-import kr.starbridge.web.domain.member.service.MemberService;
+import kr.starbridge.web.domain.member.service.impl.MemberServiceImpl;
 import kr.starbridge.web.global.common.response.ApiResult;
 import kr.starbridge.web.global.common.response.ValidationSequence;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ import java.io.IOException;
 @RestController
 @RequiredArgsConstructor
 public class RegisterController {
-    private final MemberService memberService;
+    private final MemberServiceImpl memberService;
 
     /**
      * 회원가입 뷰로 이동

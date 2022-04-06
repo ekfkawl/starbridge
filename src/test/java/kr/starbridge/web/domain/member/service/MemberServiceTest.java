@@ -2,9 +2,11 @@ package kr.starbridge.web.domain.member.service;
 
 import kr.starbridge.web.domain.member.entity.MemberEntity;
 import kr.starbridge.web.domain.member.repository.MemberRepository;
+import kr.starbridge.web.domain.member.service.impl.MemberServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 
 import java.util.List;
@@ -14,10 +16,13 @@ import java.util.List;
 class MemberServiceTest {
 
     @Autowired
-    MemberService memberService;
+    MemberServiceImpl memberService;
 
     @Autowired
     MemberRepository memberRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Test
     void findAllTest() {
@@ -35,5 +40,17 @@ class MemberServiceTest {
     void countTest() {
         long count = memberRepository.count();
         System.out.println("count = " + count);
+    }
+
+    @Test
+    void pwEncodeTest() {
+        System.out.println(passwordEncoder.encode("123123"));
+
+    }
+
+    @Test
+    void pwEncodeMatcheTest() {
+        System.out.println("matche result : " + passwordEncoder.matches("123123", "$2a$10$Vs/415CDjZCvo0qMc7StPujR43Gem9lzRZi20uIXPmxNwiJioJ/tu"));
+
     }
 }

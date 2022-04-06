@@ -1,7 +1,5 @@
 package kr.starbridge.web.global.utils;
 
-import org.springframework.stereotype.Component;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
