@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class MemberServiceImpl implements MemberService, Serializable {
+public class MemberServiceImpl implements MemberService {
 
     private final Profile profile;
     private final MemberRepository memberRepository;
