@@ -24,8 +24,6 @@ public class MemberMD5DTO {
 
     public String getMd5pw() {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        System.out.println("passwordEncoder = " + md5pw);
-        System.out.println("passwordEncoder = " + GenerateUtils.StrToMD5(md5pw));
         return passwordEncoder.encode(GenerateUtils.StrToMD5(md5pw));
     }
 }

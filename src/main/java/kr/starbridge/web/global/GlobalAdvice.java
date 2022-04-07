@@ -3,7 +3,6 @@ package kr.starbridge.web.global;
 import kr.starbridge.web.domain.member.dto.MemberDTO;
 import kr.starbridge.web.domain.member.entity.MemberEntity;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,9 +12,6 @@ import java.util.Optional;
 
 @ControllerAdvice("kr.starbridge.web.domain")
 public class GlobalAdvice {
-
-    @Value("${session.user}")
-    private String user;
 
     /** 로그인 여부를 확인하고 회원 정보를 모델에 추가 */
     @ModelAttribute
