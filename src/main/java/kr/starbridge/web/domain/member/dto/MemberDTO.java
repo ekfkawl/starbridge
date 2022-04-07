@@ -1,6 +1,6 @@
 package kr.starbridge.web.domain.member.dto;
 
-import kr.starbridge.web.domain.member.enums.Role;
+import kr.starbridge.web.domain.member.enums.RoleEnum;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -28,5 +28,5 @@ public class MemberDTO {
     /**
      * 권한
      */
-    private Role auth;
+    private RoleEnum auth;
 }

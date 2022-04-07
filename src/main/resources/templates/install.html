@@ -66,26 +66,26 @@ R&D: kakaovalue@naver.com<br><br>
 커스텀 뷰는 현재 게임에 참여한 플레이어들의 닉네임/전적/배틀태그/네트워크 핑 상태를 표시합니다.<br>
 커스텀 뷰가 떠있는 상태에서, 마우스의 왼쪽 버튼을 클릭하면 해당 플레이어의 닉네임/배틀태그/아이피 해시가 복사됩니다.<br><br>
 <b>[블랙리스트 관리 - 방장 전용]</b><br>
-<a th:href="@{/bridge/blacklist-battletag}">환경설정 > 블랙리스트 관리1</a><br>
+<a th:href="${URI_BLACKLIST_TAG}">환경설정 > 블랙리스트 관리1</a><br>
 배틀태그를 입력하여 등록이 가능하며, 블랙리스트에 등록 된 유저는 방에 입장 할 수 없게 됩니다.<br><br>
 <b>[블랙리스트 관리 - 방장 전용]</b><br>
-<a th:href="@{/bridge/blacklist-md5ip}">환경설정 > 블랙리스트 관리2</a><br>
+<a th:href="${URI_BLACKLIST_IP}">환경설정 > 블랙리스트 관리2</a><br>
 아이피 해시를 입력하여 등록이 가능하며, 블랙리스트에 등록 된 유저는 방에 입장 할 수 없게 됩니다.<br><br>
 <b>[방 목록 필터링]</b><br>
-<a th:href="@{/bridge/room-filter}">환경설정 > 방 목록 필터링</a><br>
+<a th:href="${URI_ROOM_FILTER}">환경설정 > 방 목록 필터링</a><br>
 필터링 키워드가 제목에 포함 된 방은 목록에서 숨겨집니다.<br><br>
 <b>[방 입장 조건 - 방장 전용]</b><br>
-<a th:href="@{/bridge/room-role}">환경설정 > 방 입장 조건</a><br>
+<a th:href="${URI_ROOM_ROLE}">환경설정 > 방 입장 조건</a><br>
 특정 '판수/승률/연결끊김' 에 해당하는 경우에만 방 입장이 가능하게 설정됩니다.<br>
 <b class=f-highlight>단, 기록을 불러올 수 없는(No stats found) 유저는 필터링이 되지않습니다.</b><br><br>
 <b>[미니맵 핑 색상 일치화]</b><br>
-<a th:href="@{/bridge/player}">환경설정 > 플레이어</a><br>
+<a th:href="${URI_PLAYER}">환경설정 > 플레이어</a><br>
 동맹 중인 플레이어가 미니맵에 핑을 찍을 시 플레이어의 색상으로 일치 시켜줍니다.<br><br>
 <b>[무한디스 유발 감지 및 추방]</b><br>
-<a th:href="@{/bridge/player}">환경설정 > 플레이어</a><br>
+<a th:href="${URI_PLAYER}">환경설정 > 플레이어</a><br>
 인게임 내에 고의적으로 렉을 유발하는 유저가 존재하면 자동으로 감지하여 추방됩니다.<br><br>
 <b>[추방 투표]</b><br>
-<a th:href="@{/bridge/player}">환경설정 > 플레이어</a><br>
+<a th:href="${URI_PLAYER}">환경설정 > 플레이어</a><br>
 인게임 내에서 투표를 통해 특정 유저를 추방 시킬수 있습니다.<br>
 아래 채팅창 커맨드 입력을 통해 진행이 가능합니다.<br><br>
 <b>!투표 <span class=f-highlight>고유번호</span></b> : 해당 플레이어 추방 투표가 시작됩니다. 고유번호는 <b class=f-highlight>커스텀 뷰</b>를 통해 조회 할 수 있습니다.<br>
@@ -95,10 +95,10 @@ R&D: kakaovalue@naver.com<br><br>
 자신의 방을 대기방 목록에서 상단으로 노출시켜줍니다.<br>
 해당 기능은 스타브리지 사용 중 자동으로 적용 됩니다.<br><br>
 <b>[플레이어 기본 색상 변경]</b><br>
-<a th:href="@{/bridge/player}">환경설정 > 플레이어</a><br>
+<a th:href="${URI_PLAYER}">환경설정 > 플레이어</a><br>
 플레이어의 색상들이 P1~P8 기본 색상으로 변경됩니다.<br><br>
 <b>[소유자 뷰어]</b><br>
-<a th:href="@{/bridge/player}">환경설정 > 플레이어</a><br>
+<a th:href="${URI_PLAYER}">환경설정 > 플레이어</a><br>
 플레이어의 유닛을 클릭하면 소유자의 닉네임을 표시합니다.<br>
 </div>
 </div>

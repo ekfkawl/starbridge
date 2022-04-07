@@ -1,6 +1,6 @@
 package kr.starbridge.web.domain.member.entity;
 
-import kr.starbridge.web.domain.member.enums.Role;
+import kr.starbridge.web.domain.member.enums.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -41,7 +41,7 @@ public class MemberEntity implements UserDetails, Serializable {
      * 권한
      */
     @Enumerated(EnumType.STRING)
-    private Role auth;
+    private RoleEnum auth;
     /**
      * 계정 생성일
      */

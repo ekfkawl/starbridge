@@ -7,12 +7,12 @@ import lombok.Getter;
  */
 
 @Getter
-public enum Role {
+public enum RoleEnum {
     ROLE_ADMIN("admin"), ROLE_USER("user");
 
     private String description;
 
-    Role(String description) {
+    RoleEnum(String description) {
         this.description = description;
     }
 }
