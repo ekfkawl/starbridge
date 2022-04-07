@@ -28,13 +28,6 @@ public class StarBridgeAuthenticationSuccessHandler extends SimpleUrlAuthenticat
 
         setDefaultTargetUrl("/");
 
-        SavedRequest savedRequest = requestCache.getRequest(request, response);
-
-        if(savedRequest!=null) {
-            String targetUrl = savedRequest.getRedirectUrl();
-            redirectStrategy.sendRedirect(request, response, targetUrl);
-        } else {
-            redirectStrategy.sendRedirect(request, response, getDefaultTargetUrl());
-        }
+        redirectStrategy.sendRedirect(request, response, getDefaultTargetUrl());
     }
 }
