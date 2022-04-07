@@ -12,7 +12,7 @@ public enum FunctionURIEnum {
 
     private String uri;
 
-    FunctionURIEnum(String url) {
-        this.uri = url;
+    FunctionURIEnum(String uri) {
+        this.uri = uri;
     }
 }
