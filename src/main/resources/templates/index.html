@@ -22,8 +22,7 @@
                 <div class="homepage-signup-form-container w-container">
                     <div id=signup-form-block class=w-form>
                         <div th:if="not ${is_login}">
-                            <iframe id="iframe1" name="iframe1" style="display:none"></iframe>
-                            <form id=signin-form name=signin-form action="api/signin" method=post target="iframe1">
+                            <form id=signin-form name=signin-form action="api/signin" method=post>
                                 <input type=text class="signup-input w-input" onkeyup=removeChar(event) maxlength=20 placeholder=아이디 id=id name=md5id required />
                                 <input type=password class="signup-input w-input" onkeyup=removeChar(event) maxlength=20 name=md5pw placeholder=비밀번호 id=pw required />
                                 <input type=submit value=로그인 data-wait="Please wait..." id=signup-submit2 class="button full-width _100 pt signup-button w-button" />

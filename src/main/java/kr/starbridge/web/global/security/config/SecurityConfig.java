@@ -1,7 +1,6 @@
 package kr.starbridge.web.global.security.config;
 
 import kr.starbridge.web.global.security.provider.StarBridgeAuthenticationProvider;
-import kr.starbridge.web.global.security.service.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -14,12 +13,17 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
+
+    private final AuthenticationSuccessHandler authenticationSuccessHandler;
+    private final AuthenticationFailureHandler authenticationFailureHandler;
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -44,7 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .loginProcessingUrl("/api/signin")
             .usernameParameter("md5id")
             .passwordParameter("md5pw")
-            .defaultSuccessUrl("/")
+            .successHandler(authenticationSuccessHandler)
+            .failureHandler(authenticationFailureHandler)
             .permitAll();
     }
 

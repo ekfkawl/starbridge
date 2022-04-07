@@ -16,8 +16,8 @@ import javax.transaction.Transactional;
 @Component
 public class StarBridgeAuthenticationProvider implements AuthenticationProvider {
 
-    UserDetailsService userDetailsService;
-    PasswordEncoder passwordEncoder;
+    private final UserDetailsService userDetailsService;
+    private final PasswordEncoder passwordEncoder;
 
     public StarBridgeAuthenticationProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
         this.userDetailsService = userDetailsService;
