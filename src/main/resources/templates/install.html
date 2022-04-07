@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html data-wf-page=612c76d0901fda2560965c5e data-wf-site=602eda09fc78afc76e9706b6>
+<head>
+    <title>StarBridge | Install</title>
+    <th:block th:include="components/base :: base(true)"></th:block>
+    <style type=text/css>.hiw-steps{max-width:180px}hr{margin-bottom:120px}.f-highlight{color:#47c83e;font-style:italic}</style>
+</head>
+<body>
+<header th:include="components/header :: header"></header>
+<div class="container benefits w-container" style=margin-top:100px>
+<img th:src="|./image/logo64.png?t=${tick}|" alt>
+<div>
+<h3 class="h3 centered mb3 benefits video">
+<strong class=bold-text-9>스타브리지</strong><br>
+</h3>
+<p class="about-why-text paragraph-2 resources">
+R&D: kakaovalue@naver.com<br><br>
+스타브리지는 Windows에 무해합니다. 일부 백신 프로그램은 실수로 트로이 목마/바이러스로 선택합니다.
+설치하는 동안 문제가 발생하거나 작동하지 않으면 스타브리지를 설치하거나 실행하기 전에 백신을 비활성화 하십시오.
+</p>
+<a href="https://github.com/faskdkasjd12/bridge/raw/main/starbridge1.zip" target=_blank class="button-10 download-report secondary resources w-button"><strong class=bold-text-17>Download</strong></a>
+</div>
+<div class=how-it-works-grid-column>
+<hr>
+<p class=hiw-steps>How to use?</p>
+<h1 class="h3 hiw-h3">처음이시면 사용 메뉴얼을 참조 하십시오.</h1>
+<p class=paragraph>아래 리스트를 클릭하면 상세 메뉴얼이 표시됩니다.</p>
+<div class="hiw-faq w-dyn-list">
+<div role=list class=w-dyn-items>
+<div role=listitem class=w-dyn-item>
+<div class=faq-background>
+<div class=faq-content>
+<div id=first-faq class=faq-button>
+<div class=faq-question-container>
+<h3 class=faq-question>* 스타브리지 설치 후 실행 방법</h3>
+</div>
+<img th:src="|./image/arrow-icon.svg?t=${tick}|" loading=lazy alt="Arrow Right" class=faq-arrow style="transform:translate3d(0px,0px,0px) scale3d(1,1,1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg,0deg);transform-style:preserve-3d">
+</div>
+<div class=faq-answer-container style=height:0>
+<p class=faq-answer>
+0. 스타크래프트가 실행 중이라면 먼저 완전히 종료하십시오.<br>
+1. '블리자드 Battle.net' 을 실행하십시오.<br>
+2. 스타브리지 <b class=f-highlight>관리자 권한</b> 실행 후 아이디, 패스워드를 입력하여 로그인을 하십시오.<br>
+3. 스타브리지 로그인이 성공적이면, '블리자드 Battle.net' 에서 스타크래프트를 실행하십시오.<br>
+4. 스타크래프트 활성 중인 상태에서 'ALT' 키를 누를 시, 커스텀 뷰가 나오면 성공적으로 적용이 된 것입니다.<br>
+<br>[참고]<br>
+간혹 통신 지연으로 적용이 안될 수 있습니다. 이 경우 스타크래프트 종료 후 여러번 재시도 하십시오.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div role=listitem class=w-dyn-item>
+<div class=faq-background>
+<div class=faq-content>
+<div class=faq-button>
+<div class=faq-question-container>
+<h3 class=faq-question>* 기능 사용 방법</h3>
+</div>
+<img th:src="|./image/arrow-icon.svg?t=${tick}|" loading=lazy alt="Arrow Right" class=faq-arrow style="transform:translate3d(0px,0px,0px) scale3d(1,1,1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg,0deg);transform-style:preserve-3d">
+</div>
+<div class=faq-answer-container style=height:0>
+<p class=faq-answer>
+<b>[커스텀 뷰]</b><br>
+단축키: 'ALT'<br>
+커스텀 뷰는 현재 게임에 참여한 플레이어들의 닉네임/전적/배틀태그/네트워크 핑 상태를 표시합니다.<br>
+커스텀 뷰가 떠있는 상태에서, 마우스의 왼쪽 버튼을 클릭하면 해당 플레이어의 닉네임/배틀태그/아이피 해시가 복사됩니다.<br><br>
+<b>[블랙리스트 관리 - 방장 전용]</b><br>
+<a th:href="@{/bridge/blacklist-battletag}">환경설정 > 블랙리스트 관리1</a><br>
+배틀태그를 입력하여 등록이 가능하며, 블랙리스트에 등록 된 유저는 방에 입장 할 수 없게 됩니다.<br><br>
+<b>[블랙리스트 관리 - 방장 전용]</b><br>
+<a th:href="@{/bridge/blacklist-md5ip}">환경설정 > 블랙리스트 관리2</a><br>
+아이피 해시를 입력하여 등록이 가능하며, 블랙리스트에 등록 된 유저는 방에 입장 할 수 없게 됩니다.<br><br>
+<b>[방 목록 필터링]</b><br>
+<a th:href="@{/bridge/room-filter}">환경설정 > 방 목록 필터링</a><br>
+필터링 키워드가 제목에 포함 된 방은 목록에서 숨겨집니다.<br><br>
+<b>[방 입장 조건 - 방장 전용]</b><br>
+<a th:href="@{/bridge/room-role}">환경설정 > 방 입장 조건</a><br>
+특정 '판수/승률/연결끊김' 에 해당하는 경우에만 방 입장이 가능하게 설정됩니다.<br>
+<b class=f-highlight>단, 기록을 불러올 수 없는(No stats found) 유저는 필터링이 되지않습니다.</b><br><br>
+<b>[미니맵 핑 색상 일치화]</b><br>
+<a th:href="@{/bridge/player}">환경설정 > 플레이어</a><br>
+동맹 중인 플레이어가 미니맵에 핑을 찍을 시 플레이어의 색상으로 일치 시켜줍니다.<br><br>
+<b>[무한디스 유발 감지 및 추방]</b><br>
+<a th:href="@{/bridge/player}">환경설정 > 플레이어</a><br>
+인게임 내에 고의적으로 렉을 유발하는 유저가 존재하면 자동으로 감지하여 추방됩니다.<br><br>
+<b>[추방 투표]</b><br>
+<a th:href="@{/bridge/player}">환경설정 > 플레이어</a><br>
+인게임 내에서 투표를 통해 특정 유저를 추방 시킬수 있습니다.<br>
+아래 채팅창 커맨드 입력을 통해 진행이 가능합니다.<br><br>
+<b>!투표 <span class=f-highlight>고유번호</span></b> : 해당 플레이어 추방 투표가 시작됩니다. 고유번호는 <b class=f-highlight>커스텀 뷰</b>를 통해 조회 할 수 있습니다.<br>
+<b>!찬성</b> : 해당 플레이어 추방을 찬성합니다. 반드시 <b class=f-highlight>전체 채팅</b>으로 입력해야 인식됩니다.<br>
+투표는 30초간 유지되며, 투표가 끝나기 전에는 다른 투표가 불가능합니다.<br><br>
+<b>[방 상단 노출 - 방장 전용]</b><br>
+자신의 방을 대기방 목록에서 상단으로 노출시켜줍니다.<br>
+해당 기능은 스타브리지 사용 중 자동으로 적용 됩니다.<br><br>
+<b>[플레이어 기본 색상 변경]</b><br>
+<a th:href="@{/bridge/player}">환경설정 > 플레이어</a><br>
+플레이어의 색상들이 P1~P8 기본 색상으로 변경됩니다.<br><br>
+<b>[소유자 뷰어]</b><br>
+<a th:href="@{/bridge/player}">환경설정 > 플레이어</a><br>
+플레이어의 유닛을 클릭하면 소유자의 닉네임을 표시합니다.<br>
+</div>
+</div>
+</div>
+</div>
+<div role=listitem class=w-dyn-item>
+<div class=faq-background>
+<div class=faq-content>
+<div class=faq-button>
+<div class=faq-question-container>
+<h3 class=faq-question>* FAQ</h3>
+</div>
+<img th:src="|./image/arrow-icon.svg?t=${tick}|" loading=lazy alt="Arrow Right" class=faq-arrow style="transform:translate3d(0px,0px,0px) scale3d(1,1,1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg,0deg);transform-style:preserve-3d">
+</div>
+<div class=faq-answer-container style=height:0>
+<p class=faq-answer>
+Q. 여러번 적용 시도를해도 무반응 입니다.<br>
+A. <a href="https://www.microsoft.com/en-us/download/details.aspx?id=6812">https://www.microsoft.com/en-us/download/details.aspx?id=6812</a> 설치 후 재시도 해보십시오.<br><br>
+Q. 호환되는 운영체제가 궁금합니다.<br>
+A. Windows7 64bit, Windows10 64bit 환경에서 테스트되었습니다. 이 외에 다른 운영체제에선 호환이 안될 수도 있습니다.<br>
+<br>기타 질문 및 건의사항은 <a th:href="@{/forum}">포럼 게시판</a>에 문의하십시오.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer th:include="components/footer :: footer"></footer>
+<script src=https://code.jquery.com/jquery-3.6.0.js integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin=anonymous></script>
+<script th:src="|./js/f2b74be3e.js?t=${tick}|"></script>
+<script type=text/javascript>$(document).ready(function(){$("#first-faq").trigger("click")});</script>
+</body>
+</html>
