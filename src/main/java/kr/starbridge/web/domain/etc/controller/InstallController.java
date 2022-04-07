@@ -1,4 +1,4 @@
-package kr.starbridge.web.domain.member.controller;
+package kr.starbridge.web.domain.etc.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
