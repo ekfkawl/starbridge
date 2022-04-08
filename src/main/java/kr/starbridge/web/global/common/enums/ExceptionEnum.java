@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.ToString;
 import org.springframework.http.HttpStatus;
 
+/**
+ * 예외 정의
+ */
 @Getter
 @ToString
 public enum ExceptionEnum {

@@ -1,4 +1,4 @@
-package kr.starbridge.web.global;
+package kr.starbridge.web.global.aop;
 
 import kr.starbridge.web.domain.member.dto.MemberDTO;
 import kr.starbridge.web.domain.member.entity.MemberEntity;

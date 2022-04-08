@@ -7,8 +7,13 @@ import lombok.ToString;
 @Getter
 @ToString
 public class ApiExceptionEntity {
-
+    /**
+     * 예외 코드
+     */
     private String code;
+    /**
+     * 예외 메세지
+     */
     private String message;
 
     @Builder

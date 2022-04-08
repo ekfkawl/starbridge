@@ -10,10 +10,21 @@ import lombok.Getter;
  * API 응답 상태
  */
 public class ApiResult<T> {
-
+    /**
+     * JSON으로 출력할 객체
+     */
     private T data;
+    /**
+     * alert 디스플레이 메세지
+     */
     private String message;
+    /**
+     * 리다이렉트 url
+     */
     private String href;
+    /**
+     * 호출 성공 여부
+     */
     private boolean success;
 
     public ApiResult() {

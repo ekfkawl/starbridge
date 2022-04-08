@@ -13,7 +13,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
-@Entity(name = "member")
+@Entity(name = "tb_member")
 @DynamicInsert
 @Data
 @NoArgsConstructor

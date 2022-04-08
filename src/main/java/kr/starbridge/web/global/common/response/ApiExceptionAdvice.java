@@ -7,6 +7,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * 예외 처리 핸들러
+ */
 @RestControllerAdvice("kr.starbridge.web.domain")
 public class ApiExceptionAdvice {
 

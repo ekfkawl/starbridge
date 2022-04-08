@@ -16,11 +16,6 @@ public class InstallController {
 
         ModelAndView mv = new ModelAndView("install");
 
-        for (FunctionURIEnum v : FunctionURIEnum.values()) {
-            mv.addObject(v.name(), "/bridge/" + v.getUri());
-            System.out.println("v = " + v);
-        }
-
         return mv;
     }
 }
