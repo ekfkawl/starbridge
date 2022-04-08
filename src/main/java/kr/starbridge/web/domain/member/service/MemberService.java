@@ -1,5 +1,7 @@
 package kr.starbridge.web.domain.member.service;
 
+import kr.starbridge.web.domain.member.dto.MemberDTO;
+import kr.starbridge.web.domain.member.dto.MemberModifyDTO;
 import kr.starbridge.web.domain.member.dto.MemberRegisterDTO;
 import kr.starbridge.web.domain.member.entity.MemberEntity;
 import kr.starbridge.web.global.common.response.ApiResult;
@@ -45,10 +47,18 @@ public interface MemberService {
     boolean isExistsName(String name);
 
     /**
-     * insert
+     * 회원 정보 수정
+     * @param modifyDTO
+     * @param oldMemberDTO
+     * @return
+     */
+    ApiResult<Object> modify(MemberModifyDTO modifyDTO, MemberDTO oldMemberDTO);
+
+    /**
+     * save
      * @param memberEntity
      * @return
      */
-    MemberEntity insert(MemberEntity memberEntity);
+    MemberEntity save(MemberEntity memberEntity);
 
 }

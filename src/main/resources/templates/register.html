@@ -170,7 +170,7 @@
 <script th:src="|./js/common.js?t=${tick}|"></script>
 <script th:inline="javascript">
     $('#signup-submit2').click(function () {
-        post('api/register', {
+        _post('api/register', {
             recaptcha: $("#g-recaptcha-response").val(),
             name: $("#register_name").val(),
             id: $("#register_id").val(),

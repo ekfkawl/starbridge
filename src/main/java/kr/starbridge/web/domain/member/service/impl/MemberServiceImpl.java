@@ -1,5 +1,7 @@
 package kr.starbridge.web.domain.member.service.impl;
 
+import kr.starbridge.web.domain.member.dto.MemberDTO;
+import kr.starbridge.web.domain.member.dto.MemberModifyDTO;
 import kr.starbridge.web.domain.member.dto.MemberRegisterDTO;
 import kr.starbridge.web.domain.member.entity.MemberEntity;
 import kr.starbridge.web.domain.member.repository.MemberRepository;
@@ -12,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
-import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -60,7 +62,7 @@ public class MemberServiceImpl implements MemberService {
                 .pw(registerDTO.getMd5pw())
                 .name(registerDTO.getName())
                 .build();
-        insert(memberEntity);
+        save(memberEntity);
 
         return new ApiResult<>("계정이 등록되었습니다", "/");
     }
@@ -91,7 +93,31 @@ public class MemberServiceImpl implements MemberService {
 
     @Transactional
     @Override
-    public MemberEntity insert(MemberEntity memberEntity) {
+    public ApiResult<Object> modify(MemberModifyDTO modifyDTO, MemberDTO oldMemberDTO)  {
+        /** 닉네임 중복 체크 */
+        if (!oldMemberDTO.getName().equals(modifyDTO.getName()) && isExistsName(modifyDTO.getName())) {
+            return new ApiResult<>("이미 존재하는 닉네임 입니다");
+        }
+
+        if (!modifyDTO.getPw1().equals(modifyDTO.getPw2())) {
+            return new ApiResult<>("비밀번호와 비밀번호 확인란이 동일하지 않습니다");
+        }
+
+        MemberEntity memberEntity = MemberEntity.builder()
+                .id(oldMemberDTO.getId())
+                .pw(modifyDTO.getMd5pw())
+                .name(modifyDTO.getName())
+                .auth(oldMemberDTO.getAuth())
+                .modifyDt(LocalDateTime.now())
+                .build();
+        save(memberEntity);
+
+        return new ApiResult<>("변경사항이 저장되었습니다\n다시 로그인 해주세요", "/logout");
+    }
+
+    @Transactional
+    @Override
+    public MemberEntity save(MemberEntity memberEntity) {
         return memberRepository.save(memberEntity);
     }
 

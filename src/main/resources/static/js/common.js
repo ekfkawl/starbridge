@@ -1,7 +1,7 @@
-function post(url, param) {
+function request(url, param, method) {
     $.ajax({
         url: url,
-        type: 'POST',
+        type: method,
         data: JSON.stringify(param),
         dataType: 'json',
         contentType:"application/json",
@@ -14,6 +14,22 @@ function post(url, param) {
             }
         }
     });
+}
+
+function _get(url, param) {
+    request(url, param, 'GET');
+}
+
+function _post(url, param) {
+    request(url, param, 'POST');
+}
+
+function _put(url, param) {
+    request(url, param, 'PUT');
+}
+
+function _delete(url, param) {
+    request(url, param, 'DELETE');
 }
 
 function toText(s) {

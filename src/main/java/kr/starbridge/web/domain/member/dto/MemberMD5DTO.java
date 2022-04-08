@@ -6,7 +6,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * 아이디, 비밀번호 -> MD5 HASH
+ * 아이디 -> MD5 HASH
+ * 비밀번호 -> MD5 HASH + BCryptPasswordEncoder
  */
 @Getter
 @Setter

@@ -6,15 +6,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Entity(name = "tb_member")
 @DynamicInsert
+@DynamicUpdate
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -45,7 +48,11 @@ public class MemberEntity implements UserDetails, Serializable {
     /**
      * 계정 생성일
      */
-    private String createDt;
+    private LocalDateTime createDt;
+    /**
+     * 계정 수정일
+     */
+    private LocalDateTime modifyDt;
     /**
      * 시큐리티 권한
      */

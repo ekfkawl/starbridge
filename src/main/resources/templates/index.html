@@ -144,7 +144,7 @@
         let md5id = $("#id").val();
         let md5pw = $("#pw").val();
         if (md5id && md5pw) {
-            post('api/signin', {
+            _post('api/signin', {
                 md5id: md5id,
                 md5pw: md5pw
             });

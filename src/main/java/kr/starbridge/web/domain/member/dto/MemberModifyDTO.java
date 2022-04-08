@@ -16,6 +16,10 @@ import static kr.starbridge.web.global.common.response.ValidationGroups.SizekGro
 @ToString
 public class MemberModifyDTO extends MemberMD5DTO {
     /**
+     * 아이디
+     */
+    private String id;
+    /**
      * 비밀번호
      */
     @NotEmpty(message = "빈 입력란이 존재합니다", groups = NotEmptyGroup.class)
@@ -41,7 +45,6 @@ public class MemberModifyDTO extends MemberMD5DTO {
         this.pw2 = pw2;
         this.name = name;
 
-//        super.setMd5id(this.id);
         super.setMd5pw(this.pw1);
     }
 

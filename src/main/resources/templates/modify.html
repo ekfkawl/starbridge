@@ -19,12 +19,14 @@
 <a id=profile-img href=#><img alt width=128 height=128 th:src="${#strings.isEmpty(memberDTO.img)} ? './image/default_profile.jpg' : ${memberDTO.img}" class=avatar title="클릭하여 이미지 변경"></a>
 <input type=file id=file name=file accept=image/* onchange=loadFile(this)>
 </form>
-<form id=modify-form name=modify-form action=modifyinfo method=post>
+<form id=modify-form name=modify-form action="x" method=post target="iframe1">
+<iframe id="iframe1" name="iframe1" style="display:none"></iframe>
+<input type="hidden" name="_method" value="PUT"/>
 <div data-v-30374884 class=login-area__input-wrapper>
 <div data-v-75befc30 data-v-30374884 aria-roledescription=email class=input-wrap>
 <div data-v-75befc30 class=label-container>
 <p data-v-75befc30 class=label-container__label style=color:#354049>닉네임</p>
-</div><input data-v-75befc30 id=name name=name th:value=${memberDTO.name} placeholder="새로운 닉네임" type=text maxlength=20 class=headerless-input autocomplete=off onkeyup=removeCharForKrEn(event) style=width:100%;height:48px>
+</div><input data-v-75befc30 id=name name=name th:value=${memberDTO.name} placeholder="새로운 닉네임" type=text maxlength=20 class=headerless-input autocomplete=off onkeyup=removeCharForKrEn(event) style=width:100%;height:48px required>
 </div>
 </div>
 <div data-v-30374884 class=login-area__input-wrapper>
@@ -32,14 +34,14 @@
 <div data-v-75befc30 class=label-container>
 <p data-v-75befc30 class=label-container__label style=color:#354049>비밀번호</p>
 </div>
-<input data-v-75befc30 id=pw1 name=pw1 placeholder="새로운 비밀번호" type=password maxlength=20 class="headerless-input password" autocomplete=off onkeyup=removeChar(event) style=width:100%;height:48px>
+<input data-v-75befc30 id=pw1 name=pw1 placeholder="새로운 비밀번호" type=password maxlength=20 class="headerless-input password" autocomplete=off onkeyup=removeChar(event) style=width:100%;height:48px required>
 </div>
 </div>
 <div data-v-30374884 class=login-area__input-wrapper>
 <div data-v-75befc30 data-v-30374884 aria-roledescription=password class=input-wrap>
 <div data-v-75befc30 class=label-container>
 <p data-v-75befc30 class=label-container__label style=color:#354049>비밀번호 확인</p>
-</div><input data-v-75befc30 id=pw2 name=pw2 placeholder="비밀번호 확인" type=password maxlength=20 class="headerless-input password" autocomplete=off onkeyup=removeChar(event) style=width:100%;height:48px>
+</div><input data-v-75befc30 id=pw2 name=pw2 placeholder="비밀번호 확인" type=password maxlength=20 class="headerless-input password" autocomplete=off onkeyup=removeChar(event) style=width:100%;height:48px required>
 </div>
 </div>
 <input id=modify-btn type=submit value="변경사항 저장" data-v-30374884 class=login-area__content-area__container__button />
@@ -85,6 +87,19 @@
 
 $(document).on("click", "#profile-img", function () {
     $("#file").trigger("click")
+})
+
+$('#modify-btn').click(function () {
+    let name = $("#name").val();
+    let pw1 = $("#pw1").val();
+    let pw2 = $("#pw2").val();
+    if (pw1 && pw2 && name) {
+        _put('api/modify', {
+            name: name,
+            pw1: pw1,
+            pw2: pw2
+        });
+    }
 })
 </script>
 </body>

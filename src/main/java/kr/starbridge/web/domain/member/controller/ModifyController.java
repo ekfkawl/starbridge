@@ -1,18 +1,22 @@
 package kr.starbridge.web.domain.member.controller;
 
-import kr.starbridge.web.domain.member.dto.MemberRegisterDTO;
-import kr.starbridge.web.domain.member.service.impl.MemberServiceImpl;
+import com.mysql.cj.util.StringUtils;
+import kr.starbridge.web.domain.member.dto.MemberDTO;
+import kr.starbridge.web.domain.member.dto.MemberModifyDTO;
+import kr.starbridge.web.domain.member.service.MemberService;
+import kr.starbridge.web.global.common.response.ApiException;
 import kr.starbridge.web.global.common.response.ApiResult;
 import kr.starbridge.web.global.common.response.ValidationSequence;
 import lombok.RequiredArgsConstructor;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
+import static kr.starbridge.web.global.common.enums.ExceptionEnum.RUNTIME_EXCEPTION;
 
 /**
  * 회원 정보수정 컨트롤러
@@ -20,7 +24,7 @@ import java.io.IOException;
 @RestController
 @RequiredArgsConstructor
 public class ModifyController {
-    private final MemberServiceImpl memberService;
+    private final MemberService memberService;
 
     /**
      * 정보수정 뷰로 이동
@@ -33,14 +37,18 @@ public class ModifyController {
 
     /**
      * 정보수정 api
-     * @param registerDTO
+     * @param modifyDTO
      * @return
-     * @throws IOException
      */
-    @PostMapping("/api/modify")
-    public ApiResult<Object> apiModify(@Validated(ValidationSequence.class) @RequestBody MemberRegisterDTO registerDTO) throws IOException {
+    @PutMapping("/api/modify")
+    public ApiResult<Object> apiModify(@Validated(ValidationSequence.class) @RequestBody MemberModifyDTO modifyDTO, Model model) {
 
-        return memberService.register(registerDTO);
+        MemberDTO oldMemberDTO = (MemberDTO)model.getAttribute("memberDTO");
+        if (StringUtils.isNullOrEmpty(oldMemberDTO.getId())) {
+            throw new ApiException(RUNTIME_EXCEPTION);
+        }
+
+        return memberService.modify(modifyDTO, oldMemberDTO);
     }
 
 }
