@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoginController {
 
-    @GetMapping("/auth/fail")
+    @GetMapping("/fail")
     public String loginFail() {
         return String.format("<script>alert('아이디 또는 비밀번호 오류입니다');location.href='/'</script>");
     }

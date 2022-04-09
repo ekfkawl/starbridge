@@ -14,7 +14,7 @@
                             <div class=text-block-2>포럼</div>
                         </a>
                         <th:block th:if="${is_login}">
-                            <a th:href=@{/tools/ctag} class="link-block w-inline-block">
+                            <a th:href="${URI_BLACKLIST_TAG}" class="link-block w-inline-block">
                                 <div class=text-block-2>환경설정</div>
                             </a>
                         </th:block>
@@ -44,7 +44,7 @@
                     <a th:href=@{/install} class="mobile-nav-link w-nav-link w--nav-link-open">다운로드</a>
                     <a th:href=@{/forum/list} class="mobile-nav-link w-nav-link w--nav-link-open">포럼</a>
                     <th:block th:if="${is_login}">
-                        <a th:href=@{/tools/ctag} class="mobile-nav-link w-nav-link w--nav-link-open">환경설정</a>
+                        <a th:href="${URI_BLACKLIST_TAG}" class="mobile-nav-link w-nav-link w--nav-link-open">환경설정</a>
                     </th:block>
                     <th:block th:if="not ${is_login}">
                         <div class=login-buttons>

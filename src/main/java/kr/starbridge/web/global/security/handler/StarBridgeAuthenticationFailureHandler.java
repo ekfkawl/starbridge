@@ -17,7 +17,7 @@ public class StarBridgeAuthenticationFailureHandler extends SimpleUrlAuthenticat
 
     @Override
     public void onAuthenticationFailure(final HttpServletRequest request, final HttpServletResponse response, final AuthenticationException exception) throws ServletException, IOException {
-        setDefaultFailureUrl("/auth/fail");
+        setDefaultFailureUrl("/fail");
 
         super.onAuthenticationFailure(request, response, exception);
     }
