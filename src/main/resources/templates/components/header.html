@@ -5,7 +5,7 @@
             <div class=navigation-container>
                 <div class=navigation-left>
                     <a th:href=@{/} aria-current=page class="brand w-nav-brand w--current"><img
-                            th:src="|./image/logo_head.svg?t=${tick}|" alt class=template-logo/></a>
+                            th:src="@{|/image/logo_head.svg?t=${tick}|}" alt class=template-logo/></a>
                     <nav role=navigation class="nav-menu w-nav-menu">
                         <a th:href=@{/install} class="link-block w-inline-block">
                             <div class=text-block-2>다운로드</div>
@@ -39,7 +39,7 @@
              data-w-id=6d024619-d09a-60b7-5688-08f6b40b092b role=banner class="navigation-mobile w-nav">
             <div class=nav-container-mobile>
                 <a th:href=@{/} aria-current=page class="brand-2 w-nav-brand w--current"><img
-                        th:src="|./image/logo_head_mob.svg?t=${tick}|" class=template-logo/></a>
+                        th:src="@{|/image/logo_head_mob.svg?t=${tick}|}" class=template-logo/></a>
                 <nav role=navigation class="mobile-nav w-nav-menu">
                     <a th:href=@{/install} class="mobile-nav-link w-nav-link w--nav-link-open">다운로드</a>
                     <a th:href=@{/forum/list} class="mobile-nav-link w-nav-link w--nav-link-open">포럼</a>

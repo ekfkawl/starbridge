@@ -4,9 +4,9 @@
 <meta http-equiv=Content-Type content="text/html; charset=UTF-8">
     <title>StarBridge | MyPage</title>
     <th:block th:include="components/base :: base(false)"></th:block>
-    <link th:href="|./css/chunk-vendors.e9eecb51.css?t=${tick}|" rel=stylesheet>
-    <link th:href="|./css/app.d0396536.css?t=${tick}|" rel=stylesheet>
-    <link th:href="|./css/chunk-548917b6.eec72010.css?t=${tick}|" rel=stylesheet>
+    <link th:href="@{|/css/chunk-vendors.e9eecb51.css?t=${tick}|}" rel=stylesheet>
+    <link th:href="@{|/css/app.d0396536.css?t=${tick}|}" rel=stylesheet>
+    <link th:href="@{|/css/chunk-548917b6.eec72010.css?t=${tick}|}" rel=stylesheet>
     <style type=text/css>img{vertical-align:middle;border-style:none}a,img{display:flex;justify-content:center;-webkit-user-drag:none}img.avatar{border-radius:50%}#file{display:none}</style>
 </head>
 <body>
@@ -54,8 +54,8 @@
 </div>
 </div>
 <script src=https://code.jquery.com/jquery-3.6.0.js integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin=anonymous></script>
-<script th:src="|./js/valid.js?t=${tick}|"></script>
-<script th:src="|./js/common.js?t=${tick}|"></script>
+<script th:src="@{|/js/valid.js?t=${tick}|}"></script>
+<script th:src="@{|/js/common.js?t=${tick}|}"></script>
 <script type=text/javascript>function loadFile(a) {
     var b = a.files[0];
     var e = document.createElement("img");

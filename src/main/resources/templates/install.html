@@ -8,7 +8,7 @@
 <body>
 <header th:include="components/header :: header"></header>
 <div class="container benefits w-container" style=margin-top:100px>
-<img th:src="|./image/logo64.png?t=${tick}|" alt>
+<img th:src="@{|/image/logo64.png?t=${tick}|}" alt>
 <div>
 <h3 class="h3 centered mb3 benefits video">
 <strong class=bold-text-9>스타브리지</strong><br>
@@ -34,7 +34,7 @@ R&D: kakaovalue@naver.com<br><br>
 <div class=faq-question-container>
 <h3 class=faq-question>* 스타브리지 설치 후 실행 방법</h3>
 </div>
-<img th:src="|./image/arrow-icon.svg?t=${tick}|" loading=lazy alt="Arrow Right" class=faq-arrow style="transform:translate3d(0px,0px,0px) scale3d(1,1,1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg,0deg);transform-style:preserve-3d">
+<img th:src="@{|/image/arrow-icon.svg?t=${tick}|}" loading=lazy alt="Arrow Right" class=faq-arrow style="transform:translate3d(0px,0px,0px) scale3d(1,1,1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg,0deg);transform-style:preserve-3d">
 </div>
 <div class=faq-answer-container style=height:0>
 <p class=faq-answer>
@@ -57,7 +57,7 @@ R&D: kakaovalue@naver.com<br><br>
 <div class=faq-question-container>
 <h3 class=faq-question>* 기능 사용 방법</h3>
 </div>
-<img th:src="|./image/arrow-icon.svg?t=${tick}|" loading=lazy alt="Arrow Right" class=faq-arrow style="transform:translate3d(0px,0px,0px) scale3d(1,1,1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg,0deg);transform-style:preserve-3d">
+<img th:src="@{|/image/arrow-icon.svg?t=${tick}|}" loading=lazy alt="Arrow Right" class=faq-arrow style="transform:translate3d(0px,0px,0px) scale3d(1,1,1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg,0deg);transform-style:preserve-3d">
 </div>
 <div class=faq-answer-container style=height:0>
 <p class=faq-answer>
@@ -111,7 +111,7 @@ R&D: kakaovalue@naver.com<br><br>
 <div class=faq-question-container>
 <h3 class=faq-question>* FAQ</h3>
 </div>
-<img th:src="|./image/arrow-icon.svg?t=${tick}|" loading=lazy alt="Arrow Right" class=faq-arrow style="transform:translate3d(0px,0px,0px) scale3d(1,1,1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg,0deg);transform-style:preserve-3d">
+<img th:src="@{|/image/arrow-icon.svg?t=${tick}|}" loading=lazy alt="Arrow Right" class=faq-arrow style="transform:translate3d(0px,0px,0px) scale3d(1,1,1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg,0deg);transform-style:preserve-3d">
 </div>
 <div class=faq-answer-container style=height:0>
 <p class=faq-answer>
@@ -131,7 +131,7 @@ A. Windows7 64bit, Windows10 64bit 환경에서 테스트되었습니다. 이 �
 </div>
 <footer th:include="components/footer :: footer"></footer>
 <script src=https://code.jquery.com/jquery-3.6.0.js integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin=anonymous></script>
-<script th:src="|./js/f2b74be3e.js?t=${tick}|"></script>
+<script th:src="@{|/js/f2b74be3e.js?t=${tick}|}"></script>
 <script type=text/javascript>$(document).ready(function(){$("#first-faq").trigger("click")});</script>
 </body>
 </html>

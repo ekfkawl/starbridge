@@ -2,26 +2,27 @@
 <html data-wf-page=612c76d0901fda2560965c5e data-wf-site=602eda09fc78afc76e9706b6>
 <head>
 	<title>StarBridge | Tools</title>
+	<th:block th:include="components/base :: base(true)"></th:block>
 	<link rel=stylesheet href=https://use.fontawesome.com/releases/v5.14.0/css/all.css />
-	<link rel=stylesheet th:href="|./css/mdb.min.css?t=${tick}|"/>
-	<link rel=stylesheet th:href="|./css/table-editor.min.css?t=${tick}|"/>
+	<link rel=stylesheet th:href="@{|/css/mdb.min.css?t=${tick}|}"/>
+	<link rel=stylesheet th:href="@{|/css/table-editor.min.css?t=${tick}|}"/>
 	<style>.ps__rail-x,.ps__rail-y{display:none !important}body{-ms-overflow-style:none;scrollbar-width:none;line-height:1.7}body::-webkit-scrollbar{display:none}.w--current{font-weight:700}.p--range{padding-top:15px;padding-bottom:80px}.p-range{padding-top:10px;padding-bottom:20px;color:black}.prange{padding-bottom:30px}</style>
-	<th:block th:if="${#strings.contains(cur, 'export-')}">
+	<th:block th:if="${#strings.contains(f, 'export-')}">
 		<style>table > tbody > tr:nth-child(n) > td:nth-child(4), table > thead > tr > th:nth-child(4) {
 			display: none
 		}</style>
 	</th:block>
-	<th:block th:if="${#strings.contains(cur, 'import-')}">
+	<th:block th:if="${#strings.contains(f, 'import-')}">
 		<style>table > tbody > tr:nth-child(n) > td:nth-child(3), table > thead > tr > th:nth-child(3) {
 			display: none
 		}</style>
 	</th:block>
-	<th:block th:if="${#strings.contains(cur, 'export-cfilter')}">
+	<th:block th:if="${#strings.contains(f, 'export-room-filter')}">
 		<style>table > tbody > tr:nth-child(n) > td:nth-child(3), table > thead > tr > th:nth-child(3) {
 			display: none
 		}</style>
 	</th:block>
-	<th:block th:if="${#strings.contains(cur, 'import-cfilter')}">
+	<th:block th:if="${#strings.contains(f, 'import-room-filter')}">
 		<style>table > tbody > tr:nth-child(n) > td:nth-child(2), table > thead > tr > th:nth-child(2) {
 			display: none
 		}</style>
@@ -29,7 +30,7 @@
 </head>
 <body>
 <div style=display:none id=toText></div>
-<div th:include="header :: header"></div>
+<header th:include="components/header :: header"></header>
 <div class="section pricing-title-section wf-section">
 <div class=container>
 <div class=title-wrap>
@@ -47,8 +48,8 @@
 <div class=category-sidebar-title>옵션 목록</div>
 <div class=w-dyn-list>
 <div role=list class=w-dyn-items>
-<div role=listitem class=w-dyn-item><a th:href="${URI_BLACKLIST_TAG}" class=marketplace-category>블랙리스트 관리1</a></div>
-<div role=listitem class=w-dyn-item><a th:href="${URI_BLACKLIST_IP}" class=marketplace-category>블랙리스트 관리2</a></div>
+<div role=listitem class=w-dyn-item><a th:href="${URI_BLACKLIST_TAG}" class=marketplace-category>블랙리스트 | 배틀태그</a></div>
+<div role=listitem class=w-dyn-item><a th:href="${URI_BLACKLIST_IP}" class=marketplace-category>블랙리스트 | 아이피</a></div>
 <div role=listitem class=w-dyn-item><a th:href="${URI_ROOM_FILTER}" class=marketplace-category>방 목록 필터링</a></div>
 <div role=listitem class=w-dyn-item><a th:href="${URI_ROOM_ROLE}" class=marketplace-category>방 입장 조건</a></div>
 <div role=listitem class=w-dyn-item><a th:href="${URI_PLAYER}" class=marketplace-category>플레이어</a></div>
@@ -58,39 +59,25 @@
 </div>
 </div>
 <div class=marketplace-content-left>
-<th:block th:switch=${cur}>
-<div th:case=ctag><div th:include="con_tag :: content"></div></div>
-<div th:case=export-ctag><div th:include="con_tag_export :: content"></div></div>
-<div th:case=import-ctag><div th:include="con_tag_import :: content"></div></div>
-<div th:case=cip><div th:include="con_ip :: content"></div></div>
-<div th:case=export-cip><div th:include="con_ip_export :: content"></div></div>
-<div th:case=import-cip><div th:include="con_ip_import :: content"></div></div>
-<div th:case=cfilter><div th:include="con_filter :: content"></div></div>
-<div th:case=export-cfilter><div th:include="con_filter_export :: content"></div></div>
-<div th:case=import-cfilter><div th:include="con_filter_import :: content"></div></div>
-<div th:case=ccondi><div th:include="con_condi :: content"></div></div>
-<div th:case=cetc><div th:include="con_etc :: content"></div></div>
+<th:block th:switch=${f}>
+<!--<div th:case=ctag><div th:include="con_tag :: content"></div></div>-->
+<!--<div th:case=export-ctag><div th:include="con_tag_export :: content"></div></div>-->
+<!--<div th:case=import-ctag><div th:include="con_tag_import :: content"></div></div>-->
+<!--<div th:case=cip><div th:include="con_ip :: content"></div></div>-->
+<!--<div th:case=export-cip><div th:include="con_ip_export :: content"></div></div>-->
+<!--<div th:case=import-cip><div th:include="con_ip_import :: content"></div></div>-->
+<!--<div th:case=cfilter><div th:include="con_filter :: content"></div></div>-->
+<!--<div th:case=export-cfilter><div th:include="con_filter_export :: content"></div></div>-->
+<!--<div th:case=import-cfilter><div th:include="con_filter_import :: content"></div></div>-->
+<!--<div th:case=ccondi><div th:include="con_condi :: content"></div></div>-->
+<!--<div th:case=cetc><div th:include="con_etc :: content"></div></div>-->
 </th:block>
 </div>
 </div>
 </div>
 </div>
-<script th:src=@{/resources/js/f2b74be3e.js}></script>
-<script type=text/javascript th:src=@{/resources/js/mdb.min.js}></script>
-<script type=text/javascript th:src=@{/resources/js/tableEditor.min.js}></script>
-<script>
-    function copyToClipboard(val) {
-        var t = document.createElement("textarea");
-        document.body.appendChild(t);
-        t.value = val;
-        t.select();
-        document.execCommand('copy');
-        document.body.removeChild(t);
-    }
-	$(document).on("click", "#localhash", function() {
-		copyToClipboard($(this).text());
-	});
-</script>
-
+<script th:src="@{|js/f2b74be3e.js?t=${tick}|}"></script>
+<script th:src="@{|js/mdb.min.js?t=${tick}|}"></script>
+<script th:src="@{|js/tableEditor.min.js?t=${tick}|}"></script>
 </body>
 </html>

@@ -3,9 +3,9 @@
 <head>
     <title>StarBridge | Register</title>
     <th:block th:include="components/base :: base(true)"></th:block>
-    <link th:href="|./css/chunk-vendors.e9eecb51.css?t=${tick}|" rel=stylesheet>
-    <link th:href="|./css/app.541fac21.css?t=${tick}|" rel=stylesheet>
-    <link th:href="|./css/chunk-7b098fe2.262ee47f.css?t=${tick}|" rel=stylesheet>
+    <link th:href="@{|css/chunk-vendors.e9eecb51.css?t=${tick}|}" rel=stylesheet>
+    <link th:href="@{|css/app.541fac21.css?t=${tick}|}" rel=stylesheet>
+    <link th:href="@{|css/chunk-7b098fe2.262ee47f.css?t=${tick}|}" rel=stylesheet>
 </head>
 <body>
 <div id=app>
@@ -166,8 +166,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
 <script src="https://www.google.com/recaptcha/api.js"></script>
-<script th:src="|./js/valid.js?t=${tick}|"></script>
-<script th:src="|./js/common.js?t=${tick}|"></script>
+<script th:src="@{|js/valid.js?t=${tick}|}"></script>
+<script th:src="@{|js/common.js?t=${tick}|}"></script>
 <script th:inline="javascript">
     $('#signup-submit2').click(function () {
         _post('api/register', {
