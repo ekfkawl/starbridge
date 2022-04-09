@@ -1,6 +1,6 @@
 package kr.starbridge.web.domain.bridge.controller;
 
-import kr.starbridge.web.domain.bridge.enums.FunctionURIEnum;
+import static kr.starbridge.web.domain.bridge.enums.FunctionURIEnum.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,19 +17,9 @@ public class BridgeController {
     public ModelAndView bridge(@PathVariable(name = "function") String function,
                                @RequestParam(required = false, defaultValue = "") String ref) {
 
-        ModelAndView mv = new ModelAndView();
+        ModelAndView mv = new ModelAndView("bridge");
 
-        switch(function) {
-            case "blacklist-tag":
-                break;
-            case "blacklist-ip":
-                break;
-            case "room-filter":
-                break;
-            case "room-role":
-                break;
-            case "player":
-
+        if (URI_BLACKLIST_IP.name().equals(function)) {
 
         }
 
