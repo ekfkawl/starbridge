@@ -24,4 +24,13 @@ public class GlobalAdvice {
         model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("tick", System.currentTimeMillis());
     }
+
+    /**
+     * 회원 정보
+     * @param model
+     * @return
+     */
+    public static MemberDTO getSelfInfo(Model model) {
+        return (MemberDTO)model.getAttribute("memberDTO");
+    }
 }

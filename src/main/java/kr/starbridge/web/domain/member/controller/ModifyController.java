@@ -4,6 +4,7 @@ import com.mysql.cj.util.StringUtils;
 import kr.starbridge.web.domain.member.dto.MemberDTO;
 import kr.starbridge.web.domain.member.dto.MemberModifyDTO;
 import kr.starbridge.web.domain.member.service.MemberService;
+import kr.starbridge.web.global.aop.GlobalAdvice;
 import kr.starbridge.web.global.common.response.ApiException;
 import kr.starbridge.web.global.common.response.ApiResult;
 import kr.starbridge.web.global.common.response.ValidationSequence;
@@ -43,7 +44,8 @@ public class ModifyController {
     @PutMapping("/api/modify")
     public ApiResult<Object> apiModify(@Validated(ValidationSequence.class) @RequestBody MemberModifyDTO modifyDTO, Model model) {
 
-        MemberDTO oldMemberDTO = (MemberDTO)model.getAttribute("memberDTO");
+        /** 로그인 정보 */
+        MemberDTO oldMemberDTO = GlobalAdvice.getSelfInfo(model);
         if (StringUtils.isNullOrEmpty(oldMemberDTO.getId())) {
             throw new ApiException(RUNTIME_EXCEPTION);
         }
