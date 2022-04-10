@@ -24,6 +24,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
     private final AuthenticationFailureHandler authenticationFailureHandler;
 
+    private final String[] permitAllPath = {"/", "/api/**"};
+    private final String[] authenticatedPath = {"/modify", "/bridge/**"};
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
@@ -39,8 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .csrf().disable()
             .authorizeRequests()
-            .antMatchers("/", "/api/**").permitAll()
-            .antMatchers("/modify").hasRole("USER")
+            .antMatchers(permitAllPath).permitAll()
+            .antMatchers(authenticatedPath).authenticated()
         .and()
             .formLogin()
             .loginPage("/")
