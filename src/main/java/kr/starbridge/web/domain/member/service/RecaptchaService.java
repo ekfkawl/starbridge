@@ -4,17 +4,12 @@ import com.mysql.cj.util.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.net.URL;
-
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.net.ssl.HttpsURLConnection;
+import java.io.*;
+import java.net.URL;
 
 @Service
 public class RecaptchaService {
@@ -48,9 +43,9 @@ public class RecaptchaService {
             wr.close();
 
             int responseCode = con.getResponseCode();
-            System.out.println("\nSending 'POST' request to URL : " + url);
-            System.out.println("Post parameters : " + postParams);
-            System.out.println("Response Code : " + responseCode);
+//            System.out.println("\nSending 'POST' request to URL : " + url);
+//            System.out.println("Post parameters : " + postParams);
+//            System.out.println("Response Code : " + responseCode);
 
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     con.getInputStream()));
@@ -63,7 +58,7 @@ public class RecaptchaService {
             in.close();
 
             // print result
-            System.out.println(response.toString());
+//            System.out.println(response.toString());
 
             //parse JSON response and return 'success' value
             JsonReader jsonReader = Json.createReader(new StringReader(response.toString()));
