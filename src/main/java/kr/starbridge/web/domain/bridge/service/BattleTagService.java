@@ -1,6 +1,7 @@
 package kr.starbridge.web.domain.bridge.service;
 
 import kr.starbridge.web.domain.bridge.dto.BattleTagDTO;
+import kr.starbridge.web.domain.bridge.dto.BattleTagImportDTO;
 import kr.starbridge.web.domain.bridge.entity.BattleTagEntity;
 import kr.starbridge.web.domain.bridge.entity.BattleTagId;
 import kr.starbridge.web.global.common.response.ApiResult;
@@ -19,7 +20,7 @@ public interface BattleTagService {
      * @throws IllegalAccessException
      * @throws InvocationTargetException
      */
-    ApiResult<List<BattleTagDTO>> getBattleTagsEx(String id) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException;
+    List<BattleTagDTO> getBattleTagsEx(String id) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException;
 
     /**
      * 블랙리스트 목록
@@ -67,11 +68,38 @@ public interface BattleTagService {
     boolean isExistsTag(String id, String tag);
 
     /**
+     * 추출 허용된 블랙리스트 목록
+     * @param localBattleTagDTOList
+     * @param id
+     * @return
+     * @throws InvocationTargetException
+     * @throws NoSuchMethodException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
+    List<BattleTagDTO> getRemoteExportTags(List<BattleTagDTO> localBattleTagDTOList, String id) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
+
+    /**
+     * 블랙리스트 임포트
+     * @param id
+     * @param battleTagImportDTO
+     * @return
+     */
+    List<BattleTagEntity> importTags(String id, BattleTagImportDTO battleTagImportDTO);
+
+    /**
      * save
      * @param battleTagEntity
      * @return
      */
     BattleTagEntity save(BattleTagEntity battleTagEntity);
+
+    /**
+     * saveAll
+     * @param battleTagEntities
+     * @return
+     */
+    List<BattleTagEntity> saveAll(List<BattleTagEntity> battleTagEntities);
 
     /**
      * update

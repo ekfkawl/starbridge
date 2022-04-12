@@ -1,5 +1,6 @@
 package kr.starbridge.web.domain.bridge.service;
 
+import kr.starbridge.web.domain.bridge.dto.BattleTagDTO;
 import kr.starbridge.web.domain.bridge.entity.BattleTagEntity;
 import kr.starbridge.web.domain.bridge.entity.BattleTagId;
 import kr.starbridge.web.domain.bridge.repository.BattleTagRepository;
@@ -10,9 +11,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.TestPropertySource;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import static kr.starbridge.web.global.utils.EscapeUtils.escape;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -27,7 +31,7 @@ class BattleTagServiceTest {
 
     @Test
     void findByTest() {
-        BattleTagEntity battleTagEntities = battleTagRepository.findByIdMemberIdAndIdTag("b547861dcab956c7b782476e7e70af48", "aaaa#1111");
+        BattleTagEntity battleTagEntities = battleTagRepository.findByIdMemberIdAndIdTag("b547861dcab956c7b782476e7e70af48", "test#1000");
         System.out.println("battleTagEntities = " + battleTagEntities);
     }
 
@@ -52,12 +56,34 @@ class BattleTagServiceTest {
     @Test
     void saveTest() {
         BattleTagEntity battleTagEntity = BattleTagEntity.builder()
-                .id(new BattleTagId("b547861dcab956c7b782476e7e70af48", "test#5212"))
+                .id(new BattleTagId("b547861dcab956c7b782476e7e70af48", "test#5214"))
                 .memo("save test...")
                 .isExport(true)
                 .build();
 
         battleTagRepository.save(battleTagEntity);
+    }
+
+    @Test
+    void saveAllTest() {
+        List<BattleTagEntity> battleTagEntities = new ArrayList<>();
+
+        BattleTagEntity battleTagEntity1 = BattleTagEntity.builder()
+                .id(new BattleTagId("b547861dcab956c7b782476e7e70af48", "test#4000"))
+                .memo("save all test1...")
+                .isExport(true)
+                .build();
+
+        BattleTagEntity battleTagEntity2 = BattleTagEntity.builder()
+                .id(new BattleTagId("b547861dcab956c7b782476e7e70af48", "test#4001"))
+                .memo("save all test2...")
+                .isExport(true)
+                .build();
+
+        battleTagEntities.add(battleTagEntity1);
+        battleTagEntities.add(battleTagEntity2);
+
+        battleTagRepository.saveAll(battleTagEntities);
     }
 
     @Test
