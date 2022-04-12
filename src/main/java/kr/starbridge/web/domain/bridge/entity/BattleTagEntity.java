@@ -6,11 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 /**
  * 블랙리스트 (battle tag)
@@ -24,14 +28,10 @@ import java.time.LocalDateTime;
 @Builder
 public class BattleTagEntity implements Serializable {
     /**
-     * 아이디
+     * 아이디, 배틀태그
      */
-    @Id
-    private String id;
-    /**
-     * 아이피 (md5)
-     */
-    private String hash;
+    @EmbeddedId
+    private BattleTagId id;
     /**
      * 메모
      */
@@ -43,5 +43,11 @@ public class BattleTagEntity implements Serializable {
     /**
      * 수정일
      */
+    @UpdateTimestamp
     private LocalDateTime modifyDt;
+    /**
+     * 이전 배틀태그
+     */
+    @Transient
+    private String prevTag;
 }

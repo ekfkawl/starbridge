@@ -1,5 +1,7 @@
 package kr.starbridge.web.domain.bridge.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import kr.starbridge.web.domain.bridge.entity.BattleTagId;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -7,15 +9,16 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BattleTagDTO {
     /**
-     * 아이디
+     * 아이디/배틀태그
      */
-    private String id;
+    private BattleTagId id;
     /**
-     * 아이피 (md5)
+     * 이전 배틀태그
      */
-    private String hash;
+    private String prevTag;
     /**
      * 메모
      */
