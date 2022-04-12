@@ -80,5 +80,25 @@ public class BridgeBattleTagController extends BridgeBaseController {
 
         return new ApiResult<>(battleTagId);
     }
+
+    /**
+     * 블랙리스트 추출 대상 수정
+     * @param battleTagDTO
+     * @param model
+     * @return
+     */
+    @PutMapping("/api/battle-tag-export")
+    public ApiResult<Object> apiUpdateBattleTagExport(@RequestBody BattleTagDTO battleTagDTO, Model model) {
+
+        String tag = battleTagDTO.getId().getTag();
+        if (StringUtils.isNullOrEmpty(tag) || !tag.matches(Regex.BATTLE_TAG)) {
+            throw new ApiException(ExceptionEnum.RUNTIME_EXCEPTION);
+        }
+
+        MemberDTO memberDTO = GlobalAdvice.getSelfInfo(model);
+        battleTagDTO.getId().setMemberId(memberDTO.getId());
+
+        return battleTagService.updateBattleTagExport(battleTagDTO);
+    }
 }
 

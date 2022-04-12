@@ -52,6 +52,13 @@ public interface BattleTagService {
     ApiResult<Object> upsertBattleTag(BattleTagDTO battleTagDTO);
 
     /**
+     * 블랙리스트 추출 대상 수정
+     * @param battleTagDTO
+     * @return
+     */
+    ApiResult<Object> updateBattleTagExport(BattleTagDTO battleTagDTO);
+
+    /**
      * 배틀태그 중복 체크
      * @param id
      * @param tag

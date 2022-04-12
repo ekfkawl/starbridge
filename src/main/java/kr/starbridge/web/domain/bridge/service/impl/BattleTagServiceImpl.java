@@ -41,11 +41,13 @@ public class BattleTagServiceImpl implements BattleTagService {
         return battleTagRepository.findByIdMemberId(id);
     }
 
+    @Transactional
     @Override
     public List<BattleTagEntity> getBattleTags(String id, Sort sort) {
         return battleTagRepository.findByIdMemberId(id, sort);
     }
 
+    @Transactional
     @Override
     public BattleTagEntity getBattleTag(String id, String tag) {
         return battleTagRepository.findByIdMemberIdAndIdTag(id, tag);
@@ -64,6 +66,7 @@ public class BattleTagServiceImpl implements BattleTagService {
         BattleTagEntity battleTagEntity = BattleTagEntity.builder()
                 .id(new BattleTagId(battleTagDTO.getId().getMemberId(), battleTagDTO.getId().getTag()))
                 .memo(escape(battleTagDTO.getMemo()))
+                .isExport(true)
                 .prevTag(escape(battleTagDTO.getPrevTag()))
                 .build();
 
@@ -75,7 +78,17 @@ public class BattleTagServiceImpl implements BattleTagService {
             save(battleTagEntity);
         }
 
-        return new ApiResult<>();
+        return new ApiResult<>(battleTagDTO);
+    }
+
+    @Transactional
+    @Override
+    public ApiResult<Object> updateBattleTagExport(BattleTagDTO battleTagDTO) {
+        BattleTagEntity battleTagEntity = getBattleTag(battleTagDTO.getId().getMemberId(), battleTagDTO.getId().getTag());
+        battleTagEntity.setExport(battleTagDTO.isExport());
+        save(battleTagEntity);
+
+        return new ApiResult<>(battleTagDTO);
     }
 
     @Transactional

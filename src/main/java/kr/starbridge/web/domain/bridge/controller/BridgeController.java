@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.lang.reflect.InvocationTargetException;
 
 import static kr.starbridge.web.domain.bridge.enums.FunctionURIEnum.URI_BLACKLIST_TAG;
+import static kr.starbridge.web.domain.bridge.enums.FunctionURIEnum.URI_BLACKLIST_TAG_EXPORT;
 
 /**
  * bridge 도구 페이지 컨트롤러
@@ -34,7 +35,7 @@ public class BridgeController {
         /** 로그인 정보 */
         MemberDTO memberDTO = GlobalAdvice.getSelfInfo(model);
 
-        if (URI_BLACKLIST_TAG.getUri().equals(function)) {
+        if (function.contains(URI_BLACKLIST_TAG.getUri())) {
             model.addAttribute("battleTagDTOList", battleTagService.getBattleTagsEx(memberDTO.getId()).getData());
         }
 
