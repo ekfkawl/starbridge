@@ -1,5 +1,6 @@
 package kr.starbridge.web.domain.bridge.controller;
 
+import kr.starbridge.web.domain.bridge.dto.BattleTagDTO;
 import kr.starbridge.web.domain.bridge.service.BattleTagService;
 import kr.starbridge.web.domain.member.dto.MemberDTO;
 import kr.starbridge.web.global.aop.GlobalAdvice;
@@ -12,22 +13,23 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 import static kr.starbridge.web.domain.bridge.enums.FunctionURIEnum.URI_BLACKLIST_TAG;
-import static kr.starbridge.web.domain.bridge.enums.FunctionURIEnum.URI_BLACKLIST_TAG_EXPORT;
+import static kr.starbridge.web.domain.bridge.enums.FunctionURIEnum.URI_BLACKLIST_TAG_IMPORT;
 
 /**
  * bridge 도구 페이지 컨트롤러
  */
 @RestController
 @RequiredArgsConstructor
-public class BridgeController {
+public class BridgeController extends BridgeBaseController {
 
     private final BattleTagService battleTagService;
 
-    @GetMapping("/bridge/{function}")
+    @GetMapping("/{function}")
     public ModelAndView bridge(@PathVariable(name = "function") String function,
-                               @RequestParam(required = false, defaultValue = "") String ref,
+                               @RequestParam(required = false, defaultValue = "") String pull,
                                Model model) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 
         ModelAndView mv = new ModelAndView("bridge");
@@ -35,11 +37,29 @@ public class BridgeController {
         /** 로그인 정보 */
         MemberDTO memberDTO = GlobalAdvice.getSelfInfo(model);
 
+        /** 배틀태그 관련 view */
         if (function.contains(URI_BLACKLIST_TAG.getUri())) {
-            model.addAttribute("battleTagDTOList", battleTagService.getBattleTagsEx(memberDTO.getId()).getData());
+            List<BattleTagDTO> localBattleTagDTOList = battleTagService.getBattleTagsEx(memberDTO.getId());
+            model.addAttribute("battleTagDTOList", localBattleTagDTOList);
+
+            /** 배틀태그 import view */
+            if (URI_BLACKLIST_TAG_IMPORT.getUri().equals(function)) {
+                /** import 대상의 추출 허용 배틀태그 리스트 */
+                List<BattleTagDTO> importBattleTagDTOList = battleTagService.getRemoteExportTags(localBattleTagDTOList, pull);
+                model.addAttribute("importBattleTagDTOList", importBattleTagDTOList);
+            }
         }
 
-        mv.addObject("uri", "/bridge/" + function);
+        /** js import 경로를 모델에 저장 */
+        String uri = "/bridge/" + function;
+        mv.addObject("uri", uri);
+
+        /** 추가적으로 서브 js가 있어야하는 페이지 */
+        if (function.contains("export") || function.contains("import")) {
+            uri =  uri.replace("-export", "");
+            uri =  uri.replace("-import", "");
+            mv.addObject("subJs", uri);
+        }
 
         return mv;
     }
