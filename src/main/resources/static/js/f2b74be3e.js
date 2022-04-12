@@ -36260,7 +36260,7 @@ Webflow.define('links', module.exports = function ($, _) {
     } // Determine whether the link should be selected
 
 
-    var match = tempLink.href === location.href || href === slug || indexPage.test(href) && dirList.test(slug);
+    var match = tempLink.href === location.href || href === slug || slug.indexOf(href) != -1 || indexPage.test(href) && dirList.test(slug);
     setClass($link, linkCurrent, match);
   }
 
