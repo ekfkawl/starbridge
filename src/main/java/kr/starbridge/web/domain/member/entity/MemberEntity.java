@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -52,6 +53,7 @@ public class MemberEntity implements UserDetails, Serializable {
     /**
      * 계정 수정일
      */
+    @UpdateTimestamp
     private LocalDateTime modifyDt;
     /**
      * 시큐리티 권한

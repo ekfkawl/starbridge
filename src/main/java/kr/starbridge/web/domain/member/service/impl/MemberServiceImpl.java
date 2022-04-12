@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -108,7 +107,6 @@ public class MemberServiceImpl implements MemberService {
                 .pw(modifyDTO.getMd5pw())
                 .name(modifyDTO.getName())
                 .auth(oldMemberDTO.getAuth())
-                .modifyDt(LocalDateTime.now())
                 .build();
         save(memberEntity);
 
