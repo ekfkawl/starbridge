@@ -7,22 +7,22 @@
 	<link rel=stylesheet th:href="@{|/css/mdb.min.css?t=${tick}|}"/>
 	<link rel=stylesheet th:href="@{|/css/table-editor.min.css?t=${tick}|}"/>
 	<style>.ps__rail-x,.ps__rail-y{display:none !important}body{-ms-overflow-style:none;scrollbar-width:none;line-height:1.7}body::-webkit-scrollbar{display:none}.w--current{font-weight:700}.p--range{padding-top:15px;padding-bottom:80px}.p-range{padding-top:10px;padding-bottom:20px;color:black}.prange{padding-bottom:30px}</style>
-	<th:block th:if="${#strings.contains(f, 'export-')}">
+	<th:block th:if="${#strings.contains(uri, 'export-')}">
 		<style>table > tbody > tr:nth-child(n) > td:nth-child(4), table > thead > tr > th:nth-child(4) {
 			display: none
 		}</style>
 	</th:block>
-	<th:block th:if="${#strings.contains(f, 'import-')}">
+	<th:block th:if="${#strings.contains(uri, 'import-')}">
 		<style>table > tbody > tr:nth-child(n) > td:nth-child(3), table > thead > tr > th:nth-child(3) {
 			display: none
 		}</style>
 	</th:block>
-	<th:block th:if="${#strings.contains(f, 'export-room-filter')}">
+	<th:block th:if="${#strings.contains(uri, 'export-room-filter')}">
 		<style>table > tbody > tr:nth-child(n) > td:nth-child(3), table > thead > tr > th:nth-child(3) {
 			display: none
 		}</style>
 	</th:block>
-	<th:block th:if="${#strings.contains(f, 'import-room-filter')}">
+	<th:block th:if="${#strings.contains(uri, 'import-room-filter')}">
 		<style>table > tbody > tr:nth-child(n) > td:nth-child(2), table > thead > tr > th:nth-child(2) {
 			display: none
 		}</style>
@@ -59,8 +59,9 @@
 </div>
 </div>
 <div class=marketplace-content-left>
-<th:block th:switch=${f}>
-<!--<div th:case=ctag><div th:include="con_tag :: content"></div></div>-->
+<div style=display:none id=member_id th:text="${memberDTO.id}"></div>
+<th:block th:switch=${uri}>
+<div th:case="${URI_BLACKLIST_TAG}"><div th:include="bridge/blacklist_tag :: content"></div></div>
 <!--<div th:case=export-ctag><div th:include="con_tag_export :: content"></div></div>-->
 <!--<div th:case=import-ctag><div th:include="con_tag_import :: content"></div></div>-->
 <!--<div th:case=cip><div th:include="con_ip :: content"></div></div>-->
@@ -76,8 +77,11 @@
 </div>
 </div>
 </div>
-<script th:src="@{|js/f2b74be3e.js?t=${tick}|}"></script>
-<script th:src="@{|js/mdb.min.js?t=${tick}|}"></script>
-<script th:src="@{|js/tableEditor.min.js?t=${tick}|}"></script>
+<script src=https://code.jquery.com/jquery-3.6.0.js integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin=anonymous></script>
+<script th:src="@{|../js/f2b74be3e.js?t=${tick}|}"></script>
+<script th:src="@{|../js/common.js?t=${tick}|}"></script>
+<script th:src="@{|../js/bridge/blacklist-tag.js?t=${tick}|}"></script>
+<script th:src="@{|../js/mdb.min.js?t=${tick}|}"></script>
+<script th:src="@{|../js/tableEditor.min.js?t=${tick}|}"></script>
 </body>
 </html>
