@@ -17,6 +17,10 @@ public class BattleTagDTO {
      */
     private BattleTagId id;
     /**
+     * seq
+     */
+    private long seq;
+    /**
      * 이전 배틀태그
      */
     @JsonProperty("prev_tag")

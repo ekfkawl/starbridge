@@ -7,14 +7,12 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Collection;
 
 /**
  * 블랙리스트 (battle tag)
@@ -32,6 +30,10 @@ public class BattleTagEntity implements Serializable {
      */
     @EmbeddedId
     private BattleTagId id;
+    /**
+     * seq
+     */
+    private long seq;
     /**
      * 메모
      */
