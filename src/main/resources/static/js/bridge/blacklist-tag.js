@@ -38,25 +38,8 @@ function getTags() {
 }
 
 function getTagsByHash() {
-    var input = prompt('임포트 대상의 해시를 입력하십시오.');
+    var input = prompt('임포트 대상의 해시를 입력해주세요');
     if (input && input.length == 32) {
-        location.href=[["@{/bridge/import-blacklist-tag}"]] + '?ref=' + input;
+        location.href=`/bridge/blacklist-tag-import?pull=${input}`;
     }
 }
-
-$(document).on("click", "#localhash", function() {
-    copyToClipboard($(this).text());
-});
-
-$(document).on("change", ".form-check-input", function() {
-    var c = $(this).parent().parent();
-    var d = c.children().eq(1).text();
-    var e = c.children().eq(0).children().is(":checked") ? true : false;
-
-    _put("../bridge/api/battle-tag-export", {
-        id: {
-            tag: d
-        },
-        is_export: e
-    })
-});
