@@ -1,5 +1,7 @@
 package kr.starbridge.web.global.utils;
 
+import com.mysql.cj.util.StringUtils;
+
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
@@ -10,6 +12,10 @@ import java.util.regex.Pattern;
 
 public class EscapeUtils {
     public static String unescape(String escaped) {
+        if (StringUtils.isNullOrEmpty(escaped)) {
+            return escaped;
+        }
+
         Pattern pattern = Pattern.compile("&#(\\d{1,5});");
         Matcher m = pattern.matcher(escaped);
         StringBuffer sb = new StringBuffer();
@@ -22,6 +28,10 @@ public class EscapeUtils {
     }
 
     public static String escape(String csq) {
+        if (StringUtils.isNullOrEmpty(csq)) {
+            return csq;
+        }
+
         Charset charset = Charset.forName("EUC-KR");
         CharsetEncoder encoder = charset.newEncoder();
         int size = csq.length() * 2 < 1024 ? 1024 : csq.length() * 2;
