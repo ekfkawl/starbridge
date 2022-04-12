@@ -2,6 +2,7 @@ package kr.starbridge.web.domain.bridge.repository;
 
 import kr.starbridge.web.domain.bridge.entity.BattleTagEntity;
 import kr.starbridge.web.domain.bridge.entity.BattleTagId;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,6 +15,8 @@ import java.util.List;
 public interface BattleTagRepository extends JpaRepository<BattleTagEntity, BattleTagId> {
 
     List<BattleTagEntity> findByIdMemberId(String tag);
+
+    List<BattleTagEntity> findByIdMemberId(String tag, Sort sort);
 
     BattleTagEntity findByIdMemberIdAndIdTag(String id, String tag);
 

@@ -7,8 +7,10 @@ import kr.starbridge.web.global.Regex;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.TestPropertySource;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,6 +28,12 @@ class BattleTagServiceTest {
     @Test
     void findByTest() {
         BattleTagEntity battleTagEntities = battleTagRepository.findByIdMemberIdAndIdTag("b547861dcab956c7b782476e7e70af48", "aaaa#1111");
+        System.out.println("battleTagEntities = " + battleTagEntities);
+    }
+
+    @Test
+    void findBySortTest() {
+        List<BattleTagEntity> battleTagEntities = battleTagRepository.findByIdMemberId("b547861dcab956c7b782476e7e70af48", Sort.by(Sort.Direction.ASC, "modifyDt"));
         System.out.println("battleTagEntities = " + battleTagEntities);
     }
 

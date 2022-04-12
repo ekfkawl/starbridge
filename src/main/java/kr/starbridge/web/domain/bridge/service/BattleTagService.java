@@ -4,6 +4,7 @@ import kr.starbridge.web.domain.bridge.dto.BattleTagDTO;
 import kr.starbridge.web.domain.bridge.entity.BattleTagEntity;
 import kr.starbridge.web.domain.bridge.entity.BattleTagId;
 import kr.starbridge.web.global.common.response.ApiResult;
+import org.springframework.data.domain.Sort;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -26,6 +27,14 @@ public interface BattleTagService {
      * @return
      */
     List<BattleTagEntity> getBattleTags(String id);
+
+    /**
+     * 블랙리스트 목록 (정렬)
+     * @param id
+     * @param sort
+     * @return
+     */
+    List<BattleTagEntity> getBattleTags(String id, Sort sort);
 
     /**
      * 블랙리스트

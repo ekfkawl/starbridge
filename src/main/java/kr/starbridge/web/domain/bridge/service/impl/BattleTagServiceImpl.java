@@ -9,6 +9,7 @@ import kr.starbridge.web.domain.bridge.service.BattleTagService;
 import kr.starbridge.web.global.common.response.ApiResult;
 import kr.starbridge.web.global.utils.BeanSubUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +29,7 @@ public class BattleTagServiceImpl implements BattleTagService {
     @Override
     public ApiResult<List<BattleTagDTO>> getBattleTagsEx(String id) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
 
-        List<BattleTagEntity> battleTagEntities = getBattleTags(id);
+        List<BattleTagEntity> battleTagEntities = getBattleTags(id, Sort.by(Sort.Direction.DESC, "modifyDt"));
         List<BattleTagDTO> battleTagDTOList = BeanSubUtils.copyPropertiesForList(battleTagEntities, new ArrayList<>(), BattleTagDTO.class);
 
         return new ApiResult<>(battleTagDTOList);
@@ -38,6 +39,11 @@ public class BattleTagServiceImpl implements BattleTagService {
     @Override
     public List<BattleTagEntity> getBattleTags(String id) {
         return battleTagRepository.findByIdMemberId(id);
+    }
+
+    @Override
+    public List<BattleTagEntity> getBattleTags(String id, Sort sort) {
+        return battleTagRepository.findByIdMemberId(id, sort);
     }
 
     @Override
