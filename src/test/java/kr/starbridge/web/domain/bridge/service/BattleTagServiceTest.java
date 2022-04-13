@@ -1,6 +1,5 @@
 package kr.starbridge.web.domain.bridge.service;
 
-import kr.starbridge.web.domain.bridge.dto.BattleTagDTO;
 import kr.starbridge.web.domain.bridge.entity.BattleTagEntity;
 import kr.starbridge.web.domain.bridge.entity.BattleTagId;
 import kr.starbridge.web.domain.bridge.repository.BattleTagRepository;
@@ -11,12 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.TestPropertySource;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import static kr.starbridge.web.global.utils.EscapeUtils.escape;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest

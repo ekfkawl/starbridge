@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static kr.starbridge.web.global.utils.EscapeUtils.escape;
@@ -69,9 +70,9 @@ public class BattleTagServiceImpl implements BattleTagService {
 
         BattleTagEntity battleTagEntity = BattleTagEntity.builder()
                 .id(new BattleTagId(battleTagDTO.getId().getMemberId(), battleTagDTO.getId().getTag()))
-                .memo(escape(battleTagDTO.getMemo()))
+                .memo(battleTagDTO.getMemo())
                 .isExport(true)
-                .prevTag(escape(battleTagDTO.getPrevTag()))
+                .prevTag(battleTagDTO.getPrevTag())
                 .build();
 
         if (!StringUtils.isNullOrEmpty(battleTagDTO.getPrevTag())) {
@@ -88,7 +89,11 @@ public class BattleTagServiceImpl implements BattleTagService {
     @Transactional
     @Override
     public ApiResult<Object> updateBattleTagExport(BattleTagDTO battleTagDTO) {
-        BattleTagEntity battleTagEntity = getBattleTag(battleTagDTO.getId().getMemberId(), battleTagDTO.getId().getTag());
+        Optional<BattleTagEntity> optionalBattleTagEntity = Optional.ofNullable(getBattleTag(battleTagDTO.getId().getMemberId(), battleTagDTO.getId().getTag()));
+        if (!optionalBattleTagEntity.isPresent()) {
+            throw new ApiException(ExceptionEnum.RUNTIME_EXCEPTION);
+        }
+        BattleTagEntity battleTagEntity = optionalBattleTagEntity.get();
         battleTagEntity.setExport(battleTagDTO.isExport());
         save(battleTagEntity);
 

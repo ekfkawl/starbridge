@@ -38,8 +38,7 @@ public class BridgeBattleTagController extends BridgeBaseController {
     @PostMapping("/api/battle-tag")
     public ApiResult<Object> apiUpsertBattleTag(@RequestBody BattleTagDTO battleTagDTO, Model model) {
 
-        String tag = battleTagDTO.getId().getTag();
-        if (StringUtils.isNullOrEmpty(tag) || !tag.matches(Regex.BATTLE_TAG)) {
+        if (battleTagDTO.isNotBattleTag()) {
             return new ApiResult<>("올바른 배틀태그 형식이 아닙니다");
         }
 
@@ -93,8 +92,7 @@ public class BridgeBattleTagController extends BridgeBaseController {
     @PutMapping("/api/battle-tag-export")
     public ApiResult<Object> apiUpdateBattleTagExport(@RequestBody BattleTagDTO battleTagDTO, Model model) {
 
-        String tag = battleTagDTO.getId().getTag();
-        if (StringUtils.isNullOrEmpty(tag) || !tag.matches(Regex.BATTLE_TAG)) {
+        if (battleTagDTO.isNotBattleTag()) {
             throw new ApiException(ExceptionEnum.RUNTIME_EXCEPTION);
         }
 
