@@ -2,11 +2,12 @@ plugins {
 	id 'org.springframework.boot' version '2.6.5'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'war'
 }
 
 group = 'kr.starbridge'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '8'
 
 configurations {
 	compileOnly {
@@ -16,6 +17,10 @@ configurations {
 
 repositories {
 	mavenCentral()
+}
+
+test {
+	exclude '**/*'
 }
 
 dependencies {
