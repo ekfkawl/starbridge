@@ -5,6 +5,7 @@ import kr.starbridge.web.domain.upload.service.FileUploadService;
 import kr.starbridge.web.global.common.enums.ExceptionEnum;
 import kr.starbridge.web.global.common.response.ApiException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,8 +30,8 @@ public class FileUploadController {
         }
 
         /** 업로드 디렉토리 */
-        String uploadPath = request.getServletContext().getRealPath("/resources/static/uploaded/");
+        String uploadPath = ResourceUtils.getURL("classpath:static").getPath() + "uploaded/";
 
-        return fileUploadService.uploadSingle(file.get(), uploadPath);
+        return fileUploadService.uploadSingle(file.get(), uploadPath, request);
     }
 }
