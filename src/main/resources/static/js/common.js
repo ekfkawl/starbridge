@@ -15,6 +15,21 @@ function request(url, param, method) {
                 location.href=res.href;
             }
             result = res;
+        },
+        error: function(request) {
+            var res = JSON.parse(request.responseText);
+            if (res.message) {
+                var t = res.message.indexOf('*href=');
+                if (t != -1) {
+                    if (t != 0) {
+                        alert(res.message.split('*href=')[0]);
+                    }
+                    var href = res.message.slice(t + 6);
+                    location.href = href;
+                }else {
+                    alert(res.message);
+                }
+            }
         }
     });
     return result;
