@@ -13,9 +13,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice("kr.starbridge.web.domain")
 public class ApiExceptionAdvice {
 
+    /**
+     * ApiException 예외 처리 핸둘러
+     * @param e
+     * @return
+     */
     @ExceptionHandler({ApiException.class})
     public ResponseEntity<ApiExceptionEntity> handlerApiException(final ApiException e) {
-        //e.printStackTrace();
         return ResponseEntity
                 .status(e.getError().getStatus())
                 .body(ApiExceptionEntity.builder()
@@ -24,6 +28,11 @@ public class ApiExceptionAdvice {
                         .build());
     }
 
+    /**
+     * @Valid 예외 처리 핸들러
+     * @param e
+     * @return
+     */
     @ExceptionHandler({MethodArgumentNotValidException.class})
     public ResponseEntity<ApiExceptionEntity> handlerMethodArgumentNotValidException(final MethodArgumentNotValidException e) {
         String errorMessage = e.getBindingResult()
