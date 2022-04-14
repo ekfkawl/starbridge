@@ -1,6 +1,6 @@
 package kr.starbridge.web.domain.bridge.controller;
 
-import kr.starbridge.web.domain.bridge.dto.BattleTagDTO;
+import kr.starbridge.web.domain.bridge.entity.BattleTagEntity;
 import kr.starbridge.web.domain.bridge.service.BattleTagService;
 import kr.starbridge.web.domain.member.dto.MemberDTO;
 import kr.starbridge.web.global.aop.GlobalAdvice;
@@ -17,6 +17,7 @@ import java.util.List;
 
 import static kr.starbridge.web.domain.bridge.enums.FunctionURIEnum.URI_BLACKLIST_TAG;
 import static kr.starbridge.web.domain.bridge.enums.FunctionURIEnum.URI_BLACKLIST_TAG_IMPORT;
+import static kr.starbridge.web.domain.bridge.mapper.BattleTagMapper.toBattleTagDTO;
 
 /**
  * bridge 도구 페이지 컨트롤러
@@ -39,14 +40,14 @@ public class BridgeController extends BridgeBaseController {
 
         /** 배틀태그 관련 view */
         if (function.contains(URI_BLACKLIST_TAG.getUri())) {
-            List<BattleTagDTO> localBattleTagDTOList = battleTagService.getBattleTagsEx(memberDTO.getId());
-            model.addAttribute("battleTagDTOList", localBattleTagDTOList);
+            List<BattleTagEntity> localBattleTagEntities = battleTagService.getBattleTagsEx(memberDTO.getId());
+            model.addAttribute("battleTagDTOList", toBattleTagDTO(localBattleTagEntities));
 
             /** 배틀태그 import view */
             if (URI_BLACKLIST_TAG_IMPORT.getUri().equals(function)) {
                 /** import 대상의 추출 허용 배틀태그 리스트 */
-                List<BattleTagDTO> importBattleTagDTOList = battleTagService.getRemoteExportTags(localBattleTagDTOList, pull);
-                model.addAttribute("importBattleTagDTOList", importBattleTagDTOList);
+                List<BattleTagEntity> importBattleTagEntities = battleTagService.getRemoteExportTags(localBattleTagEntities, pull);
+                model.addAttribute("importBattleTagDTOList", toBattleTagDTO(importBattleTagEntities));
             }
         }
 

@@ -1,10 +1,8 @@
 package kr.starbridge.web.domain.bridge.service;
 
-import kr.starbridge.web.domain.bridge.dto.BattleTagDTO;
 import kr.starbridge.web.domain.bridge.dto.BattleTagImportDTO;
 import kr.starbridge.web.domain.bridge.entity.BattleTagEntity;
 import kr.starbridge.web.domain.bridge.entity.BattleTagId;
-import kr.starbridge.web.global.common.response.ApiResult;
 import org.springframework.data.domain.Sort;
 
 import java.lang.reflect.InvocationTargetException;
@@ -20,7 +18,7 @@ public interface BattleTagService {
      * @throws IllegalAccessException
      * @throws InvocationTargetException
      */
-    List<BattleTagDTO> getBattleTagsEx(String id) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException;
+    List<BattleTagEntity> getBattleTagsEx(String id) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException;
 
     /**
      * 블랙리스트 목록
@@ -47,17 +45,17 @@ public interface BattleTagService {
 
     /**
      * 블랙리스트 등록/수정
-     * @param battleTagDTO
+     * @param battleTagEntity
      * @return
      */
-    ApiResult<Object> upsertBattleTag(BattleTagDTO battleTagDTO);
+    BattleTagEntity upsertBattleTag(BattleTagEntity battleTagEntity);
 
     /**
      * 블랙리스트 추출 대상 수정
-     * @param battleTagDTO
+     * @param battleTagEntity
      * @return
      */
-    ApiResult<Object> updateBattleTagExport(BattleTagDTO battleTagDTO);
+    BattleTagEntity updateBattleTagExport(BattleTagEntity battleTagEntity);
 
     /**
      * 배틀태그 중복 체크
@@ -69,23 +67,23 @@ public interface BattleTagService {
 
     /**
      * 추출 허용된 블랙리스트 목록
-     * @param localBattleTagDTOList
-     * @param id
+     * @param battleTagEntities
+     * @param pullId
      * @return
      * @throws InvocationTargetException
      * @throws NoSuchMethodException
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
-    List<BattleTagDTO> getRemoteExportTags(List<BattleTagDTO> localBattleTagDTOList, String id) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
+    List<BattleTagEntity> getRemoteExportTags(List<BattleTagEntity> battleTagEntities, String pullId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
 
     /**
      * 블랙리스트 임포트
      * @param id
-     * @param battleTagImportDTO
+     * @param battleTagEntities
      * @return
      */
-    List<BattleTagEntity> importTags(String id, BattleTagImportDTO battleTagImportDTO);
+    List<BattleTagEntity> importTags(String id, List<BattleTagEntity> battleTagEntities);
 
     /**
      * save

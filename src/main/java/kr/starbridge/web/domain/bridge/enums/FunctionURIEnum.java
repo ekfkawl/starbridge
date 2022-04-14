@@ -21,4 +21,8 @@ public enum FunctionURIEnum {
     FunctionURIEnum(String uri) {
         this.uri = uri;
     }
+
+    public static String Url(FunctionURIEnum s) {
+        return "/bridge/" + s.getUri();
+    }
 }

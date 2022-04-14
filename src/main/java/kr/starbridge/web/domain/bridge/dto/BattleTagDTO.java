@@ -5,18 +5,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mysql.cj.util.StringUtils;
 import kr.starbridge.web.domain.bridge.entity.BattleTagId;
 import kr.starbridge.web.global.Regex;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import static kr.starbridge.web.global.utils.EscapeUtils.*;
 
 @Getter
 @Setter
 @ToString
+@Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
+@AllArgsConstructor
 public class BattleTagDTO {
     /**
      * 아이디/배틀태그

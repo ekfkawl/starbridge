@@ -3,11 +3,11 @@ package kr.starbridge.web.domain.bridge.controller;
 import com.mysql.cj.util.StringUtils;
 import kr.starbridge.web.domain.bridge.dto.BattleTagDTO;
 import kr.starbridge.web.domain.bridge.dto.BattleTagImportDTO;
+import kr.starbridge.web.domain.bridge.entity.BattleTagEntity;
 import kr.starbridge.web.domain.bridge.entity.BattleTagId;
 import kr.starbridge.web.domain.bridge.enums.FunctionURIEnum;
 import kr.starbridge.web.domain.bridge.service.BattleTagService;
 import kr.starbridge.web.domain.member.dto.MemberDTO;
-import kr.starbridge.web.global.Regex;
 import kr.starbridge.web.global.aop.GlobalAdvice;
 import kr.starbridge.web.global.common.enums.ExceptionEnum;
 import kr.starbridge.web.global.common.response.ApiException;
@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Optional;
+
+import static kr.starbridge.web.domain.bridge.mapper.BattleTagMapper.toBattleTagDTO;
+import static kr.starbridge.web.domain.bridge.mapper.BattleTagMapper.toBattleTagEntity;
 
 /**
  * 배틀태그 블랙리스트 컨트롤러
@@ -36,7 +39,7 @@ public class BridgeBattleTagController extends BridgeBaseController {
      * @return
      */
     @PostMapping("/api/battle-tag")
-    public ApiResult<Object> apiUpsertBattleTag(@RequestBody BattleTagDTO battleTagDTO, Model model) {
+    public ApiResult<BattleTagDTO> apiUpsertBattleTag(@RequestBody BattleTagDTO battleTagDTO, Model model) {
 
         if (battleTagDTO.isNotBattleTag()) {
             return new ApiResult<>("올바른 배틀태그 형식이 아닙니다");
@@ -45,7 +48,9 @@ public class BridgeBattleTagController extends BridgeBaseController {
         MemberDTO memberDTO = GlobalAdvice.getSelfInfo(model);
         battleTagDTO.getId().setMemberId(memberDTO.getId());
 
-        return battleTagService.upsertBattleTag(battleTagDTO);
+        BattleTagEntity battleTagEntity = battleTagService.upsertBattleTag(toBattleTagEntity(battleTagDTO));
+
+        return new ApiResult(toBattleTagDTO(battleTagEntity));
     }
 
     /**
@@ -59,7 +64,7 @@ public class BridgeBattleTagController extends BridgeBaseController {
      */
     @GetMapping("/api/battle-tag")
     public ApiResult<List<BattleTagDTO>> apiGetBattleTags(@RequestParam String id) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        return new ApiResult<>(battleTagService.getBattleTagsEx(id));
+        return new ApiResult<>(toBattleTagDTO(battleTagService.getBattleTagsEx(id)));
     }
 
     /**
@@ -69,7 +74,7 @@ public class BridgeBattleTagController extends BridgeBaseController {
      * @return
      */
     @DeleteMapping("/api/battle-tag")
-    public ApiResult<Object> apiDeleteBattleTag(@RequestBody BattleTagId battleTagId, Model model) {
+    public ApiResult<BattleTagId> apiDeleteBattleTag(@RequestBody BattleTagId battleTagId, Model model) {
 
         if (StringUtils.isNullOrEmpty(battleTagId.getTag())) {
             throw new ApiException(ExceptionEnum.RUNTIME_EXCEPTION);
@@ -90,7 +95,7 @@ public class BridgeBattleTagController extends BridgeBaseController {
      * @return
      */
     @PutMapping("/api/battle-tag-export")
-    public ApiResult<Object> apiUpdateBattleTagExport(@RequestBody BattleTagDTO battleTagDTO, Model model) {
+    public ApiResult<List<BattleTagDTO>> apiUpdateBattleTagExport(@RequestBody BattleTagDTO battleTagDTO, Model model) {
 
         if (battleTagDTO.isNotBattleTag()) {
             throw new ApiException(ExceptionEnum.RUNTIME_EXCEPTION);
@@ -99,7 +104,9 @@ public class BridgeBattleTagController extends BridgeBaseController {
         MemberDTO memberDTO = GlobalAdvice.getSelfInfo(model);
         battleTagDTO.getId().setMemberId(memberDTO.getId());
 
-        return battleTagService.updateBattleTagExport(battleTagDTO);
+        BattleTagEntity battleTagEntity = battleTagService.updateBattleTagExport(toBattleTagEntity(battleTagDTO));
+
+        return new ApiResult(toBattleTagDTO(battleTagEntity));
     }
 
     /**
@@ -109,7 +116,7 @@ public class BridgeBattleTagController extends BridgeBaseController {
      * @return
      */
     @PostMapping("/api/battle-tag-import")
-    public ApiResult<Object> apiBattleTagImport(@RequestBody Optional<BattleTagImportDTO> optionalBattleTagImportDTO, Model model) {
+    public ApiResult<List<BattleTagDTO>> apiBattleTagImport(@RequestBody Optional<BattleTagImportDTO> optionalBattleTagImportDTO, Model model) {
 
         if (!optionalBattleTagImportDTO.isPresent()) {
             throw new ApiException(ExceptionEnum.RUNTIME_EXCEPTION);
@@ -118,7 +125,9 @@ public class BridgeBattleTagController extends BridgeBaseController {
 
         MemberDTO memberDTO = GlobalAdvice.getSelfInfo(model);
 
-        return new ApiResult<>(battleTagService.importTags(memberDTO.getId(), battleTagImportDTO), null, "/bridge/" + FunctionURIEnum.URI_BLACKLIST_TAG.getUri());
+        List<BattleTagEntity> battleTagEntities = battleTagService.importTags(memberDTO.getId(), toBattleTagEntity(battleTagImportDTO));
+
+        return new ApiResult<>(toBattleTagDTO(battleTagEntities), null, "/bridge/" + FunctionURIEnum.URI_BLACKLIST_TAG.getUri());
     }
 }
 

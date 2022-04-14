@@ -1,16 +1,12 @@
 package kr.starbridge.web.domain.bridge.service.impl;
 
 import com.mysql.cj.util.StringUtils;
-import kr.starbridge.web.domain.bridge.dto.BattleTagDTO;
-import kr.starbridge.web.domain.bridge.dto.BattleTagImportDTO;
 import kr.starbridge.web.domain.bridge.entity.BattleTagEntity;
 import kr.starbridge.web.domain.bridge.entity.BattleTagId;
 import kr.starbridge.web.domain.bridge.repository.BattleTagRepository;
 import kr.starbridge.web.domain.bridge.service.BattleTagService;
 import kr.starbridge.web.global.common.enums.ExceptionEnum;
 import kr.starbridge.web.global.common.response.ApiException;
-import kr.starbridge.web.global.common.response.ApiResult;
-import kr.starbridge.web.global.utils.BeanSubUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -19,10 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static kr.starbridge.web.global.utils.EscapeUtils.escape;
+import static kr.starbridge.web.domain.bridge.enums.FunctionURIEnum.URI_BLACKLIST_TAG;
+import static kr.starbridge.web.domain.bridge.enums.FunctionURIEnum.Url;
 
 @Service
 @RequiredArgsConstructor
@@ -32,12 +30,8 @@ public class BattleTagServiceImpl implements BattleTagService {
 
     @Transactional
     @Override
-    public List<BattleTagDTO> getBattleTagsEx(String id) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
-
-        List<BattleTagEntity> battleTagEntities = getBattleTags(id, Sort.by(Sort.Direction.DESC, "modifyDt"));
-        List<BattleTagDTO> battleTagDTOList = BeanSubUtils.copyPropertiesForList(battleTagEntities, new ArrayList<>(), BattleTagDTO.class);
-
-        return battleTagDTOList;
+    public List<BattleTagEntity> getBattleTagsEx(String id) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        return getBattleTags(id, Sort.by(Sort.Direction.DESC, "modifyDt"));
     }
 
     @Transactional
@@ -60,22 +54,15 @@ public class BattleTagServiceImpl implements BattleTagService {
 
     @Transactional
     @Override
-    public ApiResult<Object> upsertBattleTag(BattleTagDTO battleTagDTO) {
+    public BattleTagEntity upsertBattleTag(BattleTagEntity battleTagEntity) {
 
         /** 기존에 등록된 배틀태그 인지 */
-        boolean isExistsTag = isExistsTag(battleTagDTO.getId().getMemberId(), battleTagDTO.getId().getTag());
-        if (isExistsTag && !battleTagDTO.getId().getTag().equals(battleTagDTO.getPrevTag())) {
-            return new ApiResult<>("이미 등록된 배틀태그 입니다");
+        boolean isExistsTag = isExistsTag(battleTagEntity.getId().getMemberId(), battleTagEntity.getId().getTag());
+        if (isExistsTag && !battleTagEntity.getId().getTag().equals(battleTagEntity.getPrevTag())) {
+            throw new ApiException(ExceptionEnum.RUNTIME_EXCEPTION);
         }
 
-        BattleTagEntity battleTagEntity = BattleTagEntity.builder()
-                .id(new BattleTagId(battleTagDTO.getId().getMemberId(), battleTagDTO.getId().getTag()))
-                .memo(battleTagDTO.getMemo())
-                .isExport(true)
-                .prevTag(battleTagDTO.getPrevTag())
-                .build();
-
-        if (!StringUtils.isNullOrEmpty(battleTagDTO.getPrevTag())) {
+        if (!StringUtils.isNullOrEmpty(battleTagEntity.getPrevTag())) {
             /** 기존에 존재하면 수정 */
             update(battleTagEntity);
         }else {
@@ -83,21 +70,20 @@ public class BattleTagServiceImpl implements BattleTagService {
             save(battleTagEntity);
         }
 
-        return new ApiResult<>(battleTagDTO);
+        return battleTagEntity;
     }
 
     @Transactional
     @Override
-    public ApiResult<Object> updateBattleTagExport(BattleTagDTO battleTagDTO) {
-        Optional<BattleTagEntity> optionalBattleTagEntity = Optional.ofNullable(getBattleTag(battleTagDTO.getId().getMemberId(), battleTagDTO.getId().getTag()));
+    public BattleTagEntity updateBattleTagExport(BattleTagEntity battleTagEntity) {
+        Optional<BattleTagEntity> optionalBattleTagEntity = Optional.ofNullable(getBattleTag(battleTagEntity.getId().getMemberId(), battleTagEntity.getId().getTag()));
         if (!optionalBattleTagEntity.isPresent()) {
             throw new ApiException(ExceptionEnum.RUNTIME_EXCEPTION);
         }
-        BattleTagEntity battleTagEntity = optionalBattleTagEntity.get();
-        battleTagEntity.setExport(battleTagDTO.isExport());
-        save(battleTagEntity);
+        BattleTagEntity saveBattleTagEntity = optionalBattleTagEntity.get();
+        saveBattleTagEntity.setExport(battleTagEntity.isExport());
 
-        return new ApiResult<>(battleTagDTO);
+        return save(saveBattleTagEntity);
     }
 
     @Transactional
@@ -108,37 +94,32 @@ public class BattleTagServiceImpl implements BattleTagService {
 
     @Transactional
     @Override
-    public List<BattleTagDTO> getRemoteExportTags(List<BattleTagDTO> localBattleTagDTOList, String id) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public List<BattleTagEntity> getRemoteExportTags(List<BattleTagEntity> battleTagEntities, String pullId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 
-        List<BattleTagDTO> remoteBattleTagDTOList = getBattleTagsEx(id).stream()
+        List<BattleTagEntity> remoteBattleTagEntities = getBattleTagsEx(pullId).stream()
                 .filter(f -> f.isExport())
                 .collect(Collectors.toList());
 
         /** 로컬과 중복안되는 배틀태그 */
-        return remoteBattleTagDTOList.stream()
-                .filter(local -> localBattleTagDTOList.stream()
+        return remoteBattleTagEntities.stream()
+                .filter(local -> battleTagEntities.stream()
                         .noneMatch(f -> f.getId().getTag().equals(local.getId().getTag())))
                 .collect(Collectors.toList());
     }
 
     @Transactional
     @Override
-    public List<BattleTagEntity> importTags(String id, BattleTagImportDTO battleTagImportDTO) {
-        /** 파라미터 NullOrEmpty 체크 */
-        if (StringUtils.isNullOrEmpty(battleTagImportDTO.getId())) {
-            throw new ApiException(ExceptionEnum.RUNTIME_EXCEPTION);
-        }
-        List<Long> seqList = battleTagImportDTO.getSeq();
-        if (seqList.size() <= 0) {
-            throw new ApiException(ExceptionEnum.RUNTIME_EXCEPTION);
-        }
-
+    public List<BattleTagEntity> importTags(String id, List<BattleTagEntity> battleTagEntities) {
         List<BattleTagEntity> impBattleTagEntities = new ArrayList<>();
 
+        if (battleTagEntities.size() <= 0) {
+            throw new ApiException(ExceptionEnum.RUNTIME_EXCEPTION.setMessage(String.format("*href=%s", Url(URI_BLACKLIST_TAG))));
+        }
+
         /** import 대상 시퀀스와 일치하는 배틀태그 */
-        getBattleTags(battleTagImportDTO.getId()).stream()
-                .filter(imp -> seqList.stream()
-                        .anyMatch(f -> f.equals(imp.getSeq())))
+        getBattleTags(battleTagEntities.get(0).getId().getMemberId()).stream()
+                .filter(imp -> battleTagEntities.stream()
+                        .anyMatch(f -> Objects.equals(f.getSeq(), imp.getSeq())))
                 .forEach(p -> {
                     BattleTagEntity battleTagEntity = BattleTagEntity.builder()
                             .id(new BattleTagId(id, p.getId().getTag()))
