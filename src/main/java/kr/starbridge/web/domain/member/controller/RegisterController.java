@@ -1,6 +1,7 @@
 package kr.starbridge.web.domain.member.controller;
 
 import kr.starbridge.web.domain.member.dto.MemberRegisterDTO;
+import kr.starbridge.web.domain.member.mapper.MemberMapper;
 import kr.starbridge.web.domain.member.service.MemberService;
 import kr.starbridge.web.global.common.response.ApiResult;
 import kr.starbridge.web.global.common.response.ValidationSequence;
@@ -39,8 +40,7 @@ public class RegisterController {
      */
     @PostMapping("/api/register")
     public ApiResult<Object> apiRegister(@Validated(ValidationSequence.class) @RequestBody MemberRegisterDTO registerDTO) throws IOException {
-
-        return memberService.register(registerDTO);
+        return memberService.register(MemberMapper.toMemberEntity(registerDTO), registerDTO.getGRecaptchaResponse());
     }
 
 }

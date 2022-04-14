@@ -56,7 +56,8 @@
 <script src=https://code.jquery.com/jquery-3.6.0.js integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin=anonymous></script>
 <script th:src="@{|/js/valid.js?t=${tick}|}"></script>
 <script th:src="@{|/js/common.js?t=${tick}|}"></script>
-<script type=text/javascript>function loadFile(a) {
+<script th:inline="javascript">
+function loadFile(a) {
     var b = a.files[0];
     var e = document.createElement("img");
     e.setAttribute("class", "img");
@@ -95,6 +96,7 @@ $('#modify-btn').click(function () {
     let pw2 = $("#pw2").val();
     if (pw1 && pw2 && name) {
         _put('api/modify', {
+            prev_name: [[${memberDTO.name}]],
             name: name,
             pw1: pw1,
             pw2: pw2

@@ -3,6 +3,7 @@ package kr.starbridge.web.domain.member.controller;
 import com.mysql.cj.util.StringUtils;
 import kr.starbridge.web.domain.member.dto.MemberDTO;
 import kr.starbridge.web.domain.member.dto.MemberModifyDTO;
+import kr.starbridge.web.domain.member.mapper.MemberMapper;
 import kr.starbridge.web.domain.member.service.MemberService;
 import kr.starbridge.web.global.aop.GlobalAdvice;
 import kr.starbridge.web.global.common.response.ApiException;
@@ -50,7 +51,9 @@ public class ModifyController {
             throw new ApiException(RUNTIME_EXCEPTION);
         }
 
-        return memberService.modify(modifyDTO, oldMemberDTO);
+        modifyDTO.setId(oldMemberDTO.getId());
+        modifyDTO.setAuth(oldMemberDTO.getAuth());
+        return memberService.modify(MemberMapper.toMemberEntity(modifyDTO));
     }
 
 }

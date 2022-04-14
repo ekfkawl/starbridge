@@ -1,8 +1,5 @@
 package kr.starbridge.web.domain.member.service;
 
-import kr.starbridge.web.domain.member.dto.MemberDTO;
-import kr.starbridge.web.domain.member.dto.MemberModifyDTO;
-import kr.starbridge.web.domain.member.dto.MemberRegisterDTO;
 import kr.starbridge.web.domain.member.entity.MemberEntity;
 import kr.starbridge.web.global.common.response.ApiResult;
 
@@ -13,11 +10,12 @@ public interface MemberService {
 
     /**
      * 회원 가입
-     * @param registerDTO
+     * @param memberEntity
+     * @param recaptcha
      * @return
      * @throws IOException
      */
-    ApiResult<Object> register(MemberRegisterDTO registerDTO) throws IOException;
+    ApiResult<Object> register(MemberEntity memberEntity, String recaptcha) throws IOException;
 
     /**
      * 회원 정보
@@ -48,11 +46,10 @@ public interface MemberService {
 
     /**
      * 회원 정보 수정
-     * @param modifyDTO
-     * @param oldMemberDTO
+     * @param memberEntity
      * @return
      */
-    ApiResult<Object> modify(MemberModifyDTO modifyDTO, MemberDTO oldMemberDTO);
+    ApiResult<Object> modify(MemberEntity memberEntity);
 
     /**
      * save
