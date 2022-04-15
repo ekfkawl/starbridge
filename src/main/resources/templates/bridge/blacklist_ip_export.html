@@ -1,0 +1,28 @@
+<div th:fragment=content>
+<div id=con-tag>
+<span>해시(클릭시 복사) </span>
+<a href="#"><span id="localhash" th:text="${memberDTO.id}"></span></a>
+<button class="btn btn-primary btn-sm ml-3" style="float: right" th:onclick="location.href='/bridge/blacklist-ip'">
+<i class="fa fa-reply"></i>
+</button>
+<hr />
+<div class=table-editor id=table_1 data-entries=10 data-entries-options="[10, 20, 30, 100]">
+<table>
+<thead>
+<tr>
+<th>✔</th>
+<th class=th-sm data-width=150>IP Hash</th>
+<th class=th-sm data-width=300 data-sort=false>Memo</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="i : ${ipDTOList}">
+<td><input type="checkbox" class="form-check-input" th:checked="${i.isExport}"></td>
+<td th:utext=${i.id.hash}></td>
+<td th:utext=${i.memo}></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>

@@ -1,0 +1,55 @@
+<div th:fragment=content>
+<div id=con-tag>
+<div role=listitem class=w-dyn-item>
+<div class=faq-background>
+<div class=faq-content>
+<div class=faq-button>
+<div class=faq-question-container>
+<h3 class=faq-question>
+<font style=vertical-align:inherit><font style=vertical-align:inherit>TIP</font></font>
+</h3>
+</div>
+<img th:src="@{|/image/arrow-icon.svg?t=${tick}|}" loading=lazy class=faq-arrow style="transform:translate3d(0px,0px,0px) scale3d(1,1,1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg,0deg);transform-style:preserve-3d">
+</div>
+<div class=faq-answer-container style=height:0>
+<ul style=list-style-type:square>
+<li><p class=faq-answer><font style=vertical-align:inherit>방장일 경우에만 적용됩니다.<font style=vertical-align:inherit></font></font></p></li>
+<li><p class=faq-answer><font style=vertical-align:inherit>아이피 해시를 등록하여 특정 유저의 입장이 불가능하게 만듭니다.<font style=vertical-align:inherit></font></font></p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="d-flex justify-content-end mb-4">
+<div class=form-outline>
+<input data-search data-target=#table_1 type=text id=search_table_1 class=form-control /> <label class=form-label for=search_table_1>검색</label>
+</div>
+<button class="btn btn-primary btn-sm ml-3" data-add-entry data-target=#table_1>
+<i class="fa fa-plus"></i>
+</button>
+<button class="btn btn-primary btn-sm ml-3" onclick="getIpsByHash()">
+<i class="fa fa-folder-open"></i>
+</button>
+<button class="btn btn-primary btn-sm ml-3" th:onclick="|location.href='@{/bridge/blacklist-ip-export}'|">
+<i class="fa fa-file-upload"></i>
+</button>
+</div>
+<hr />
+<div class=table-editor id=table_1 data-entries=10 data-entries-options="[10, 20, 30, 100]">
+<table>
+<thead>
+<tr>
+<th class=th-sm data-width=150>IP Hash</th>
+<th class=th-sm data-width=300 data-sort=false>Memo</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="i : ${ipDTOList}">
+<td th:utext=${i.id.hash}></td>
+<td th:utext=${i.memo}></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
