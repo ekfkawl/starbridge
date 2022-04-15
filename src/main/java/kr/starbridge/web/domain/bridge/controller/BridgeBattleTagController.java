@@ -2,7 +2,7 @@ package kr.starbridge.web.domain.bridge.controller;
 
 import com.mysql.cj.util.StringUtils;
 import kr.starbridge.web.domain.bridge.dto.BattleTagDTO;
-import kr.starbridge.web.domain.bridge.dto.BattleTagImportDTO;
+import kr.starbridge.web.domain.bridge.dto.CommonImportDTO;
 import kr.starbridge.web.domain.bridge.entity.BattleTagEntity;
 import kr.starbridge.web.domain.bridge.enums.FunctionURIEnum;
 import kr.starbridge.web.domain.bridge.mapper.BattleTagMapper;
@@ -16,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,13 +50,9 @@ public class BridgeBattleTagController extends BridgeBaseController {
      * 조회
      * @param id
      * @return
-     * @throws InvocationTargetException
-     * @throws NoSuchMethodException
-     * @throws InstantiationException
-     * @throws IllegalAccessException
      */
     @GetMapping("/api/battle-tag")
-    public ApiResult<List<BattleTagDTO>> apiGetBattleTags(@RequestParam String id) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public ApiResult<List<BattleTagDTO>> apiGetBattleTags(@RequestParam String id) {
         return new ApiResult<>(toBattleTagDTO(battleTagService.getBattleTagsEx(id)));
     }
 
@@ -87,7 +82,7 @@ public class BridgeBattleTagController extends BridgeBaseController {
      * @return
      */
     @PutMapping("/api/battle-tag-export")
-    public ApiResult<List<BattleTagDTO>> apiUpdateBattleTagExport(@RequestBody BattleTagDTO battleTagDTO) {
+    public ApiResult<List<BattleTagDTO>> apiUpdateBattleTagExport(@Valid @RequestBody BattleTagDTO battleTagDTO) {
         MemberDTO memberDTO = SecurityUtils.getSelfInfo();
         battleTagDTO.getId().setMemberId(memberDTO.getId());
 
@@ -98,22 +93,22 @@ public class BridgeBattleTagController extends BridgeBaseController {
 
     /**
      * 블랙리스트 임포트
-     * @param optionalBattleTagImportDTO
+     * @param optionalCommonImportDTO
      * @return
      */
     @PostMapping("/api/battle-tag-import")
-    public ApiResult<List<BattleTagDTO>> apiBattleTagImport(@RequestBody Optional<BattleTagImportDTO> optionalBattleTagImportDTO) {
+    public ApiResult<List<BattleTagDTO>> apiBattleTagImport(@RequestBody Optional<CommonImportDTO> optionalCommonImportDTO) {
 
-        if (!optionalBattleTagImportDTO.isPresent()) {
+        if (!optionalCommonImportDTO.isPresent()) {
             throw new ApiException(ExceptionEnum.RUNTIME_EXCEPTION);
         }
-        BattleTagImportDTO battleTagImportDTO = optionalBattleTagImportDTO.get();
+        CommonImportDTO commonImportDTO = optionalCommonImportDTO.get();
 
         MemberDTO memberDTO = SecurityUtils.getSelfInfo();
 
-        List<BattleTagEntity> battleTagEntities = battleTagService.importTags(memberDTO.getId(), toBattleTagEntity(battleTagImportDTO));
+        List<BattleTagEntity> battleTagEntities = battleTagService.importTags(memberDTO.getId(), toBattleTagEntity(commonImportDTO));
 
-        return new ApiResult<>(toBattleTagDTO(battleTagEntities), null, "/bridge/" + FunctionURIEnum.URI_BLACKLIST_TAG.getUri());
+        return new ApiResult<>(toBattleTagDTO(battleTagEntities), null, FunctionURIEnum.Url(FunctionURIEnum.URI_BLACKLIST_TAG));
     }
 }
 

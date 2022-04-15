@@ -2,14 +2,11 @@ package kr.starbridge.web.domain.bridge.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.mysql.cj.util.StringUtils;
 import kr.starbridge.web.domain.bridge.entity.BattleTagId;
 import kr.starbridge.web.domain.bridge.validator.annotation.BridgeNotExists;
-import kr.starbridge.web.global.Regex;
 import lombok.*;
 
 import static kr.starbridge.web.global.utils.EscapeUtils.escape;
-import static kr.starbridge.web.global.utils.EscapeUtils.unescape;
 
 @Getter
 @Setter

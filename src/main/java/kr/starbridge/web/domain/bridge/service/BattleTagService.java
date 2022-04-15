@@ -1,11 +1,8 @@
 package kr.starbridge.web.domain.bridge.service;
 
-import kr.starbridge.web.domain.bridge.dto.BattleTagImportDTO;
 import kr.starbridge.web.domain.bridge.entity.BattleTagEntity;
-import kr.starbridge.web.domain.bridge.entity.BattleTagId;
 import org.springframework.data.domain.Sort;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public interface BattleTagService {
@@ -13,12 +10,8 @@ public interface BattleTagService {
      * 블랙리스트 목록
      * @param id
      * @return
-     * @throws NoSuchMethodException
-     * @throws InstantiationException
-     * @throws IllegalAccessException
-     * @throws InvocationTargetException
      */
-    List<BattleTagEntity> getBattleTagsEx(String id) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException;
+    List<BattleTagEntity> getBattleTagsEx(String id);
 
     /**
      * 블랙리스트 목록
@@ -70,12 +63,8 @@ public interface BattleTagService {
      * @param battleTagEntities
      * @param pullId
      * @return
-     * @throws InvocationTargetException
-     * @throws NoSuchMethodException
-     * @throws InstantiationException
-     * @throws IllegalAccessException
      */
-    List<BattleTagEntity> getRemoteExportTags(List<BattleTagEntity> battleTagEntities, String pullId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
+    List<BattleTagEntity> getRemoteExportTags(List<BattleTagEntity> battleTagEntities, String pullId);
 
     /**
      * 블랙리스트 임포트

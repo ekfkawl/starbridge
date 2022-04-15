@@ -12,7 +12,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,7 +29,7 @@ public class BattleTagServiceImpl implements BattleTagService {
 
     @Transactional
     @Override
-    public List<BattleTagEntity> getBattleTagsEx(String id) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    public List<BattleTagEntity> getBattleTagsEx(String id) {
         return getBattleTags(id, Sort.by(Sort.Direction.DESC, "modifyDt"));
     }
 
@@ -87,7 +86,7 @@ public class BattleTagServiceImpl implements BattleTagService {
 
     @Transactional
     @Override
-    public List<BattleTagEntity> getRemoteExportTags(List<BattleTagEntity> battleTagEntities, String pullId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public List<BattleTagEntity> getRemoteExportTags(List<BattleTagEntity> battleTagEntities, String pullId) {
 
         List<BattleTagEntity> remoteBattleTagEntities = getBattleTagsEx(pullId).stream()
                 .filter(f -> f.isExport())

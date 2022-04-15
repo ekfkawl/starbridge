@@ -1,7 +1,7 @@
 package kr.starbridge.web.domain.bridge.mapper;
 
 import kr.starbridge.web.domain.bridge.dto.BattleTagDTO;
-import kr.starbridge.web.domain.bridge.dto.BattleTagImportDTO;
+import kr.starbridge.web.domain.bridge.dto.CommonImportDTO;
 import kr.starbridge.web.domain.bridge.entity.BattleTagEntity;
 import kr.starbridge.web.domain.bridge.entity.BattleTagId;
 
@@ -20,7 +20,7 @@ public class BattleTagMapper {
         return BattleTagEntity.builder()
                 .id(new BattleTagId(battleTagDTO.getId().getMemberId(), battleTagDTO.getId().getTag()))
                 .memo(battleTagDTO.getMemo())
-                .isExport(true)
+                .isExport(battleTagDTO.isExport())
                 .prevTag(battleTagDTO.getPrevTag())
                 .build();
     }
@@ -39,16 +39,16 @@ public class BattleTagMapper {
     }
 
     /**
-     * BattleTagImportDTO -> Entity
-     * @param battleTagImportDTOList
+     * CommonImportDTO -> Entity
+     * @param commonImportDTOList
      * @return
      */
-    public static List<BattleTagEntity> toBattleTagEntity(BattleTagImportDTO battleTagImportDTOList) {
+    public static List<BattleTagEntity> toBattleTagEntity(CommonImportDTO commonImportDTOList) {
         List<BattleTagEntity> res = new ArrayList<>();
-        List<Long> seq = battleTagImportDTOList.getSeq();
+        List<Long> seq = commonImportDTOList.getSeq();
         for (Long i : seq) {
             res.add(BattleTagEntity.builder()
-                    .id(new BattleTagId(battleTagImportDTOList.getId(), null))
+                    .id(new BattleTagId(commonImportDTOList.getId(), null))
                     .seq(i)
                     .build());
         }
