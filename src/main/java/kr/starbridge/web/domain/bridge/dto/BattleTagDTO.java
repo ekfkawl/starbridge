@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mysql.cj.util.StringUtils;
 import kr.starbridge.web.domain.bridge.entity.BattleTagId;
+import kr.starbridge.web.domain.bridge.validator.annotation.BridgeNotExists;
 import kr.starbridge.web.global.Regex;
 import lombok.*;
 
-import static kr.starbridge.web.global.utils.EscapeUtils.*;
+import static kr.starbridge.web.global.utils.EscapeUtils.escape;
+import static kr.starbridge.web.global.utils.EscapeUtils.unescape;
 
 @Getter
 @Setter
@@ -16,6 +18,7 @@ import static kr.starbridge.web.global.utils.EscapeUtils.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 @AllArgsConstructor
+@BridgeNotExists(reference = BattleTagDTO.class)
 public class BattleTagDTO {
     /**
      * 아이디/배틀태그
@@ -51,14 +54,5 @@ public class BattleTagDTO {
 
     public String getMemo() {
         return escape(memo);
-    }
-
-    /**
-     * 배틀태그 유효성 체크
-     * @return
-     */
-    public boolean isNotBattleTag() {
-        String tag = unescape(this.id.getTag());
-        return StringUtils.isNullOrEmpty(tag) || !tag.matches(Regex.BATTLE_TAG);
     }
 }
