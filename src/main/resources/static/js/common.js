@@ -73,3 +73,5 @@ function getParameterByName(name, url = window.location.href) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+var MD5_HASH = /^[A-Za-z0-9]{32,32}$/;

@@ -29,7 +29,9 @@ $(document).on("click", ".delete-button", function() {
     var c = $(this).parent().parent();
     var d = c.children().eq(0).text();
     _delete("../bridge/api/battle-tag", {
-        tag: d
+        id: {
+            tag: d
+        }
     })
 });
 
@@ -39,7 +41,7 @@ function getTags() {
 
 function getTagsByHash() {
     var input = prompt('임포트 대상의 해시를 입력해주세요');
-    if (input && input.length == 32) {
+    if (input && MD5_HASH.test(input)) {
         location.href=`/bridge/blacklist-tag-import?pull=${input}`;
     }
 }
