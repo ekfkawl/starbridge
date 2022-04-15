@@ -17,7 +17,8 @@ $(document).on("click", ".save-button", function() {
         id: {
             tag: g
         },
-        memo: e
+        memo: e,
+        is_export: true
     });
 });
 
