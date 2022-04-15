@@ -3,7 +3,7 @@ package kr.starbridge.web.domain.member.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import kr.starbridge.web.domain.member.enums.RoleEnum;
-import kr.starbridge.web.domain.member.validator.annotation.NotExists;
+import kr.starbridge.web.domain.member.validator.annotation.MemberNotExists;
 import kr.starbridge.web.global.Regex;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +18,7 @@ import static kr.starbridge.web.global.common.response.ValidationGroups.SizeGrou
 @Getter
 @Setter
 @ToString
-@NotExists(reference = MemberModifyDTO.class)
+@MemberNotExists(reference = MemberModifyDTO.class)
 public class MemberModifyDTO extends MemberMD5DTO {
     /**
      * 아이디

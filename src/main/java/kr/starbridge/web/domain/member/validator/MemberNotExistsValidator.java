@@ -4,17 +4,16 @@ import com.mysql.cj.util.StringUtils;
 import kr.starbridge.web.domain.member.dto.MemberModifyDTO;
 import kr.starbridge.web.domain.member.dto.MemberRegisterDTO;
 import kr.starbridge.web.domain.member.service.MemberService;
-import kr.starbridge.web.domain.member.validator.annotation.NotExists;
+import kr.starbridge.web.domain.member.validator.annotation.MemberNotExists;
 import kr.starbridge.web.global.common.enums.ExceptionEnum;
 import kr.starbridge.web.global.common.response.ApiException;
-import kr.starbridge.web.global.common.response.ApiResult;
 import lombok.RequiredArgsConstructor;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 @RequiredArgsConstructor
-public class NotExistsValidator implements ConstraintValidator<NotExists, Object>  {
+public class MemberNotExistsValidator implements ConstraintValidator<MemberNotExists, Object>  {
 
     private final MemberService memberService;
 
@@ -25,7 +24,7 @@ public class NotExistsValidator implements ConstraintValidator<NotExists, Object
     public final static String VIOLATION_NOT_EQUALS_PW = "비밀번호와 비밀번호 확인란이 동일하지 않습니다";
 
     @Override
-    public void initialize(NotExists constraintAnnotation) {
+    public void initialize(MemberNotExists constraintAnnotation) {
         reference = constraintAnnotation.reference();
     }
 
