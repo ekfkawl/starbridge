@@ -8,14 +8,14 @@ import kr.starbridge.web.domain.bridge.entity.BattleTagId;
 import kr.starbridge.web.domain.bridge.enums.FunctionURIEnum;
 import kr.starbridge.web.domain.bridge.service.BattleTagService;
 import kr.starbridge.web.domain.member.dto.MemberDTO;
-import kr.starbridge.web.global.aop.GlobalAdvice;
 import kr.starbridge.web.global.common.enums.ExceptionEnum;
 import kr.starbridge.web.global.common.response.ApiException;
 import kr.starbridge.web.global.common.response.ApiResult;
+import kr.starbridge.web.global.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Optional;
@@ -35,17 +35,16 @@ public class BridgeBattleTagController extends BridgeBaseController {
     /**
      * 등록/수정
      * @param battleTagDTO
-     * @param model
      * @return
      */
     @PostMapping("/api/battle-tag")
-    public ApiResult<BattleTagDTO> apiUpsertBattleTag(@RequestBody BattleTagDTO battleTagDTO, Model model) {
+    public ApiResult<BattleTagDTO> apiUpsertBattleTag(@Valid @RequestBody BattleTagDTO battleTagDTO) {
 
         if (battleTagDTO.isNotBattleTag()) {
             return new ApiResult<>("올바른 배틀태그 형식이 아닙니다");
         }
 
-        MemberDTO memberDTO = GlobalAdvice.getSelfInfo(model);
+        MemberDTO memberDTO = SecurityUtils.getSelfInfo();
         battleTagDTO.getId().setMemberId(memberDTO.getId());
 
         BattleTagEntity battleTagEntity = battleTagService.upsertBattleTag(toBattleTagEntity(battleTagDTO));
@@ -70,17 +69,16 @@ public class BridgeBattleTagController extends BridgeBaseController {
     /**
      * 삭제
      * @param battleTagId
-     * @param model
      * @return
      */
     @DeleteMapping("/api/battle-tag")
-    public ApiResult<BattleTagId> apiDeleteBattleTag(@RequestBody BattleTagId battleTagId, Model model) {
+    public ApiResult<BattleTagId> apiDeleteBattleTag(@RequestBody BattleTagId battleTagId) {
 
         if (StringUtils.isNullOrEmpty(battleTagId.getTag())) {
             throw new ApiException(ExceptionEnum.RUNTIME_EXCEPTION);
         }
 
-        MemberDTO memberDTO = GlobalAdvice.getSelfInfo(model);
+        MemberDTO memberDTO = SecurityUtils.getSelfInfo();
         battleTagId.setMemberId(memberDTO.getId());
 
         battleTagService.delete(battleTagId);
@@ -91,17 +89,16 @@ public class BridgeBattleTagController extends BridgeBaseController {
     /**
      * 블랙리스트 추출 대상 수정
      * @param battleTagDTO
-     * @param model
      * @return
      */
     @PutMapping("/api/battle-tag-export")
-    public ApiResult<List<BattleTagDTO>> apiUpdateBattleTagExport(@RequestBody BattleTagDTO battleTagDTO, Model model) {
+    public ApiResult<List<BattleTagDTO>> apiUpdateBattleTagExport(@RequestBody BattleTagDTO battleTagDTO) {
 
         if (battleTagDTO.isNotBattleTag()) {
             throw new ApiException(ExceptionEnum.RUNTIME_EXCEPTION);
         }
 
-        MemberDTO memberDTO = GlobalAdvice.getSelfInfo(model);
+        MemberDTO memberDTO = SecurityUtils.getSelfInfo();
         battleTagDTO.getId().setMemberId(memberDTO.getId());
 
         BattleTagEntity battleTagEntity = battleTagService.updateBattleTagExport(toBattleTagEntity(battleTagDTO));
@@ -112,18 +109,17 @@ public class BridgeBattleTagController extends BridgeBaseController {
     /**
      * 블랙리스트 임포트
      * @param optionalBattleTagImportDTO
-     * @param model
      * @return
      */
     @PostMapping("/api/battle-tag-import")
-    public ApiResult<List<BattleTagDTO>> apiBattleTagImport(@RequestBody Optional<BattleTagImportDTO> optionalBattleTagImportDTO, Model model) {
+    public ApiResult<List<BattleTagDTO>> apiBattleTagImport(@RequestBody Optional<BattleTagImportDTO> optionalBattleTagImportDTO) {
 
         if (!optionalBattleTagImportDTO.isPresent()) {
             throw new ApiException(ExceptionEnum.RUNTIME_EXCEPTION);
         }
         BattleTagImportDTO battleTagImportDTO = optionalBattleTagImportDTO.get();
 
-        MemberDTO memberDTO = GlobalAdvice.getSelfInfo(model);
+        MemberDTO memberDTO = SecurityUtils.getSelfInfo();
 
         List<BattleTagEntity> battleTagEntities = battleTagService.importTags(memberDTO.getId(), toBattleTagEntity(battleTagImportDTO));
 

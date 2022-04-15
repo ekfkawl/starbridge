@@ -5,12 +5,11 @@ import kr.starbridge.web.domain.member.dto.MemberDTO;
 import kr.starbridge.web.domain.member.dto.MemberModifyDTO;
 import kr.starbridge.web.domain.member.mapper.MemberMapper;
 import kr.starbridge.web.domain.member.service.MemberService;
-import kr.starbridge.web.global.aop.GlobalAdvice;
 import kr.starbridge.web.global.common.response.ApiException;
 import kr.starbridge.web.global.common.response.ApiResult;
 import kr.starbridge.web.global.common.response.ValidationSequence;
+import kr.starbridge.web.global.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -43,10 +42,10 @@ public class ModifyController {
      * @return
      */
     @PutMapping("/api/modify")
-    public ApiResult<Object> apiModify(@Validated(ValidationSequence.class) @RequestBody MemberModifyDTO modifyDTO, Model model) {
+    public ApiResult<Object> apiModify(@Validated(ValidationSequence.class) @RequestBody MemberModifyDTO modifyDTO) {
 
         /** 로그인 정보 */
-        MemberDTO oldMemberDTO = GlobalAdvice.getSelfInfo(model);
+        MemberDTO oldMemberDTO = SecurityUtils.getSelfInfo();
         if (StringUtils.isNullOrEmpty(oldMemberDTO.getId())) {
             throw new ApiException(RUNTIME_EXCEPTION);
         }
