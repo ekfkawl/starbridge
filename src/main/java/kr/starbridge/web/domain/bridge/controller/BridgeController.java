@@ -1,7 +1,9 @@
 package kr.starbridge.web.domain.bridge.controller;
 
 import kr.starbridge.web.domain.bridge.entity.BattleTagEntity;
+import kr.starbridge.web.domain.bridge.entity.IpEntity;
 import kr.starbridge.web.domain.bridge.service.BattleTagService;
+import kr.starbridge.web.domain.bridge.service.IpService;
 import kr.starbridge.web.domain.member.dto.MemberDTO;
 import kr.starbridge.web.global.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
@@ -11,12 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import static kr.starbridge.web.domain.bridge.enums.FunctionURIEnum.URI_BLACKLIST_TAG;
-import static kr.starbridge.web.domain.bridge.enums.FunctionURIEnum.URI_BLACKLIST_TAG_IMPORT;
+import static kr.starbridge.web.domain.bridge.enums.FunctionURIEnum.*;
 import static kr.starbridge.web.domain.bridge.mapper.BattleTagMapper.toBattleTagDTO;
+import static kr.starbridge.web.domain.bridge.mapper.IpMapper.toIpDTO;
 
 /**
  * bridge 도구 페이지 컨트롤러
@@ -26,10 +27,11 @@ import static kr.starbridge.web.domain.bridge.mapper.BattleTagMapper.toBattleTag
 public class BridgeController extends BridgeBaseController {
 
     private final BattleTagService battleTagService;
+    private final IpService ipService;
 
     @GetMapping("/{function}")
     public ModelAndView bridge(@PathVariable(name = "function") String function,
-                               @RequestParam(required = false, defaultValue = "") String pull) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+                               @RequestParam(required = false, defaultValue = "") String pull) {
 
         ModelAndView mv = new ModelAndView("bridge");
 
@@ -46,6 +48,19 @@ public class BridgeController extends BridgeBaseController {
                 /** import 대상의 추출 허용 배틀태그 리스트 */
                 List<BattleTagEntity> importBattleTagEntities = battleTagService.getRemoteExportTags(localBattleTagEntities, pull);
                 mv.addObject("importBattleTagDTOList", toBattleTagDTO(importBattleTagEntities));
+            }
+        }
+
+        /** 아이피 해시 관련 view */
+        if (function.contains(URI_BLACKLIST_IP.getUri())) {
+            List<IpEntity> localIpEntities = ipService.getHashesEx(memberDTO.getId());
+            mv.addObject("ipDTOList", toIpDTO(localIpEntities));
+
+            /** 아이피 해시 import view */
+            if (URI_BLACKLIST_IP_IMPORT.getUri().equals(function)) {
+                /** import 대상의 추출 허용 배틀태그 리스트 */
+                List<IpEntity> importIpEntities = ipService.getRemoteExportHashes(localIpEntities, pull);
+                mv.addObject("importIpDTOList", toIpDTO(importIpEntities));
             }
         }
 
