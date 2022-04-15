@@ -65,6 +65,10 @@ function copyToClipboard(val) {
     document.body.removeChild(t);
 }
 
+$(document).on("click", "#localhash", function() {
+    copyToClipboard($(this).text());
+});
+
 function getParameterByName(name, url = window.location.href) {
     name = name.replace(/[\[\]]/g, '\\$&');
     var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
