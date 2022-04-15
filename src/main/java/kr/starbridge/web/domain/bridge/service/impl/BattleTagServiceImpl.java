@@ -55,13 +55,6 @@ public class BattleTagServiceImpl implements BattleTagService {
     @Transactional
     @Override
     public BattleTagEntity upsertBattleTag(BattleTagEntity battleTagEntity) {
-
-        /** 기존에 등록된 배틀태그 인지 */
-        boolean isExistsTag = isExistsTag(battleTagEntity.getId().getMemberId(), battleTagEntity.getId().getTag());
-        if (isExistsTag && !battleTagEntity.getId().getTag().equals(battleTagEntity.getPrevTag())) {
-            throw new ApiException(ExceptionEnum.RUNTIME_EXCEPTION);
-        }
-
         if (!StringUtils.isNullOrEmpty(battleTagEntity.getPrevTag())) {
             /** 기존에 존재하면 수정 */
             update(battleTagEntity);
@@ -152,7 +145,7 @@ public class BattleTagServiceImpl implements BattleTagService {
 
     @Transactional
     @Override
-    public void delete(BattleTagId battleTagId) {
-        battleTagRepository.deleteById(battleTagId);
+    public void delete(BattleTagEntity battleTagEntity) {
+        battleTagRepository.delete(battleTagEntity);
     }
 }

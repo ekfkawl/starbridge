@@ -108,7 +108,7 @@ public interface BattleTagService {
 
     /**
      * delete
-     * @param battleTagId
+     * @param battleTagEntity
      */
-    void delete(BattleTagId battleTagId);
+    void delete(BattleTagEntity battleTagEntity);
 }
