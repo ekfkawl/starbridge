@@ -27,7 +27,7 @@ public class RoomFilterDTO {
     /**
      * 이전 배틀태그
      */
-    @JsonProperty("prev_hash")
+    @JsonProperty("prev_keyword")
     private String prevKeyword;
     /**
      * 추출 허용
