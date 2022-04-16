@@ -5,7 +5,7 @@
     <th:block th:include="components/base :: base(true)"></th:block>
     <style type=text/css>.hiw-steps{max-width:180px}hr{margin-bottom:120px}.f-highlight{color:#47c83e;font-style:italic}</style>
 </head>
-<body>
+<body th:with="is_login=not ${#strings.isEmpty(memberDTO.id)}">
 <header th:include="components/header :: header"></header>
 <div class="container benefits w-container" style=margin-top:100px>
 <img th:src="@{|/image/logo64.png?t=${tick}|}" alt>
@@ -14,7 +14,7 @@
 <strong class=bold-text-9>스타브리지</strong><br>
 </h3>
 <p class="about-why-text paragraph-2 resources">
-R&D: kakaovalue@naver.com<br><br>
+R&D: ekfkawl0@naver.com<br><br>
 스타브리지는 Windows에 무해합니다. 일부 백신 프로그램은 실수로 트로이 목마/바이러스로 선택합니다.
 설치하는 동안 문제가 발생하거나 작동하지 않으면 스타브리지를 설치하거나 실행하기 전에 백신을 비활성화 하십시오.
 </p>
