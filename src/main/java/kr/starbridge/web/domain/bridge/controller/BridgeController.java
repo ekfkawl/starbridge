@@ -3,9 +3,11 @@ package kr.starbridge.web.domain.bridge.controller;
 import kr.starbridge.web.domain.bridge.entity.BattleTagEntity;
 import kr.starbridge.web.domain.bridge.entity.IpEntity;
 import kr.starbridge.web.domain.bridge.entity.RoomFilterEntity;
+import kr.starbridge.web.domain.bridge.entity.RoomRoleEntity;
 import kr.starbridge.web.domain.bridge.service.BattleTagService;
 import kr.starbridge.web.domain.bridge.service.IpService;
 import kr.starbridge.web.domain.bridge.service.RoomFilterService;
+import kr.starbridge.web.domain.bridge.service.RoomRoleService;
 import kr.starbridge.web.domain.member.dto.MemberDTO;
 import kr.starbridge.web.global.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ import static kr.starbridge.web.domain.bridge.enums.FunctionURIEnum.*;
 import static kr.starbridge.web.domain.bridge.mapper.BattleTagMapper.toBattleTagDTO;
 import static kr.starbridge.web.domain.bridge.mapper.IpMapper.toIpDTO;
 import static kr.starbridge.web.domain.bridge.mapper.RoomFilterMapper.toRoomFilterDTO;
+import static kr.starbridge.web.domain.bridge.mapper.RoomRoleMapper.toRoomRoleDTO;
 
 /**
  * bridge 도구 페이지 컨트롤러
@@ -32,6 +35,7 @@ public class BridgeController extends BridgeBaseController {
     private final BattleTagService battleTagService;
     private final IpService ipService;
     private final RoomFilterService roomFilterService;
+    private final RoomRoleService roomRoleService;
 
     @GetMapping("/{function}")
     public ModelAndView bridge(@PathVariable(name = "function") String function,
@@ -79,6 +83,12 @@ public class BridgeController extends BridgeBaseController {
                 List<RoomFilterEntity> importRoomFilterEntities = roomFilterService.getRemoteExportKeywords(localRoomFilterEntities, pull);
                 mv.addObject("importRoomFilterDTOList", toRoomFilterDTO(importRoomFilterEntities));
             }
+        }
+
+        /** 방 입장 조건 관련 view */
+        if (function.contains(URI_ROOM_ROLE.getUri())) {
+            RoomRoleEntity roomRoleEntity =  roomRoleService.getRole(memberDTO.getId()).get();
+            mv.addObject("roomRoleDTO", toRoomRoleDTO(roomRoleEntity));
         }
 
         /** js import 경로를 모델에 저장 */
