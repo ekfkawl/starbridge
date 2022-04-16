@@ -4,7 +4,7 @@ import com.mysql.cj.util.StringUtils;
 import kr.starbridge.web.domain.member.dto.MemberModifyDTO;
 import kr.starbridge.web.domain.member.dto.MemberRegisterDTO;
 import kr.starbridge.web.domain.member.service.MemberService;
-import kr.starbridge.web.domain.member.validator.annotation.MemberNotExists;
+import kr.starbridge.web.domain.member.validator.annotation.MemberValid;
 import kr.starbridge.web.global.common.enums.ExceptionEnum;
 import kr.starbridge.web.global.common.response.ApiException;
 import lombok.RequiredArgsConstructor;
@@ -13,26 +13,26 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 @RequiredArgsConstructor
-public class MemberNotExistsValidator implements ConstraintValidator<MemberNotExists, Object>  {
+public class MemberValidValidator implements ConstraintValidator<MemberValid, Object>  {
 
     private final MemberService memberService;
 
-    private Class<?> reference;
+    private Class<?> clazz;
 
-    public final static String VIOLATION_EXISTS_ID = "이미 존재하는 아이디 입니다";
-    public final static String VIOLATION_EXISTS_NAME = "이미 존재하는 닉네임 입니다";
+    public final static String VIOLATION_EXISTS_ID = "이미 존재하는 아이디입니다";
+    public final static String VIOLATION_EXISTS_NAME = "이미 존재하는 닉네임입니다";
     public final static String VIOLATION_NOT_EQUALS_PW = "비밀번호와 비밀번호 확인란이 동일하지 않습니다";
 
     @Override
-    public void initialize(MemberNotExists constraintAnnotation) {
-        reference = constraintAnnotation.reference();
+    public void initialize(MemberValid constraintAnnotation) {
+        clazz = constraintAnnotation.clazz();
     }
 
     @Override
     public boolean isValid(Object v, ConstraintValidatorContext context) {
 
         /** 회원가입 */
-        if (reference == MemberRegisterDTO.class) {
+        if (clazz == MemberRegisterDTO.class) {
             MemberRegisterDTO value = (MemberRegisterDTO) v;
             if (!value.getPw1().equals(value.getPw2())) {
                 addConstraintViolation(context, VIOLATION_NOT_EQUALS_PW);
@@ -49,7 +49,7 @@ public class MemberNotExistsValidator implements ConstraintValidator<MemberNotEx
         }
 
         /** 회원정보 수정 */
-        if (reference == MemberModifyDTO.class) {
+        if (clazz == MemberModifyDTO.class) {
             MemberModifyDTO value = (MemberModifyDTO) v;
             if (StringUtils.isNullOrEmpty(value.getPrevName())) {
                 throw new ApiException(ExceptionEnum.RUNTIME_EXCEPTION);

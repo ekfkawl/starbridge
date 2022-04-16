@@ -2,7 +2,7 @@ package kr.starbridge.web.domain.bridge.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import kr.starbridge.web.domain.bridge.entity.IpId;
-import kr.starbridge.web.domain.bridge.validator.annotation.BridgeNotExists;
+import kr.starbridge.web.domain.bridge.validator.annotation.BridgeValid;
 import lombok.*;
 
 import static kr.starbridge.web.global.utils.EscapeUtils.escape;
@@ -13,7 +13,7 @@ import static kr.starbridge.web.global.utils.EscapeUtils.escape;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@BridgeNotExists(reference = IpDTO.class)
+@BridgeValid(clazz = IpDTO.class)
 public class IpDTO {
     /**
      * 아이디/아이피해시

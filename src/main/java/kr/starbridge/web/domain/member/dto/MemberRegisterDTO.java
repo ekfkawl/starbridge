@@ -1,7 +1,7 @@
 package kr.starbridge.web.domain.member.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import kr.starbridge.web.domain.member.validator.annotation.MemberNotExists;
+import kr.starbridge.web.domain.member.validator.annotation.MemberValid;
 import kr.starbridge.web.global.Regex;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +16,7 @@ import static kr.starbridge.web.global.common.response.ValidationGroups.SizeGrou
 @Getter
 @Setter
 @ToString
-@MemberNotExists(reference = MemberRegisterDTO.class)
+@MemberValid(clazz = MemberRegisterDTO.class)
 public class MemberRegisterDTO extends MemberMD5DTO {
     /**
      * 아이디

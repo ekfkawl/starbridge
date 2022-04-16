@@ -3,7 +3,7 @@ package kr.starbridge.web.domain.bridge.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import kr.starbridge.web.domain.bridge.entity.BattleTagId;
-import kr.starbridge.web.domain.bridge.validator.annotation.BridgeNotExists;
+import kr.starbridge.web.domain.bridge.validator.annotation.BridgeValid;
 import lombok.*;
 
 import static kr.starbridge.web.global.utils.EscapeUtils.escape;
@@ -15,7 +15,7 @@ import static kr.starbridge.web.global.utils.EscapeUtils.escape;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 @AllArgsConstructor
-@BridgeNotExists(reference = BattleTagDTO.class)
+@BridgeValid(clazz = BattleTagDTO.class)
 public class BattleTagDTO {
     /**
      * 아이디/배틀태그
