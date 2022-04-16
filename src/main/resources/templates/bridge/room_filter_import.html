@@ -1,0 +1,26 @@
+<div th:fragment=content>
+<button class="btn btn-primary btn-sm ml-3" onclick="importKeywordsByHash()">
+<i class="fa fa-file-signature"></i>
+</button>
+<button class="btn btn-primary btn-sm ml-3" style="float: right" th:onclick="location.href='/bridge/room-filter'">
+<i class="fa fa-reply"></i>
+</button>
+<hr />
+<div class=table-editor id=table_2 data-entries=10 data-entries-options="[10, 20, 30, 100]">
+<table>
+<thead>
+<tr>
+<th>✔</th>
+<th class=th-sm data-width=450>Keyword</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="i : ${importRoomFilterDTOList}">
+<td><input type="checkbox" class="form-check-input" checked th:seq=${i.seq}></td>
+<td th:utext=${i.id.keyword}></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
