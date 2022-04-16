@@ -1,0 +1,45 @@
+<div th:fragment=content>
+<div id=con-etc>
+<div role=listitem class="w-dyn-item prange">
+<div class=faq-background>
+<div class=faq-content>
+<div class=faq-button>
+<div class=faq-question-container>
+<h3 class=faq-question>
+<font style=vertical-align:inherit><font style=vertical-align:inherit>TIP</font></font>
+</h3>
+</div>
+<img th:src="@{|/image/arrow-icon.svg?t=${tick}|}" loading=lazy class=faq-arrow style="transform:translate3d(0px,0px,0px) scale3d(1,1,1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg,0deg);transform-style:preserve-3d">
+</div>
+<div class=faq-answer-container style=height:0>
+<ul style=list-style-type:square>
+<li><p class=faq-answer><font style=vertical-align:inherit><span class=w--current>방 자동 새로고침(상단 노출)</span> 기능은 자동으로 적용됩니다.<font style=vertical-align:inherit></font></font></p></li>
+<li><p class=faq-answer><font style=vertical-align:inherit><span class=w--current>무한디스 유발 추방</span>: 인게임 내에 고의적으로 렉을 유발하는 유저가 존재하면 자동으로 추방됩니다.<font style=vertical-align:inherit></font></font></p></li>
+<li><p class=faq-answer><font style=vertical-align:inherit><span class=w--current>추방 투표</span>: 과반수 이상이 찬성하면 해당 플레이어는 추방됩니다.<br><span class=w--current>[!투표 1~8]</span> 해당 플레이어 추방 투표 시작 (1~8 = 플레이어 고유번호, 커스텀 뷰에서 확인)<br><span class=w--current>[!찬성]</span> 해당 플레이어 추방 찬성 (전체채팅 필수)<font style=vertical-align:inherit></font></font></p></li>
+<li><p class=faq-answer><font style=vertical-align:inherit><span class=w--current>플레이어 색상 > 기본 색상 변경</span>: 플레이어의 색상들이 P1~P8 기본 색상으로 변경됩니다. (적용 후 해제시에는 해당 게임이 끝나야 풀리게 됩니다.)<font style=vertical-align:inherit></font></font></p></li>
+<li><p class=faq-answer><font style=vertical-align:inherit><span class=w--current>소유자 뷰어</span>: 플레이어의 유닛을 클릭하면 소유자의 닉네임을 표시합니다.<font style=vertical-align:inherit></font></font></p></li>
+<li><p class=faq-answer><font style=vertical-align:inherit>체크된 옵션들만 적용됩니다.<font style=vertical-align:inherit></font></font></p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div th:object="${playerDTO}">
+<div class=p-range>
+<input type=checkbox class=form-check-input id=chk-ping th:checked="*{pingColor}"> 미니맵 핑 색상 > 해당 플레이어 색상으로 변경
+</div>
+<div class=p-range>
+<input type=checkbox class=form-check-input id=chk-disprotect th:checked="*{disProtect}"> 무한디스 유발 추방
+</div>
+<div class=p-range>
+<input type=checkbox class=form-check-input id=chk-voting th:checked="*{voting}"> 추방 투표 커맨드 사용 (현재 사용 불가)
+</div>
+<div class=p-range>
+<input type=checkbox class=form-check-input id=chk-turncolor th:checked="*{turnColor}"> 플레이어 색상 > P1~P8 기본 색상으로 변경
+</div>
+<div class=p-range>
+<input type=checkbox class=form-check-input id=chk-owner th:checked="*{owner}"> 소유자 뷰어
+</div>
+</div>
+</div>
+</div>
