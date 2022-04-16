@@ -2,8 +2,10 @@ package kr.starbridge.web.domain.bridge.controller;
 
 import kr.starbridge.web.domain.bridge.entity.BattleTagEntity;
 import kr.starbridge.web.domain.bridge.entity.IpEntity;
+import kr.starbridge.web.domain.bridge.entity.RoomFilterEntity;
 import kr.starbridge.web.domain.bridge.service.BattleTagService;
 import kr.starbridge.web.domain.bridge.service.IpService;
+import kr.starbridge.web.domain.bridge.service.RoomFilterService;
 import kr.starbridge.web.domain.member.dto.MemberDTO;
 import kr.starbridge.web.global.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ import java.util.List;
 import static kr.starbridge.web.domain.bridge.enums.FunctionURIEnum.*;
 import static kr.starbridge.web.domain.bridge.mapper.BattleTagMapper.toBattleTagDTO;
 import static kr.starbridge.web.domain.bridge.mapper.IpMapper.toIpDTO;
+import static kr.starbridge.web.domain.bridge.mapper.RoomFilterMapper.toRoomFilterDTO;
 
 /**
  * bridge 도구 페이지 컨트롤러
@@ -28,6 +31,7 @@ public class BridgeController extends BridgeBaseController {
 
     private final BattleTagService battleTagService;
     private final IpService ipService;
+    private final RoomFilterService roomFilterService;
 
     @GetMapping("/{function}")
     public ModelAndView bridge(@PathVariable(name = "function") String function,
@@ -58,9 +62,22 @@ public class BridgeController extends BridgeBaseController {
 
             /** 아이피 해시 import view */
             if (URI_BLACKLIST_IP_IMPORT.getUri().equals(function)) {
-                /** import 대상의 추출 허용 배틀태그 리스트 */
+                /** import 대상의 추출 허용 아이피해시 리스트 */
                 List<IpEntity> importIpEntities = ipService.getRemoteExportHashes(localIpEntities, pull);
                 mv.addObject("importIpDTOList", toIpDTO(importIpEntities));
+            }
+        }
+
+        /** 방 필터링 관련 view */
+        if (function.contains(URI_ROOM_FILTER.getUri())) {
+            List<RoomFilterEntity> localRoomFilterEntities = roomFilterService.getKeywordsEx(memberDTO.getId());
+            mv.addObject("roomFilterDTOList", toRoomFilterDTO(localRoomFilterEntities));
+
+            /** 방 필터링 import view */
+            if (URI_BLACKLIST_IP_IMPORT.getUri().equals(function)) {
+                /** import 대상의 추출 허용 키워드 리스트 */
+                List<RoomFilterEntity> importRoomFilterEntities = roomFilterService.getRemoteExportKeywords(localRoomFilterEntities, pull);
+                mv.addObject("importRoomFilterDTOList", toRoomFilterDTO(importRoomFilterEntities));
             }
         }
 
