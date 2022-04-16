@@ -1,0 +1,39 @@
+<div th:fragment=content>
+<div id=con-condi>
+<div role=listitem class="w-dyn-item prange">
+<div class=faq-background>
+<div class=faq-content>
+<div class=faq-button>
+<div class=faq-question-container>
+<h3 class=faq-question>
+<font style=vertical-align:inherit><font style=vertical-align:inherit>TIP</font></font>
+</h3>
+</div>
+<img th:src="@{|/image/arrow-icon.svg?t=${tick}|}" loading=lazy class=faq-arrow style="transform:translate3d(0px,0px,0px) scale3d(1,1,1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg,0deg);transform-style:preserve-3d">
+</div>
+<div class=faq-answer-container style=height:0>
+<ul style=list-style-type:square>
+<li><p class=faq-answer><font style=vertical-align:inherit>방장일 경우에만 적용됩니다.<font style=vertical-align:inherit></font></font></p></li>
+<li><p class=faq-answer><font style=vertical-align:inherit>아래 조건(판수, 승률, 디스커넥트)에 성립하는 유저들만 방 입장이 가능해집니다.<font style=vertical-align:inherit></font></font></p></li>
+<li><p class=faq-answer><font style=vertical-align:inherit>체크된 옵션들만 적용됩니다.<font style=vertical-align:inherit></font></font></p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class=range th:object="${roomRoleDTO}">
+<div class=p-range>
+<input type=checkbox class=form-check-input id=chk-sum th:checked="*{enableHistoryCount}"> 판수 <span class=w--current id=sum-n th:utext=*{historyCount}></span> 이상
+</div>
+<input type=range class="form-range p--range" th:value=*{historyCount} min=0 max=1000 step=10 id="sum"/>
+<div class=p-range>
+<input type=checkbox class=form-check-input id=chk-win th:checked="*{enableRate}"> 승률(%) <span class=w--current id=win-n th:utext=*{rate}></span> 이상
+</div>
+<input type=range class="form-range p--range" th:value=*{rate} min=0 max=100 step=2 id="win"/>
+<div class=p-range>
+<input type=checkbox class=form-check-input id=chk-dis th:checked="*{enableDis}"> 디스커넥트 <span class=w--current id=dis-n th:utext=*{dis}></span> 이하
+</div>
+<input type=range class="form-range p--range" th:value=*{dis} min=0 max=100 step=2 id="dis"/>
+</div>
+</div>
+</div>
