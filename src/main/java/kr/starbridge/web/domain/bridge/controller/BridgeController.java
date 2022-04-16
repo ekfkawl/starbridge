@@ -1,14 +1,9 @@
 package kr.starbridge.web.domain.bridge.controller;
 
+import kr.starbridge.web.domain.bridge.dto.PlayerDTO;
 import kr.starbridge.web.domain.bridge.dto.RoomRoleDTO;
-import kr.starbridge.web.domain.bridge.entity.BattleTagEntity;
-import kr.starbridge.web.domain.bridge.entity.IpEntity;
-import kr.starbridge.web.domain.bridge.entity.RoomFilterEntity;
-import kr.starbridge.web.domain.bridge.entity.RoomRoleEntity;
-import kr.starbridge.web.domain.bridge.service.BattleTagService;
-import kr.starbridge.web.domain.bridge.service.IpService;
-import kr.starbridge.web.domain.bridge.service.RoomFilterService;
-import kr.starbridge.web.domain.bridge.service.RoomRoleService;
+import kr.starbridge.web.domain.bridge.entity.*;
+import kr.starbridge.web.domain.bridge.service.*;
 import kr.starbridge.web.domain.member.dto.MemberDTO;
 import kr.starbridge.web.global.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +19,7 @@ import java.util.Optional;
 import static kr.starbridge.web.domain.bridge.enums.FunctionURIEnum.*;
 import static kr.starbridge.web.domain.bridge.mapper.BattleTagMapper.toBattleTagDTO;
 import static kr.starbridge.web.domain.bridge.mapper.IpMapper.toIpDTO;
+import static kr.starbridge.web.domain.bridge.mapper.PlayerMapper.toPlayerEntity;
 import static kr.starbridge.web.domain.bridge.mapper.RoomFilterMapper.toRoomFilterDTO;
 import static kr.starbridge.web.domain.bridge.mapper.RoomRoleMapper.toRoomRoleDTO;
 
@@ -38,6 +34,7 @@ public class BridgeController extends BridgeBaseController {
     private final IpService ipService;
     private final RoomFilterService roomFilterService;
     private final RoomRoleService roomRoleService;
+    private final PlayerService playerService;
 
     @GetMapping("/{function}")
     public ModelAndView bridge(@PathVariable(name = "function") String function,
@@ -94,6 +91,16 @@ public class BridgeController extends BridgeBaseController {
                 mv.addObject("roomRoleDTO", toRoomRoleDTO(optionalRoomRoleEntity.get()));
             }else {
                 mv.addObject("roomRoleDTO", new RoomRoleDTO());
+            }
+        }
+
+        /** 플레이어 관련 view */
+        else if (function.contains(URI_PLAYER.getUri())) {
+            Optional<PlayerEntity> optionalPlayerEntity = playerService.getPlayerFlag(memberDTO.getId());
+            if (optionalPlayerEntity.isPresent()) {
+                mv.addObject("playerDTO", toPlayerEntity(optionalPlayerEntity.get()));
+            }else {
+                mv.addObject("playerDTO", new PlayerDTO());
             }
         }
 
