@@ -1,5 +1,6 @@
 package kr.starbridge.web.domain.bridge.controller;
 
+import kr.starbridge.web.domain.bridge.dto.RoomRoleDTO;
 import kr.starbridge.web.domain.bridge.entity.BattleTagEntity;
 import kr.starbridge.web.domain.bridge.entity.IpEntity;
 import kr.starbridge.web.domain.bridge.entity.RoomFilterEntity;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Optional;
 
 import static kr.starbridge.web.domain.bridge.enums.FunctionURIEnum.*;
 import static kr.starbridge.web.domain.bridge.mapper.BattleTagMapper.toBattleTagDTO;
@@ -60,7 +62,7 @@ public class BridgeController extends BridgeBaseController {
         }
 
         /** 아이피 해시 관련 view */
-        if (function.contains(URI_BLACKLIST_IP.getUri())) {
+        else if (function.contains(URI_BLACKLIST_IP.getUri())) {
             List<IpEntity> localIpEntities = ipService.getHashesEx(memberDTO.getId());
             mv.addObject("ipDTOList", toIpDTO(localIpEntities));
 
@@ -73,7 +75,7 @@ public class BridgeController extends BridgeBaseController {
         }
 
         /** 방 필터링 관련 view */
-        if (function.contains(URI_ROOM_FILTER.getUri())) {
+        else if (function.contains(URI_ROOM_FILTER.getUri())) {
             List<RoomFilterEntity> localRoomFilterEntities = roomFilterService.getKeywordsEx(memberDTO.getId());
             mv.addObject("roomFilterDTOList", toRoomFilterDTO(localRoomFilterEntities));
 
@@ -86,9 +88,13 @@ public class BridgeController extends BridgeBaseController {
         }
 
         /** 방 입장 조건 관련 view */
-        if (function.contains(URI_ROOM_ROLE.getUri())) {
-            RoomRoleEntity roomRoleEntity =  roomRoleService.getRole(memberDTO.getId()).get();
-            mv.addObject("roomRoleDTO", toRoomRoleDTO(roomRoleEntity));
+        else if (function.contains(URI_ROOM_ROLE.getUri())) {
+            Optional<RoomRoleEntity> optionalRoomRoleEntity = roomRoleService.getRole(memberDTO.getId());
+            if (optionalRoomRoleEntity.isPresent()) {
+                mv.addObject("roomRoleDTO", toRoomRoleDTO(optionalRoomRoleEntity.get()));
+            }else {
+                mv.addObject("roomRoleDTO", new RoomRoleDTO());
+            }
         }
 
         /** js import 경로를 모델에 저장 */
