@@ -12,13 +12,8 @@
 			display: none
 		}</style>
 	</th:block>
-	<th:block th:if="${#strings.contains(uri, URI_ROOM_FILTER_EXPORT)}">
+	<th:block th:if="${#strings.contains(uri, URI_ROOM_FILTER)}">
 		<style>table > tbody > tr:nth-child(n) > td:nth-child(3), table > thead > tr > th:nth-child(3) {
-			display: none
-		}</style>
-	</th:block>
-	<th:block th:if="${#strings.contains(uri, URI_ROOM_FILTER_IMPORT)}">
-		<style>table > tbody > tr:nth-child(n) > td:nth-child(2), table > thead > tr > th:nth-child(2) {
 			display: none
 		}</style>
 	</th:block>

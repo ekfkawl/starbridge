@@ -77,7 +77,7 @@ public class BridgeController extends BridgeBaseController {
             mv.addObject("roomFilterDTOList", toRoomFilterDTO(localRoomFilterEntities));
 
             /** 방 필터링 import view */
-            if (URI_BLACKLIST_IP_IMPORT.getUri().equals(function)) {
+            if (URI_ROOM_FILTER_IMPORT.getUri().equals(function)) {
                 /** import 대상의 추출 허용 키워드 리스트 */
                 List<RoomFilterEntity> importRoomFilterEntities = roomFilterService.getRemoteExportKeywords(localRoomFilterEntities, pull);
                 mv.addObject("importRoomFilterDTOList", toRoomFilterDTO(importRoomFilterEntities));
