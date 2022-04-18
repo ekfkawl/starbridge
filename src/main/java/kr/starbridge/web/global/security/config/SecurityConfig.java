@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
     private final AuthenticationFailureHandler authenticationFailureHandler;
 
-    private final String[] permitAllPath = {"/", "/api/**"};
+    private final String[] permitAllPath = {"/", "/api/**", "/forum/**"};
     private final String[] authenticatedPath = {"/modify", "/bridge/**"};
 
     @Override
