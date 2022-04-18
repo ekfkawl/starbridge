@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns:th=http://www.thymeleaf.org xmlns:layout=http://www.ultraq.net.nz/thymeleaf/layout data-wf-page=612c76d0901fda2560965c5e data-wf-site=602eda09fc78afc76e9706b6>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=UTF-8">
+<title>StarBridge</title>
+<meta property=og:type content=website />
+<meta content=summary_large_image name=twitter:card />
+<meta content="width=device-width, initial-scale=1" name=viewport />
+<link th:href=@{/resources/css/color_definitions.css} media=all rel=stylesheet class=light-scheme />
+<link th:href=@{/resources/css/desktop.css} media=all rel=stylesheet data-target=desktop />
+<link th:href=@{/resources/css/desktop_theme.css} media=all rel=stylesheet data-target=desktop_theme data-theme-id="3"/>
+<script th:src=@{/resources/js/ckeditor/ckeditor.js}></script>
+<script src=https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js></script>
+<script type=text/javascript>WebFont.load({google:{families:["Inter:300,regular,700,800"]}});</script>
+<link th:href=@{/resources/logo64.png} rel="shortcut icon" type=image/x-icon />
+<script src=https://code.jquery.com/jquery-3.6.0.js integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin=anonymous></script>
+<style type=text/css>body{font-size:15px}#view-content{word-break:break-all}.btn-flat{color:var(- -primary-medium)}.re{padding:1em 11px .25em 65px}.post-links-container-b{margin-left:11px}@media(min-width:1024px){.top-margin{margin-top:100px}}#view-content>p>img{height:auto !important;}</style>
+</head>
+<body>
+<div style=display:none id=toText></div>
+<script th:inline=javascript>function toText(s){$('#toText').html(s);return $('#toText').text();}</script>
+<div th:include="forum_header :: header(@{/})"></div>
+<div id=main-outlet class=wrap role=main>
+<div id=ember2790 class="regular ember-view">
+<div id=topic-title class="ember-view top-margin">
+<div class=title-wrapper>
+<h1>
+<span th:utext=${view.title}></span>
+</h1>
+<div id=ember2819 class="topic-category ember-view">
+<div class="badge-wrapper bullet">
+<th:block th:if="${#strings.equals(view.s_tmp, '공지사항')}">
+<span class=badge-category-parent-bg style=background-color:#bf1e2e></span>
+</th:block>
+<span class=badge-category-bg th:style="|background-color: #${T(java.lang.String).format('%06X', view.head)}|"></span><span data-drop-close=true class="badge-category clear-badge"><span class=category-name th:utext=${view.s_tmp}></span></span></div>
+</div>
+</div>
+</div>
+</div>
+<section class=topic-area id=topic>
+<div class=posts-wrapper>
+<div id=ember2832 class=ember-view>
+<div class=post-stream>
+<div class="topic-post clearfix topic-owner regular">
+<article id=post_1 aria-label="post #1" role=region data-post-id=66764 data-topic-id=10559 data-user-id=1 class="boxed onscreen-post">
+<a href aria-hidden=true tabindex=-1 class=tabLoc></a>
+<div class=row>
+<div class=topic-avatar>
+<div class="trigger-user-card main-avatar" data-user-card=cameron aria-hidden=true><a th:href="${usersImg[0].img == '?'} ? @{/resources/default_profile.jpg} : ${usersImg[0].img}" target="_blank"><img alt width=45 height=45 th:src="${usersImg[0].img == '?'} ? @{/resources/default_profile.jpg} : ${usersImg[0].img}" class=avatar></a></div>
+</div>
+<div class="topic-body clearfix">
+<div role=heading aria-level=2 class=topic-meta-data>
+<div class="names trigger-user-card">
+<span class="first username" th:utext=${view.name}></span>
+</div>
+<div class=post-infos>
+<div class="post-info post-date">
+<svg class="btn-flat fa svg-icon svg-node" aria-hidden=true>
+<use xlink:href=#far-eye></use>
+</svg>
+<span class="btn-flat relative-date" style=padding-right:10px th:utext=${view.view_count}></span>
+<span class="btn-flat relative-date" th:utext="${#strings.substring(view.time, 0, 16)}"></span>
+</div>
+</div>
+</div>
+<div class=cooked>
+<div class=post-links-container-b id=view-content>
+<script th:inline=javascript>document.write(toText([[${view.content}]]));</script>
+</div>
+</div>
+</div>
+<section class="post-menu-area clearfix top-margin">
+<span class="post-controls expanded replies-button-visible">
+<a id=fold-comment class=btn-flat>
+<svg class="fa svg-icon svg-node" aria-hidden=true>
+<use id=fold-svg state=0 xlink:href=#chevron-up></use>
+</svg>
+<span class=d-button-label th:utext="|댓글 ${viewCommentCount}개|"></span>
+</a>
+<th:block th:if="(${not #strings.isEmpty(memberVO)}) and (${view.id} == ${memberVO.id} or ${memberVO.is_cm == 1})">
+<a style=float:right id=content-remove class>
+<span class=d-button-label style=margin-left:10px>삭제</span>
+</a>
+<a style=float:right id=content-edit class>
+<span class=d-button-label style=margin-left:10px>수정</span>
+</a>
+</th:block>
+<a style=float:right id=content-list class>
+<svg class="fa svg-icon svg-node" aria-hidden=true>
+<use id=fold-svg state=0 xlink:href=#reply></use>
+</svg>
+<span class=d-button-label>목록</span>
+</a>
+</span>
+</section>
+<div id=comment-section>
+<th:block th:each="i : ${comments}">
+<th:block th:if="${i.sub_target} == 0">
+<div class=row>
+<div class=topic-avatar>
+<div class="trigger-user-card main-avatar" data-user-card=cameron aria-hidden=true><a th:href="${i.s_tmp == '?'} ? @{/resources/default_profile.jpg} : ${i.s_tmp}" target="_blank"><img alt width=45 height=45 th:src="${i.s_tmp == '?'} ? @{/resources/default_profile.jpg} : ${i.s_tmp}" class=avatar></a></div>
+</div>
+<div class="topic-body clearfix" style="width: calc(100%)">
+<div role=heading aria-level=2 class=topic-meta-data>
+<div class="names trigger-user-card">
+<span class="first username" th:utext=${i.name}></span>
+<span class="btn-flat username" th:utext=${i.time}></span>
+</div>
+</div>
+<div class=cooked>
+<div class=post-links-container-b>
+<script th:inline=javascript>document.write(toText([[${i.comment}]]));</script>
+<div th:id=|re-comment${i.sub_idx}|></div>
+</div>
+</div>
+<nav class="post-controls expanded replies-button-visible">
+<th:block th:if="${not #strings.isEmpty(memberVO)}">
+<div class=actions>
+<th:block th:if="${i.id} == ${memberVO.id} or ${memberVO.is_cm == 1}">
+<div id=comment-edit-btn class=double-button th:sub-index=${i.sub_idx} th:sub-target=${i.sub_target}>
+<button class="widget-button btn-flat button-count like-count highlight-action regular-likes btn-text">수정</button>
+</div>
+<div id=comment-remove-btn class=double-button th:sub-index=${i.sub_idx} th:sub-target=${i.sub_target}>
+<button class="widget-button btn-flat button-count like-count highlight-action regular-likes btn-text">삭제</button>
+</div>
+</th:block>
+<div id=comment-re-btn class=double-button th:sub-index=${i.sub_idx} clicked=0>
+<button class="widget-button btn-flat button-count like-count highlight-action regular-likes btn-text">답글</button>
+</div>
+</div>
+</nav>
+<th:block th:each="j : ${comments}">
+<th:block th:if="${j.sub_target} == ${i.sub_idx}">
+<div class="re row">
+<div class=topic-avatar>
+<div class="trigger-user-card main-avatar" data-user-card=cameron aria-hidden=true>
+<a th:href="${j.s_tmp == '?'} ? @{/resources/default_profile.jpg} : ${j.s_tmp}" target="_blank"><img alt width=45 height=45 th:src="${j.s_tmp == '?'} ? @{/resources/default_profile.jpg} : ${j.s_tmp}" class=avatar></a>
+</div>
+</div>
+<div class="topic-body clearfix" style="width: calc(100%)">
+<div role=heading aria-level=2 class=topic-meta-data>
+<div class="names trigger-user-card">
+<span class="first username" th:utext=${j.name}></span>
+<span class="btn-flat username" th:utext=${j.time}></span>
+</div>
+</div>
+<div class=cooked>
+<div class=post-links-container-b>
+<script th:inline=javascript>document.write(toText([[${j.comment}]]));</script>
+</div>
+</div>
+<th:block th:if="(${not #strings.isEmpty(memberVO)}) and (${j.id} == ${memberVO.id} or ${memberVO.is_cm == 1})">
+<nav class="post-controls expanded replies-button-visible">
+<div class=actions>
+<div id=comment-edit-btn class=double-button th:sub-index=${j.sub_idx} th:sub-target=${j.sub_target}>
+<button class="widget-button btn-flat button-count like-count highlight-action regular-likes btn-text">수정</button>
+</div>
+<div id=comment-remove-btn class=double-button th:sub-index=${j.sub_idx} th:sub-target=${j.sub_target}>
+<button class="widget-button btn-flat button-count like-count highlight-action regular-likes btn-text">삭제</button>
+</div>
+</div>
+</nav>
+<div th:id=|re-comment2${j.sub_idx}|></div>
+</th:block>
+</div>
+</div>
+</th:block>
+</th:block>
+</div>
+</div>
+</th:block>
+</th:block>
+</div>
+</div>
+</article>
+</div>
+<hr>
+<th:block th:if="${not #strings.isEmpty(memberVO)}">
+<section class="post-menu-area clearfix" style=margin-top:100px>
+<nav class="post-controls expanded replies-button-visible">
+<a id=a-w-comment class=btn-flat>
+<svg class="fa svg-icon svg-node" aria-hidden=true>
+<use xlink:href=#user-edit></use></svg>
+<span class=d-button-label>댓글 작성</span>
+</a>
+</nav>
+</section>
+<div id=w-comment></div>
+<div id=write-comment-div style=float:right;margin-top:10px;margin-bottom:100px>
+<button id=write-comment-btn class="widget-button btn btn btn-primary btn-icon-text">
+<svg class="fa svg-icon svg-node" aria-hidden=true style=padding-right:7px>
+<use xlink:href=#pencil-alt></use></svg>
+<span class=d-button-label>작성</span>
+</button>
+</div>
+</th:block>
+</div>
+</div>
+</div>
+</section>
+</div>
+<script th:inline=javascript>$('#fold-comment').click(function(){var ele=$('#fold-svg');ele.attr('state',ele.attr('state')^1);if(ele.attr('state')==true){ele.attr('xlink:href','#chevron-down');$('#comment-section').hide()}else{ele.attr('xlink:href','#chevron-up');$('#comment-section').show()}});$('#content-list').click(function(){location.href=[[@{/forum/list}]]});$('#content-edit').click(function(){location.href=[[@{/forum/view/edit/}]]+[[${view.idx}]]});$('#content-remove').click(function(){if(confirm("삭제하시겠습니까?")){$.ajax({url:'remove/[[${view.idx}]]',type:'delete',async:false});location.href=[[@{/forum/list}]]}});</script>
+<th:block th:if="${not #strings.isEmpty(memberVO)}">
+<script th:inline=javascript>function ckreplace(ele){if($('#cke_editor1').length){$('#cke_editor1').remove()}if($('#editor1').length){$('#editor1').remove()}$(ele).append('<textarea id="editor1" name="editor1"></textarea>');var cke={filebrowserUploadUrl:"upload",height:50,extraPlugins:'autogrow',removePlugins:'resize'};CKEDITOR.replace('editor1',cke)}$(document).ready(function(){ckreplace('#w-comment');let prev_idx=-1;let prev_md=-1;let g_sub_target=0;$(document).on("click","#comment-remove-btn",function(){if(confirm("삭제하시겠습니까?")){var sub_idx=$(this).attr('sub-index');var sub_target=$(this).attr('sub-target');$.ajax({url:'comment/remove',type:'post',async:false,data:{idx_:[[${view.idx}]],subidx_:sub_idx,subtar_:sub_target}});location.reload()}});$(document).on("click","#comment-edit-btn",function(){var clicked=true;var sub_idx=$(this).attr('sub-index');var sub_target=$(this).attr('sub-target');if(sub_idx==prev_idx&&prev_md!=0){clicked=$(this).attr('clicked')^1;$(this).attr('clicked',clicked)}else{$(this).attr('clicked',1)}if(clicked!=true){g_sub_target=0;ckreplace('#w-comment');$('#w-comment').after($('#write-comment-div'))}else{g_sub_target=sub_target;if(sub_target==0){ckreplace('#re-comment'+sub_idx);$('#re-comment'+sub_idx).after($('#write-comment-div'))}else{ckreplace('#re-comment2'+sub_idx);$('#re-comment2'+sub_idx).after($('#write-comment-div'))}$.ajax({url:'comment/prev',type:'post',async:false,data:{idx_:[[${view.idx}]],subidx_:sub_idx},success:function(data){CKEDITOR.instances.editor1.setData(toText(data))}})}prev_idx=sub_idx;prev_md=1});$(document).on("click","#comment-re-btn",function(){var content=CKEDITOR.instances.editor1.getData();var clicked=true;var sub_idx=$(this).attr('sub-index');if(sub_idx==prev_idx&&prev_md!=1){clicked=$(this).attr('clicked')^1;$(this).attr('clicked',clicked)}else{$(this).attr('clicked',1)}if(clicked!=true){g_sub_target=0;ckreplace('#w-comment');$('#w-comment').after($('#write-comment-div'))}else{g_sub_target=sub_idx;ckreplace('#re-comment'+sub_idx);$('#re-comment'+sub_idx).after($('#write-comment-div'))}prev_idx=sub_idx;prev_md=0});$('#a-w-comment').click(function(){g_sub_target=0;ckreplace('#w-comment');$('#w-comment').after($('#write-comment-div'))});$('#write-comment-btn').click(function(){var c={};c.idx=[[${view.idx}]];c.sub_idx=prev_idx;c.sub_target=g_sub_target;c.comment=CKEDITOR.instances.editor1.getData();c.name=String(prev_md);$.ajax({url:'comment',type:'post',async:false,data:c});location.reload()})});</script>
+</th:block>
+<div th:include="svg-sprites :: content"></div>
+<script type="text/javascript">
+$(document).on("click", "#view-content>p>img", function() {
+	window.open($(this).attr("src"), 'newWindow');
+});
+
+</script>
+</body>
+</html>

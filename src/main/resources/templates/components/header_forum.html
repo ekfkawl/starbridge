@@ -1,0 +1,13 @@
+<div th:fragment="header (dir)">
+  <div id=ember7 class="d-header-wrap ember-view">
+    <header class="d-header clearfix">
+      <div class=wrap>
+        <div class="contents clearfix">
+          <div class=title>
+            <a th:href=${dir} data-auto-route=true><img th:src="@{|/image/logo_head.svg?t=${tick}|}" id=site-logo class=logo-big></a>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+</div>
