@@ -1,6 +1,8 @@
 package kr.starbridge.web.domain.forum.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import kr.starbridge.web.domain.member.dto.MemberDTO;
+import kr.starbridge.web.domain.member.entity.MemberEntity;
 import kr.starbridge.web.global.utils.DateUtils;
 import lombok.*;
 
@@ -20,14 +22,9 @@ public class ForumContentDTO {
     @Id
     private long seq;
     /**
-     * 아이디
+     * Member
      */
-    @JsonIgnore
-    private String memberId;
-    /**
-     * 닉네임
-     */
-    private String memberName;
+    private MemberDTO member;
     /**
      * 카테고리
      */
@@ -65,33 +62,37 @@ public class ForumContentDTO {
      */
     private String betweenTime;
 
-    public int getCategory() {
+    public String getCategoryName() {
         switch (category) {
             case 1:
-                categoryName = "Q/A";
-                categoryColor = 0x0047FF;
-                break;
+                return "Q/A";
             case 2:
-                categoryName = "건의사항";
-                categoryColor = 0xFFE400;
-                break;
+                return "건의사항";
             case 3:
-                categoryName = "정보";
-                categoryColor = 0x00D36E;
-                break;
+                return "정보";
             case -1:
-                categoryName = "공지사항";
-                categoryColor = 0xED207B;
-                break;
+                return "공지사항";
             default:
-                categoryName = "잡담";
-                categoryColor = 0xAFAFAF;
+                return "잡담";
         }
-        return category;
     }
 
-    public LocalDateTime getCreateDt() {
-        betweenTime = DateUtils.getBeforeDiffToString(createDt);
-        return createDt;
+    public int getCategoryColor() {
+        switch (category) {
+            case 1:
+                return 0x0047FF;
+            case 2:
+                return 0xFFE400;
+            case 3:
+                return 0x00D36E;
+            case -1:
+                return 0xED207B;
+            default:
+                return 0xAFAFAF;
+        }
+    }
+
+    public String getBetweenTime() {
+        return DateUtils.getBeforeDiffToString(createDt);
     }
 }

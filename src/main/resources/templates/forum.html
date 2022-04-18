@@ -53,13 +53,13 @@
 </span> </a>
                 </div></td>
             <td class=posters>
-                <!--<a th:each="u : ${usersImg[iStat.index]}" th:class="${uStat.count} == 1 ? 'latest' : ''">-->
-                <!--<th:block th:if="${uStat.count} <= 5">-->
-                <!--<img alt width=25 height=25 th:src="${u.img == '?'} ? @{/resources/default_profile.jpg} : ${u.img}" class=avatar th:title=${u.memberName}>-->
-                <!--</th:block>-->
-                <!--</a>-->
+<!--                <a th:each="u : ${usersImg[iStat.index]}" th:class="${uStat.count} == 1 ? 'latest' : ''">-->
+<!--                <th:block th:if="${uStat.count} <= 5">-->
+<!--                <img alt width=25 height=25 th:src="${u.img == '?'} ? @{/resources/default_profile.jpg} : ${u.img}" class=avatar th:title=${u.memberName}>-->
+<!--                </th:block>-->
+<!--                </a>-->
             </td>
-            <td class="num age"><span class=number th:utext=${i.memberName}></span></td>
+            <td class="num age"><span class=number th:utext=${i.member.name}></span></td>
             <td class="num age coldmap-med"><span th:utext=${i.betweenTime}></span></td>
             <td class="num views"><span class=number th:utext=${i.viewCount}></span></td>
         </tr>

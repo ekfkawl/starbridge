@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.context.TestPropertySource;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 @TestPropertySource(properties = {"spring.config.location=classpath:application-dev.properties, classpath:application.properties"})
@@ -24,6 +25,12 @@ class ForumContentServiceImplTest {
         Pageable pageable = PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "createDt"));
         List<ForumContentEntity> all = forumContentRepository.findAllByTitleContainingOrContentContaining("1", "1", pageable);
         System.out.println("all = " + all);
+    }
+
+    @Test
+    void findByIdTest() {
+        Optional<ForumContentEntity> byId = forumContentRepository.findById(521L);
+        System.out.println("byId = " + byId.get());
     }
 
 }

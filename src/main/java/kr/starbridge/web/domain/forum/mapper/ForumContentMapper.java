@@ -2,6 +2,7 @@ package kr.starbridge.web.domain.forum.mapper;
 
 import kr.starbridge.web.domain.forum.dto.ForumContentDTO;
 import kr.starbridge.web.domain.forum.entity.ForumContentEntity;
+import kr.starbridge.web.domain.member.mapper.MemberMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class ForumContentMapper {
     public static ForumContentEntity toForumContentEntity(ForumContentDTO forumContentDTO) {
         return ForumContentEntity.builder()
                 .seq(forumContentDTO.getSeq())
-                .memberId(forumContentDTO.getMemberId())
+                .member(MemberMapper.toMemberEntity(forumContentDTO.getMember()))
                 .category(forumContentDTO.getCategory())
                 .title(forumContentDTO.getTitle())
                 .content(forumContentDTO.getContent())
@@ -47,7 +48,7 @@ public class ForumContentMapper {
     public static ForumContentDTO toForumContentDTO(ForumContentEntity forumContentEntity) {
         return ForumContentDTO.builder()
                 .seq(forumContentEntity.getSeq())
-                .memberId(forumContentEntity.getMemberId())
+                .member(MemberMapper.toMemberDTO(forumContentEntity.getMember()))
                 .category(forumContentEntity.getCategory())
                 .title(forumContentEntity.getTitle())
                 .content(forumContentEntity.getContent())

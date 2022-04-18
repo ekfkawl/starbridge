@@ -1,5 +1,6 @@
 package kr.starbridge.web.domain.forum.entity;
 
+import kr.starbridge.web.domain.member.entity.MemberEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,9 +31,11 @@ public class ForumContentEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long seq;
     /**
-     * 아이디
+     * Member
      */
-    private String memberId;
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private MemberEntity member;
     /**
      * 카테고리
      */

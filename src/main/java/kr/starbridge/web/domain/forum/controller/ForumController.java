@@ -1,5 +1,6 @@
 package kr.starbridge.web.domain.forum.controller;
 
+import kr.starbridge.web.domain.forum.dto.ForumContentDTO;
 import kr.starbridge.web.domain.forum.entity.ForumContentEntity;
 import kr.starbridge.web.domain.forum.service.ForumContentService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,9 @@ public class ForumController {
         ModelAndView mv = new ModelAndView("forum");
 
         List<ForumContentEntity> forumContentEntities = forumContentService.getContents(0, search);
+
+        List<ForumContentDTO> forumContentDTOS = toForumContentDTO(forumContentEntities);
+        System.out.println("forumContentDTOS = " + forumContentDTOS);
 
         mv.addObject("forumContentDTOList", toForumContentDTO(forumContentEntities));
 
