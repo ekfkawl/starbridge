@@ -2,6 +2,7 @@ package kr.starbridge.web.global.security.service;
 
 import kr.starbridge.web.domain.member.dto.MemberMD5DTO;
 import kr.starbridge.web.domain.member.entity.MemberEntity;
+import kr.starbridge.web.domain.member.enums.RoleEnum;
 import kr.starbridge.web.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -36,7 +37,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         /** ROLE */
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority(memberEntity.getAuth().name()));
+        String auth = memberEntity.getAuth().name();
+
+        /** ROLE_ADMIN = ROLE_USER + ROLE_ADMIN */
+        if (RoleEnum.ROLE_ADMIN.name().equals(auth)) {
+            grantedAuthorities.add(new SimpleGrantedAuthority(RoleEnum.ROLE_USER.name()));
+        }
+        grantedAuthorities.add(new SimpleGrantedAuthority(auth));
+
         memberEntity.setAuthorities(grantedAuthorities);
 
         return memberEntity;
