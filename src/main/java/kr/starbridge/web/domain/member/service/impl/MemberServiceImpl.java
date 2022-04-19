@@ -6,7 +6,9 @@ import kr.starbridge.web.domain.member.service.MemberService;
 import kr.starbridge.web.domain.member.service.RecaptchaService;
 import kr.starbridge.web.global.Profile;
 import kr.starbridge.web.global.common.response.ApiResult;
+import kr.starbridge.web.global.utils.BeanSubUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -71,7 +73,15 @@ public class MemberServiceImpl implements MemberService {
     @Transactional
     @Override
     public MemberEntity save(MemberEntity memberEntity) {
-        return memberRepository.save(memberEntity);
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(memberEntity.getId());
+        if (optionalMemberEntity.isPresent()) {
+            MemberEntity currentMemberEntity = optionalMemberEntity.get();
+            BeanUtils.copyProperties(memberEntity, currentMemberEntity, BeanSubUtils.getNullPropertyNames(memberEntity));
+
+            return currentMemberEntity;
+        }else {
+            return memberRepository.save(memberEntity);
+        }
     }
 
 }
