@@ -46,9 +46,6 @@ public class ModifyController {
 
         /** 로그인 정보 */
         MemberDTO oldMemberDTO = SecurityUtils.getSelfInfo();
-        if (StringUtils.isNullOrEmpty(oldMemberDTO.getId())) {
-            throw new ApiException(RUNTIME_EXCEPTION);
-        }
 
         modifyDTO.setId(oldMemberDTO.getId());
         modifyDTO.setAuth(oldMemberDTO.getAuth());

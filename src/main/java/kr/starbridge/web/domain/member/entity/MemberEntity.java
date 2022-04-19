@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -49,6 +50,7 @@ public class MemberEntity implements UserDetails, Serializable {
     /**
      * 계정 생성일
      */
+    @CreationTimestamp
     private LocalDateTime createDt;
     /**
      * 계정 수정일

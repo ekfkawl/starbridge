@@ -32,5 +32,6 @@ public class MemberDTO {
     /**
      * 권한
      */
+    @JsonIgnore
     private RoleEnum auth;
 }
