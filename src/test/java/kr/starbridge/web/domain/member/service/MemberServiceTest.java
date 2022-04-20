@@ -1,5 +1,6 @@
 package kr.starbridge.web.domain.member.service;
 
+import com.nhncorp.lucy.security.xss.XssPreventer;
 import kr.starbridge.web.domain.member.entity.MemberEntity;
 import kr.starbridge.web.domain.member.repository.MemberRepository;
 import kr.starbridge.web.domain.member.service.impl.MemberServiceImpl;
@@ -52,5 +53,16 @@ class MemberServiceTest {
     void pwEncodeMatcheTest() {
         System.out.println("matche result : " + passwordEncoder.matches("123123", "$2a$10$Vs/415CDjZCvo0qMc7StPujR43Gem9lzRZi20uIXPmxNwiJioJ/tu"));
 
+    }
+
+    @Test
+    void imgGenerateTest() {
+
+        List<MemberEntity> memberEntities = memberRepository.findAll();
+        for (MemberEntity memberEntity : memberEntities) {
+            int x = (int) (Math.random() * 20);
+            memberEntity.setImg(String.format("%s%d.png","/image/default/", x));
+        }
+//        memberRepository.saveAll(memberEntities);
     }
 }

@@ -32,6 +32,9 @@ public class MemberServiceImpl implements MemberService {
                 return new ApiResult<>("reCAPTCHA 스팸방지 기능을 체크해 주십시오");
             }
         }
+        /** 프로필 이미지 랜덤 */
+        int x = (int) (Math.random() * 20);
+        memberEntity.setImg(String.format("%s%d.png","/image/default/", x));
 
         save(memberEntity);
 
