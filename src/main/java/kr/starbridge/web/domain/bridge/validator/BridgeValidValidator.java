@@ -62,7 +62,7 @@ public class BridgeValidValidator implements ConstraintValidator<BridgeValid, Ob
         }
         
         /** 아이피해시 */
-        if (clazz == IpDTO.class) {
+        else if (clazz == IpDTO.class) {
             IpDTO value = (IpDTO) v;
             
             /** 아이피 해시 유효성 체크 */
@@ -81,7 +81,7 @@ public class BridgeValidValidator implements ConstraintValidator<BridgeValid, Ob
         }
 
         /** 방 필터링 */
-        if (clazz == RoomFilterDTO.class) {
+        else if (clazz == RoomFilterDTO.class) {
             RoomFilterDTO value = (RoomFilterDTO) v;
             /** 기존에 등록된 키워드 인지 */
             boolean isExistsKeyword = roomFilterService.isExistsKeyword(memberDTO.getId(), value.getId().getKeyword());

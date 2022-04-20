@@ -49,7 +49,7 @@ public class MemberValidValidator implements ConstraintValidator<MemberValid, Ob
         }
 
         /** 회원정보 수정 */
-        if (clazz == MemberModifyDTO.class) {
+        else if (clazz == MemberModifyDTO.class) {
             MemberModifyDTO value = (MemberModifyDTO) v;
             if (StringUtils.isNullOrEmpty(value.getPrevName())) {
                 throw new ApiException(ExceptionEnum.RUNTIME_EXCEPTION);
