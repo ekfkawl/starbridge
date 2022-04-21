@@ -74,7 +74,7 @@
 <a style=float:right id=content-remove class>
 <span class=d-button-label style=margin-left:10px>삭제</span>
 </a>
-<a style=float:right id=content-edit class>
+<a style=float:right id=content-edit class th:if="${is_login} and (${forumContentDTO.member.id} == ${memberDTO.id})">
 <span class=d-button-label style=margin-left:10px>수정</span>
 </a>
 </th:block>
@@ -110,8 +110,8 @@
 <th:block th:if="${is_login}">
 <div class=actions>
 <th:block th:if="${i.member.id} == ${memberDTO.id} or ${is_cm}">
-<div id=comment-edit-btn class=double-button th:sub-index=${i.seq} th:sub-target=${i.parentComment}>
-<button class="widget-button btn-flat button-count like-count highlight-action regular-likes btn-text">수정</button>
+<div id=comment-edit-btn class=double-button th:sub-index=${i.seq} th:sub-target=${i.parentComment} >
+<button class="widget-button btn-flat button-count like-count highlight-action regular-likes btn-text" th:if="${i.member.id} == ${memberDTO.id}">수정</button>
 </div>
 <div id=comment-remove-btn class=double-button th:sub-index=${i.seq} th:sub-target=${i.parentComment}>
 <button class="widget-button btn-flat button-count like-count highlight-action regular-likes btn-text">삭제</button>
@@ -145,7 +145,7 @@
 <th:block th:if="(${is_login}) and (${j.member.id} == ${memberDTO.id} or ${is_cm})">
 <nav class="post-controls expanded replies-button-visible">
 <div class=actions>
-<div id=comment-edit-btn class=double-button th:sub-index=${j.seq} th:sub-target=${j.parentComment}>
+<div id=comment-edit-btn class=double-button th:sub-index=${j.seq} th:sub-target=${j.parentComment} th:if="${j.member.id} == ${memberDTO.id}">
 <button class="widget-button btn-flat button-count like-count highlight-action regular-likes btn-text">수정</button>
 </div>
 <div id=comment-remove-btn class=double-button th:sub-index=${j.seq} th:sub-target=${j.parentComment}>

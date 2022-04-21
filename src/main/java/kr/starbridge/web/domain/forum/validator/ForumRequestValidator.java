@@ -6,6 +6,8 @@ import kr.starbridge.web.domain.forum.entity.ForumCommentEntity;
 import kr.starbridge.web.domain.forum.service.ForumCommentService;
 import kr.starbridge.web.domain.forum.service.ForumContentService;
 import kr.starbridge.web.domain.forum.validator.annotation.ForumRequest;
+import kr.starbridge.web.domain.member.enums.RoleEnum;
+import kr.starbridge.web.global.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 
 import javax.validation.ConstraintValidator;
@@ -28,6 +30,11 @@ public class ForumRequestValidator implements ConstraintValidator<ForumRequest, 
 
     @Override
     public boolean isValid(Object v, ConstraintValidatorContext context) {
+        /** ROLE_ADMIN: 검증 X */
+        if (RoleEnum.ROLE_ADMIN.equals(SecurityUtils.getSelfInfo().getAuth())) {
+            return true;
+        }
+
         /** 게시물 수정/삭제시 seq 검증 */
         if (clazz == ForumContentDTO.class) {
             ForumContentDTO value = (ForumContentDTO) v;
