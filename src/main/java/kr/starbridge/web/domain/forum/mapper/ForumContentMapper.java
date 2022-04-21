@@ -1,5 +1,6 @@
 package kr.starbridge.web.domain.forum.mapper;
 
+import com.nhncorp.lucy.security.xss.XssPreventer;
 import kr.starbridge.web.domain.forum.dto.ForumContentDTO;
 import kr.starbridge.web.domain.forum.entity.ForumContentEntity;
 import kr.starbridge.web.domain.member.mapper.MemberMapper;
@@ -17,13 +18,12 @@ public class ForumContentMapper {
     public static ForumContentEntity toForumContentEntity(ForumContentDTO forumContentDTO) {
         return ForumContentEntity.builder()
                 .seq(forumContentDTO.getSeq())
-                .member(MemberMapper.toMemberEntity(forumContentDTO.getMember()))
+                .member(forumContentDTO.getMember() != null ? MemberMapper.toMemberEntity(forumContentDTO.getMember()) : null)
                 .category(forumContentDTO.getCategory())
-                .title(forumContentDTO.getTitle())
-                .content(forumContentDTO.getContent())
+                .title(forumContentDTO.getTitle() != null ? XssPreventer.escape(forumContentDTO.getTitle()) : null)
+                .content(forumContentDTO.getContent() != null ? XssPreventer.escape(forumContentDTO.getContent()): null)
                 .viewCount(forumContentDTO.getViewCount())
                 .isFix(forumContentDTO.isFix())
-                .createDt(forumContentDTO.getCreateDt())
                 .build();
     }
 
@@ -46,7 +46,7 @@ public class ForumContentMapper {
      * @return
      */
     public static ForumContentDTO toForumContentDTO(ForumContentEntity forumContentEntity) {
-        return ForumContentDTO.builder()
+        ForumContentDTO forumContentDTO = ForumContentDTO.builder()
                 .seq(forumContentEntity.getSeq())
                 .member(MemberMapper.toMemberDTO(forumContentEntity.getMember()))
                 .category(forumContentEntity.getCategory())
@@ -55,7 +55,10 @@ public class ForumContentMapper {
                 .viewCount(forumContentEntity.getViewCount())
                 .isFix(forumContentEntity.isFix())
                 .createDt(forumContentEntity.getCreateDt())
+                .comment(forumContentEntity.getComment() != null ? ForumCommentMapper.toForumCommentDTO(forumContentEntity.getComment()) : null)
                 .build();
+        forumContentDTO.getMember().setPw(null);
+        return forumContentDTO;
     }
 
     /**

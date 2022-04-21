@@ -5,27 +5,24 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
- * 포럼 게시물
+ * 포럼 댓글
  */
-@Entity(name = "tb_forum_content")
+@Entity(name = "tb_forum_comment")
 @DynamicInsert
 @DynamicUpdate
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ForumContentEntity implements Serializable {
+public class ForumCommentEntity implements Serializable {
     /**
      * seq
      */
@@ -33,32 +30,25 @@ public class ForumContentEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seq;
     /**
+     * content_seq
+     */
+    @Column(name = "content_seq")
+    private Long contentSeq;
+    /**
      * Member
      */
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "member_id")
     private MemberEntity member;
     /**
-     * 카테고리
-     */
-    private int category;
-    /**
-     * 제목
-     */
-    private String title;
-    /**
      * 내용
      */
     @Lob
-    private String content;
+    private String comment;
     /**
-     * 조회수
+     * 상위 댓글 seq
      */
-    private int viewCount;
-    /**
-     * 상단 고정
-     */
-    private boolean isFix;
+    private long parentComment;
     /**
      * 생성일
      */
@@ -70,8 +60,9 @@ public class ForumContentEntity implements Serializable {
     @UpdateTimestamp
     private LocalDateTime modifyDt;
     /**
-     * Comment
+     * Content
      */
-    @OneToMany(mappedBy = "content", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER, orphanRemoval = true)
-    private List<ForumCommentEntity> comment;
+    @ManyToOne
+    @JoinColumn(name = "content_seq", insertable = false, updatable = false)
+    private ForumContentEntity content;
 }

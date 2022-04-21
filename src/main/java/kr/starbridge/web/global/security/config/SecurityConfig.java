@@ -24,8 +24,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
     private final AuthenticationFailureHandler authenticationFailureHandler;
 
-    private final String[] permitAllPath = {"/", "/api/**", "/forum/**"};
-    private final String[] authenticatedPath = {"/modify", "/bridge/**"};
+    private final String[] permitAllPath = {"/", "/api/**", "/forum", "/forum/view/**"};
+    private final String[] authenticatedPath = {"/modify", "/bridge/**", "/forum/content", "/forum/api/**"};
 
     @Override
     public void configure(WebSecurity web) throws Exception {
