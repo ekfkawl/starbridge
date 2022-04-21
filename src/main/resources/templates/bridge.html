@@ -68,11 +68,11 @@
 </div>
 </div>
 <script src=https://code.jquery.com/jquery-3.6.0.js integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin=anonymous></script>
-<script th:src="@{|../js/f2b74be3e.js?t=${tick}|}"></script>
-<script th:src="@{|../js/common.js?t=${tick}|}"></script>
-<script th:if="not ${#strings.isEmpty(subJs)}" th:src="@{|../js${subJs}.js?t=${tick}|}"></script>
-<script th:src="@{|../js${uri}.js?t=${tick}|}"></script>
-<script th:src="@{|../js/mdb.min.js?t=${tick}|}"></script>
-<script th:src="@{|../js/tableEditor.min.js?t=${tick}|}"></script>
+<script th:src="@{|/js/f2b74be3e.js?t=${tick}|}"></script>
+<script th:src="@{|/js/common.js?t=${tick}|}"></script>
+<script th:if="not ${#strings.isEmpty(subJs)}" th:src="@{|/js${subJs}.js?t=${tick}|}"></script>
+<script th:src="@{|/js${uri}.js?t=${tick}|}"></script>
+<script th:src="@{|/js/mdb.min.js?t=${tick}|}"></script>
+<script th:src="@{|/js/tableEditor.min.js?t=${tick}|}"></script>
 </body>
 </html>
