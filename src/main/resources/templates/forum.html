@@ -3,165 +3,167 @@
 <head>
 <title>StarBridge | Forum</title>
 <th:block th:include="components/base_forum :: base"></th:block>
-<style type=text/css>body{font-size:15px}.comt{color:red;font-size:13px}.title-sz{vertical-align:bottom;max-width:93%;display:inline-block;text-overflow:ellipsis;overflow:hidden;white-space:nowrap}@media(max-width :600px){.title-sz{max-width:83%}}table tr td:nth-child(n+3){white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.link-top-line:hover{text-decoration:underline}tr[fix="1"]{background-color:#f8f8f8}span[fix="1"]{color:#0047ff;font-weight:600}span[fixw="1"]{color:black}</style>
+<style type=text/css>body{font-size:15px}.comt{color:red;font-size:13px}.title-sz{vertical-align:bottom;max-width:93%;display:inline-block;text-overflow:ellipsis;overflow:hidden;white-space:nowrap}@media(max-width :600px){.title-sz{max-width:83%}}table tr td:nth-child(n+3){white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.link-top-line:hover{text-decoration:underline}tr[fix="true"]{background-color:#f8f8f8}span[fix="true"]{color:#0047ff;font-weight:600}span[fixw="true"]{color:black}span[role="ROLE_ADMIN"]{color: #0047ff}</style>
 </head>
-<body th:with="is_login=not ${#strings.isEmpty(memberDTO.id)}">
+<body th:with="is_login=not ${#strings.isEmpty(memberDTO.id)}, is_cm=${is_login and #strings.contains(memberDTO.auth, 'ROLE_ADMIN')}">
 <header th:include="components/header_forum :: header(@{/})"></header>
 <div id=main-outlet class=wrap role=main>
-    <div class=top-lists style=margin-top:10px;margin-bottom:30px;float:right>
-        <input aria-controls=search-result-count aria-label="enter search keyword" autocomplete=discourse-search placeholder=Search id=search-text class="full-page-search search no-blur search-query ember-text-field ember-view" type=text>
-        <button id=search-title aria-label=Search class="btn-primary search-cta btn btn-icon-text ember-view" type=button>
-            <svg class="fa d-icon svg-icon svg-string">
-                <use xlink:href=#search></use></svg>
-            <span class=d-button-label>검색</span>
-        </button>
-        <th:block th:if="${is_login}">
-            <button id=write-content-btn class="widget-button btn btn btn-primary btn-icon-text" th:onClick="|location.href='@{/forum/add}'|">
-                <svg class="fa svg-icon svg-node" aria-hidden=true style=padding-right:7px>
-                    <use xlink:href=#pencil-alt></use></svg>
-                <span class=d-button-label>글쓰기</span>
-            </button>
-        </th:block>
-    </div>
-    <table id=ember56 class="topic-list ember-view" style=margin-bottom:30px;table-layout:fixed>
-        <thead>
-        <tr>
-            <th width=55% data-sort-order=default class=default scope=col>제목</th>
-            <th data-sort-order=posters class=posters scope=col></th>
-            <th data-sort-order=default class="posts num" scope=col tabindex=0>닉네임</th>
-            <th data-sort-order=default class="activity num" scope=col tabindex=0>시간</th>
-            <th data-sort-order=default class="views num" scope=col tabindex=0>조회</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="i : ${forumContentDTOList}" id=ember59 class="topic-list-item category-sno-category tag-payouts status-solved ember-view" th:fix=${i.isFix}>
-            <td class="main-link clearfix" colspan=1><span class=link-top-line> <a th:href=|@{/forum/view/}${i.seq}| class="title raw-link raw-topic-link">
+<div class=top-lists style=margin-top:10px;margin-bottom:30px;float:right>
+<input aria-controls=search-result-count aria-label="enter search keyword" autocomplete=discourse-search placeholder="제목+내용" id=search-text class="full-page-search search no-blur search-query ember-text-field ember-view" type=text>
+<button id=search-title aria-label=Search class="btn-primary search-cta btn btn-icon-text ember-view" type=button>
+<svg class="fa d-icon svg-icon svg-string">
+<use xlink:href=#search></use></svg>
+<span class=d-button-label>검색</span>
+</button>
+<th:block th:if="${is_login}">
+<button id=write-content-btn class="widget-button btn btn btn-primary btn-icon-text" th:onClick="|location.href='@{/forum/content}'|">
+<svg class="fa svg-icon svg-node" aria-hidden=true style=padding-right:7px>
+<use xlink:href=#pencil-alt></use></svg>
+<span class=d-button-label>글쓰기</span>
+</button>
+</th:block>
+</div>
+<table id=ember56 class="topic-list ember-view" style=margin-bottom:30px;table-layout:fixed>
+<thead>
+<tr>
+<th width=55% data-sort-order=default class=default scope=col>제목</th>
+<th data-sort-order=posters class=posters scope=col></th>
+<th data-sort-order=default class="posts num" scope=col tabindex=0>닉네임</th>
+<th data-sort-order=default class="activity num" scope=col tabindex=0>시간</th>
+<th data-sort-order=default class="views num" scope=col tabindex=0>조회</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="i : ${forumContentDTOList}" id=ember59 class="topic-list-item category-sno-category tag-payouts status-solved ember-view" th:fix=${i.isFix}>
+<td class="main-link clearfix" colspan=1><span class=link-top-line> <a th:href=|@{/forum/view/}${i.seq}| class="title raw-link raw-topic-link">
 <span class="title-sz" th:fix=${i.isFix} th:utext=${i.title}></span>
-<th:block th:if="${i.viewCount} > 0">
-<script th:inline=javascript>document.write("<span class='comt'>["+"[[${i.viewCount}]]]</span>");</script>
+<th:block th:if="${i.commentCount} > 0">
+<script th:inline=javascript>document.write("<span class='comt'>["+"[[${i.commentCount}]]]</span>");</script>
 </th:block>
 </a><span class=topic-post-badges></span>
 </span>
-                <div class=link-bottom-line>
-                    <a th:href=|@{/forum/view/}${i.seq}| class="badge-wrapper bullet">
-                        <th:block th:if="${#strings.equals(i.categoryName, '공지사항')}">
-                            <span class=badge-category-parent-bg style=background-color:#bf1e2e></span>
-                        </th:block>
-                        <span class=badge-category-bg th:style="|background-color: #${T(java.lang.String).format('%06X', i.categoryColor)}|"></span>
-                        <span data-drop-close=true class="badge-category clear-badge">
+<div class=link-bottom-line>
+<a th:href=|@{/forum/view/}${i.seq}| class="badge-wrapper bullet">
+<th:block th:if="${#strings.equals(i.categoryName, '공지사항')}">
+<span class=badge-category-parent-bg style=background-color:#bf1e2e></span>
+</th:block>
+<span class=badge-category-bg th:style="|background-color: #${T(java.lang.String).format('%06X', i.categoryColor)}|"></span>
+<span data-drop-close=true class="badge-category clear-badge">
 <span class=category-name th:fixw=${i.isFix} th:utext=${i.categoryName}></span>
 </span> </a>
-                </div></td>
-            <td class=posters>
-<!--                <a th:each="u : ${usersImg[iStat.index]}" th:class="${uStat.count} == 1 ? 'latest' : ''">-->
-<!--                <th:block th:if="${uStat.count} <= 5">-->
-<!--                <img alt width=25 height=25 th:src="${u.img == '?'} ? @{/resources/default_profile.jpg} : ${u.img}" class=avatar th:title=${u.memberName}>-->
-<!--                </th:block>-->
-<!--                </a>-->
-            </td>
-            <td class="num age"><span class=number th:utext=${i.member.name}></span></td>
-            <td class="num age coldmap-med"><span th:utext=${i.betweenTime}></span></td>
-            <td class="num views"><span class=number th:utext=${i.viewCount}></span></td>
-        </tr>
-        <tr style=display:none class="topic-list-item category-sno-category tag-payouts status-solved ember-view" fix=0>
-            <td class="main-link clearfix" colspan=1><span class=link-top-line> <a class="go title raw-link raw-topic-link" href>
+</div></td>
+<td class=posters>
+<a th:each="u : ${i.memberImages}" th:classappend="${u.key == i.member.name ? 'latest' : ''}">
+<img alt width=25 height=25 th:src="${u.value}" class=avatar th:title="${u.key}">
+</a>
+</td>
+<td class="num age"><span class=number th:utext=${i.member.name} th:role="${i.member.auth}"></span></td>
+<td class="num age coldmap-med"><span th:utext=${i.betweenTime}></span></td>
+<td class="num views"><span class=number th:utext=${i.viewCount}></span></td>
+</tr>
+<tr style=display:none class="topic-list-item category-sno-category tag-payouts status-solved ember-view" fix=0>
+<td class="main-link clearfix" colspan=1><span class=link-top-line> <a class="go title raw-link raw-topic-link" href>
 <span class="view-title title-sz" fix=0></span>
 </a><span class=topic-post-badges></span>
 </span>
-                <div class=link-bottom-line>
-                    <a href class="go badge-wrapper bullet">
-                        <span class=badge-category-bg style=background-color:#000000></span>
-                        <span data-drop-close=true class="badge-category clear-badge">
+<div class=link-bottom-line>
+<a href class="go badge-wrapper bullet">
+<span class=badge-category-bg style=background-color:#000000></span>
+<span data-drop-close=true class="badge-category clear-badge">
 <span class=category-name fixw=0></span>
 </span> </a>
-                </div></td>
-            <td class=posters><a><img alt width=25 height=25 src class=avatar title></a></td>
-            <td class="num age"><span class=number></span></td>
-            <td class="num age coldmap-med"><span></span></td>
-            <td class="num views"><span class=number></span></td>
-        </tr>
-        </tbody>
-    </table>
+</div></td>
+<td class=posters><a><img alt width=25 height=25 src class=avatar title></a></td>
+<td class="num age"><span class=number></span></td>
+<td class="num age coldmap-med"><span></span></td>
+<td class="num views"><span class=number></span></td>
+</tr>
+</tbody>
+</table>
 </div>
 <script src=https://code.jquery.com/jquery-3.6.0.js integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin=anonymous></script>
+<script th:src="@{|js/common.js?t=${tick}|}"></script>
 <script th:inline=javascript>
-    let g_next = 20;
-    $.fn.outerHTML = function () {
-        return $(this).clone().wrapAll("<div />").parent().html();
-    }
+let g_next = 1;
+let eof = false;
+$.fn.outerHTML = function () {
+return $(this).clone().wrapAll("<div />").parent().html();
+}
 
-    // $(window).scroll(function() {
-    //     if (Math.round($(window).scrollTop()) >= $(document).height() - $(window).height()) {
-    //         $.ajax({
-    //             url: 'listmore',
-    //             type: 'post',
-    //             async: false,
-    //             dataType: 'json',
-    //             data: {
-    //                 next: g_next,
-    //                 search: getParameter("search")
-    //             },
-    //             success: function(data) {
-    //                 if (!data) {
-    //                     return;
-    //                 }else {
-    //                     g_next += 20;
-    //                 }
-    //                 var ml = $('tbody');
-    //                 var linkview = [[@{/forum/view?idx=}]];
-    //                 for (let i = 0; i < data.length; i++){
-    //                     var origin = $('tr[style="display:none"]');
-    //                     var clone = origin.clone();
-    //                     clone.removeAttr('style');
-    //                     clone.attr('fix', data[i].isFix);
-    //                     clone.find('a.go').attr({href: linkview + data[i].seq});
-    //                     clone.find('span.view-title').attr({fix: data[i].isFix});
-    //                     clone.find('span.view-title').text(data[i].title);
-    //                     clone.find('span.badge-category-bg').attr({style: `background-color: #${data[i].categoryColor.toString(16)}`});
-    //                     clone.find('span.category-name').attr({fixw: data[i].isFix});
-    //                     clone.find('span.category-name').text(data[i].categoryName);
-    //
-    //                     var imgOrigin = clone.find('td.posters > a > img');
-    //                     var imgClone = imgOrigin.clone();
-    //                     for (let j = 0; j < data[i].usersImg.length; j++) {
-    //                         if (j > 4) {
-    //                             break;
-    //                         }
-    //                         imgClone.attr({src: data[i].usersImg[j].img == '?' ? [[@{/resources/default_profile.jpg}]] : data[i].usersImg[j].img, title: data[i].usersImg[j].memberName});
-    //                         imgOrigin.before(imgClone.outerHTML());
-    //                     }
-    //                     imgOrigin.remove();
-    //
-    //                     clone.find('td.num.age span.number').text(data[i].memberName);
-    //                     clone.find('td.num.age.coldmap-med span').text(data[i].betweenTime);
-    //                     clone.find('td.num.views span.number').text(data[i].viewCount);
-    //                     if (data[i].viewCount > 0) {
-    //                         clone.find('a.title.raw-link.raw-topic-link').after(`<span class='comt'>[${data[i].viewCount}]</span>`);
-    //                     }
-    //                     if (data[i].categoryColor == 15540347) {
-    //                         clone.find('span.badge-category-bg').before('<span class="badge-category-parent-bg" style="background-color: #BF1E2E;"></span>');
-    //                     }
-    //                     origin.before(clone.outerHTML());
-    //                 }
-    //             }
-    //         });
-    //     }
-    // });
+$(window).scroll(function () {
+if (eof) {
+return;
+}
+if (Math.round($(window).scrollTop()) >= $(document).height() - $(window).height()) {
+var search = getParameterByName("search");
+if (!search) {
+search = "";
+}
+res = _get(`/forum/more?page=${g_next++}&search=${search}`);
+if (!res.data || res.data.length == 0) {
+eof = true;
+return;
+}
+var linkview = '/forum/view/';
+for (let i = 0; i < res.data.length; i++) {
+var origin = $('tr[style="display:none"]');
+var clone = origin.clone();
+clone.removeAttr('style');
+clone.attr('fix', res.data[i].fix);
+clone.find('a.go').attr({href: linkview + res.data[i].seq});
+clone.find('span.view-title').attr({fix: res.data[i].fix});
+clone.find('span.view-title').text(res.data[i].title);
+var col = res.data[i].categoryColor.toString(16);
+if (col.length <= 4) {
+col = '00' + col;
+}
+clone.find('span.badge-category-bg').attr({style: `background-color:#${col}`});
+clone.find('span.category-name').attr({fixw: res.data[i].fix});
+clone.find('span.category-name').text(res.data[i].categoryName);
+var imgOrigin = clone.find('td.posters > a');
+var imgClone = imgOrigin.clone();
+var att_img = imgClone.find('img');
 
+var keys = res.data[i].memberImages;
+var t = 0;
+for (j in keys) {
+if (t++ == 0) {
+imgClone.attr('class', 'latest');
+} else {
+imgClone.removeAttr('class');
+}
+att_img.attr({src: keys[j], title: j});
+imgOrigin.before(imgClone.outerHTML());
+}
 
-    $(document).on("click", "#search-title", function(){
-        var findtext = $('#search-text').val();
-        location.href=[[@{/forum/list?search=}]]+findtext;
-    });
+imgOrigin.remove();
+clone.find('td.num.age span.number').text(res.data[i].member.name);
+clone.find('td.num.age.coldmap-med span').text(res.data[i].betweenTime);
+clone.find('td.num.views span.number').text(res.data[i].viewCount);
+if (res.data[i].commentCount > 0) {
+clone.find('a.title.raw-link.raw-topic-link').after(`<span class='comt'>[${res.data[i].commentCount}]</span>`)
+}
+if (res.data[i].categoryColor == 15540347) {
+clone.find('span.badge-category-bg').before('<span class="badge-category-parent-bg" style="background-color: #BF1E2E;"></span>')
+}
+origin.before(clone.outerHTML())
+}
+}
+})
+
+$(document).on("click", "#search-title", function(){
+var findtext = $('#search-text').val();
+location.href=`/forum?search=${findtext}`;
+})
 </script>
 
 <div th:include="components/svg_sprites :: content"></div>
 <script type="text/javascript">$(document).on({
-    mouseenter: function () {
-        $(this).find("span").css("text-decoration", "underline")
-    }, mouseleave: function () {
-        $(this).find("span").css("text-decoration", "none")
-    }
+mouseenter: function () {
+$(this).find("span").css("text-decoration", "underline")
+}, mouseleave: function () {
+$(this).find("span").css("text-decoration", "none")
+}
 }, "span.link-top-line");</script>
 </body>
 </html>

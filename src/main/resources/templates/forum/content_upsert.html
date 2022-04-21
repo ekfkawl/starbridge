@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html data-wf-page=612c76d0901fda2560965c5e data-wf-site=602eda09fc78afc76e9706b6>
+<head>
+<title>StarBridge | Forum</title>
+<th:block th:include="components/base_forum :: base"></th:block>
+<script th:src="@{|/js/ckeditor/ckeditor.js?t=${tick}|}"></script>
+<style type=text/css>body{font-size:15px}#view-content{word-break:break-all}.i-full{width:100%}ul li:hover{background-color:#f6f6f6} #main-outlet{position: relative;top: 50px;}</style>
+</head>
+<body>
+<header th:include="components/header_forum :: header(@{/forum})"></header>
+<div id=main-outlet class=wrap role=main>
+<details id=category class="select-kit single-select combobox combo-box category-chooser search-advanced-category-chooser is-expanded ember-view">
+<summary data-value tabindex=0 role=listbox id=category-header class="select-kit-header single-select-header combo-box-header ember-view">
+<div class=select-kit-header-wrapper>
+<div role=option class="select-kit-selected-name selected-name choice">
+<span id=category-selected-name>
+<div class=category-status aria-hidden=true>
+<span class="badge-wrapper bullet"><span class=badge-category-bg style=background-color:#afafaf></span><span data-drop-close=true class="badge-category clear-badge"><span class=category-name>잡담</span></span></span>
+</div>
+</span>
+</div>
+<svg class="fa d-icon d-icon-caret-up svg-icon caret-icon svg-string" xmlns=http://www.w3.org/2000/svg>
+<use xlink:href=#caret-down></use></svg>
+</div>
+</summary>
+<div id=category-body class="select-kit-body ember-view" data-popper-placement=bottom-start style="min-width:283px;inset:0 auto auto 0;margin:0">
+<ul class=select-kit-collection aria-live=polite role=menu>
+<li data-guid=ember169 aria-checked=false role=menuitemradio id=ember902 class="select-kit-row category-row ember-view" val=0>
+<div class=category-status aria-hidden=true>
+<span class="badge-wrapper bullet"><span class=badge-category-bg style=background-color:#afafaf></span><span data-drop-close=true class="badge-category clear-badge"><span class=category-name>잡담</span></span></span>
+</div>
+</li>
+<li data-guid=ember169 aria-checked=false role=menuitemradio id=ember902 class="select-kit-row category-row ember-view" val=1>
+<div class=category-status aria-hidden=true>
+<span class="badge-wrapper bullet"><span class=badge-category-bg style=background-color:#0047ff></span><span data-drop-close=true class="badge-category clear-badge"><span class=category-name>Q/A</span></span></span>
+</div>
+</li>
+<li data-guid=ember169 aria-checked=false role=menuitemradio id=ember902 class="select-kit-row category-row ember-view" val=2>
+<div class=category-status aria-hidden=true>
+<span class="badge-wrapper bullet"><span class=badge-category-bg style=background-color:#ffe400></span><span data-drop-close=true class="badge-category clear-badge"><span class=category-name>건의사항</span></span></span>
+</div>
+</li>
+<li data-guid=ember169 aria-checked=false role=menuitemradio id=ember902 class="select-kit-row category-row ember-view" val=3>
+<div class=category-status aria-hidden=true>
+<span class="badge-wrapper bullet"><span class=badge-category-bg style=background-color:#00d36e></span><span data-drop-close=true class="badge-category clear-badge"><span class=category-name>정보</span></span></span>
+</div>
+</li>
+<th:block th:if="${#strings.contains(memberDTO.auth, 'ROLE_ADMIN')}">
+<li data-guid=ember169 aria-checked=false role=menuitemradio id=ember902 class="select-kit-row category-row ember-view" val=-1>
+<div class=category-status aria-hidden=true>
+<span class="badge-wrapper bullet"><span class=badge-category-parent-bg style=background-color:#bf1e2e></span><span class=badge-category-bg style=background-color:#ed207b></span><span data-drop-close=true class="badge-category clear-badge"><span class=category-name>공지사항</span></span></span>
+</div>
+</li>
+</th:block>
+</ul>
+</div>
+</details>
+<hr>
+<div id=ember2790 class="regular ember-view">
+<input placeholder="제목을 입력해 주세요." id=content-title class="i-full full-page-search search no-blur search-query ember-text-field ember-view" type=text>
+<hr>
+<textarea id=editor1 name=editor1></textarea>
+<hr>
+<button id=write-content-btn class="widget-button btn btn btn-primary btn-icon-text" style=float:right>
+<svg class="fa svg-icon svg-node" aria-hidden=true style=padding-right:7px>
+<use xlink:href=#pencil-alt></use></svg>
+<span class=d-button-label>글작성</span>
+</button>
+</div>
+</div>
+<div style=display:none id=toText></div>
+<script src=https://code.jquery.com/jquery-3.6.0.js integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin=anonymous></script>
+<script th:src="@{|/js/common.js?t=${tick}|}"></script>
+<script type=text/javascript>var cke={filebrowserUploadUrl:"upload",height:500};CKEDITOR.replace('editor1',cke);</script>
+<script th:inline=javascript>let g_current_head = 0;
+let g_md = 0;
+let g_idx = 0;
+$(document).ready(function () {
+$(document).on("click", ".select-kit-collection li", function () {
+var category = $('#category');
+category.removeAttr('open');
+var categoryname = $('#category-selected-name');
+categoryname.html($(this).html());
+g_current_head = $(this).attr('val');
+});
+$(document).on("click", "#write-content-btn", function () {
+var title = $('#content-title').val().replace(/(^ *)|( *$)/g, "").replace(/ +/g, " ");
+var content = CKEDITOR.instances.editor1.getData();
+if (!title) {
+alert("제목을 입력해주세요");
+$('#content-title').focus();
+return;
+}
+if (!$.trim(toText(content))) {
+alert("내용을 입력해주세요");
+CKEDITOR.instances.editor1.focus();
+return;
+}
+_post("/forum/api/content", {
+seq: g_idx,
+category: g_current_head,
+title: title,
+content: content
+});
+});
+});
+</script>
+<th:block th:if="${not #strings.isEmpty(forumContentDTO)}">
+<script th:inline=javascript>
+$('#content-title').val(toText([[${forumContentDTO.title}]]));
+CKEDITOR.instances.editor1.setData(toText([[${forumContentDTO.content}]]));
+$('#category-selected-name').html($('li[val="[[${forumContentDTO.category}]]"]').html());
+g_md = 1;
+g_idx = [[${forumContentDTO.seq}]];
+g_current_head = [[${forumContentDTO.category}]];
+</script>
+</th:block>
+<div th:include="components/svg_sprites :: content"></div>
+</body>
+</html>
