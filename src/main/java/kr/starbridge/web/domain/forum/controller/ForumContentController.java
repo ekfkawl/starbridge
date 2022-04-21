@@ -84,7 +84,7 @@ public class ForumContentController extends ForumBaseController {
      * @param seq
      * @return
      */
-    @GetMapping(value = {"/view/{seq}"})
+    @GetMapping("/view/{seq}")
     public ModelAndView contentView(@PathVariable(required = false) String seq) {
         ModelAndView mv = new ModelAndView("forum/content_view");
         ModelAndView mvErr = new ModelAndView("redirect:/forum");
