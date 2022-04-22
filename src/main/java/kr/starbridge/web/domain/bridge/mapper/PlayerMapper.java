@@ -12,11 +12,11 @@ public class PlayerMapper {
     public static PlayerEntity toPlayerEntity(PlayerDTO playerDTO) {
         return PlayerEntity.builder()
                 .memberId(playerDTO.getMemberId())
-                .pingColor(playerDTO.isPingColor())
-                .disProtect(playerDTO.isDisProtect())
-                .voting(playerDTO.isVoting())
-                .turnColor(playerDTO.isTurnColor())
-                .owner(playerDTO.isOwner())
+                .enablePingColor(playerDTO.isEnablePingColor())
+                .enableDisProtect(playerDTO.isEnableDisProtect())
+                .enableVoting(playerDTO.isEnableVoting())
+                .enableTurnColor(playerDTO.isEnableTurnColor())
+                .enableOwner(playerDTO.isEnableOwner())
                 .build();
     }
 
@@ -28,11 +28,11 @@ public class PlayerMapper {
     public static PlayerDTO toPlayerEntity(PlayerEntity playerEntity) {
         return PlayerDTO.builder()
                 .memberId(playerEntity.getMemberId())
-                .pingColor(playerEntity.isPingColor())
-                .disProtect(playerEntity.isDisProtect())
-                .voting(playerEntity.isVoting())
-                .turnColor(playerEntity.isTurnColor())
-                .owner(playerEntity.isOwner())
+                .enablePingColor(playerEntity.isEnablePingColor())
+                .enableDisProtect(playerEntity.isEnableDisProtect())
+                .enableVoting(playerEntity.isEnableVoting())
+                .enableTurnColor(playerEntity.isEnableTurnColor())
+                .enableOwner(playerEntity.isEnableOwner())
                 .build();
     }
 }

@@ -1,5 +1,6 @@
 package kr.starbridge.web.domain.bridge.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,21 +31,21 @@ public class PlayerEntity implements Serializable {
     /**
      * 미니맵 핑 색상 적용 여부
      */
-    private boolean pingColor;
+    private boolean enablePingColor;
     /**
      * 무한디스 방지 적용 여부
      */
-    private boolean disProtect;
+    private boolean enableDisProtect;
     /**
      * 추방 투표 커맨드 적용 여부
      */
-    private boolean voting;
+    private boolean enableVoting;
     /**
      * 플레이어 색상 적용 여부
      */
-    private boolean turnColor;
+    private boolean enableTurnColor;
     /**
      * 소유자 뷰어 적용 여부
      */
-    private boolean owner;
+    private boolean enableOwner;
 }

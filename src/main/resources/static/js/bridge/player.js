@@ -28,10 +28,10 @@ function update() {
         ":checked");
 
     _post("../bridge/api/player", {
-        ping_color: chk_ping,
-        dis_protect: chk_disprotect,
-        voting: chk_voting,
-        turn_color: chk_turncolor,
-        owner: chk_owner
+        enable_ping_color: chk_ping,
+        enable_dis_protect: chk_disprotect,
+        enable_voting: chk_voting,
+        enable_turn_color: chk_turncolor,
+        enable_owner: chk_owner
     });
 };

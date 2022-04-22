@@ -19,26 +19,26 @@ public class PlayerDTO {
     /**
      * 미니맵 핑 색상 적용 여부
      */
-    @JsonProperty("ping_color")
-    private boolean pingColor;
+    @JsonProperty("enable_ping_color")
+    private boolean enablePingColor;
     /**
      * 무한디스 방지 적용 여부
      */
-    @JsonProperty("dis_protect")
-    private boolean disProtect;
+    @JsonProperty("enable_dis_protect")
+    private boolean enableDisProtect;
     /**
      * 추방 투표 커맨드 적용 여부
      */
-    @JsonProperty("voting")
-    private boolean voting;
+    @JsonProperty("enable_voting")
+    private boolean enableVoting;
     /**
      * 플레이어 색상 적용 여부
      */
-    @JsonProperty("turn_color")
-    private boolean turnColor;
+    @JsonProperty("enable_turn_color")
+    private boolean enableTurnColor;
     /**
      * 소유자 뷰어 적용 여부
      */
-    @JsonProperty("owner")
-    private boolean owner;
+    @JsonProperty("enable_owner")
+    private boolean enableOwner;
 }

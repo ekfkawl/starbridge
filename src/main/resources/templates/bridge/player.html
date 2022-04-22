@@ -26,19 +26,19 @@
 </div>
 <div th:object="${playerDTO}">
 <div class=p-range>
-<input type=checkbox class=form-check-input id=chk-ping th:checked="*{pingColor}"> 미니맵 핑 색상 > 해당 플레이어 색상으로 변경
+<input type=checkbox class=form-check-input id=chk-ping th:checked="*{enablePingColor}"> 미니맵 핑 색상 > 해당 플레이어 색상으로 변경
 </div>
 <div class=p-range>
-<input type=checkbox class=form-check-input id=chk-disprotect th:checked="*{disProtect}"> 무한디스 유발 추방
+<input type=checkbox class=form-check-input id=chk-disprotect th:checked="*{enableDisProtect}"> 무한디스 유발 추방
 </div>
 <div class=p-range>
-<input type=checkbox class=form-check-input id=chk-voting th:checked="*{voting}"> 추방 투표 커맨드 사용 (현재 사용 불가)
+<input type=checkbox class=form-check-input id=chk-voting th:checked="*{enableVoting}"> 추방 투표 커맨드 사용 (현재 사용 불가)
 </div>
 <div class=p-range>
-<input type=checkbox class=form-check-input id=chk-turncolor th:checked="*{turnColor}"> 플레이어 색상 > P1~P8 기본 색상으로 변경
+<input type=checkbox class=form-check-input id=chk-turncolor th:checked="*{enableTurnColor}"> 플레이어 색상 > P1~P8 기본 색상으로 변경
 </div>
 <div class=p-range>
-<input type=checkbox class=form-check-input id=chk-owner th:checked="*{owner}"> 소유자 뷰어
+<input type=checkbox class=form-check-input id=chk-owner th:checked="*{enableOwner}"> 소유자 뷰어
 </div>
 </div>
 </div>
