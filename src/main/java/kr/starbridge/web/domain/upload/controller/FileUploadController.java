@@ -23,15 +23,15 @@ public class FileUploadController {
     private final FileUploadService fileUploadService;
 
     @PostMapping("api/upload")
-    public UploadedDTO uploadSingle(@RequestParam(required = false) Optional<MultipartFile> file, HttpServletRequest request) throws Exception {
+    public UploadedDTO uploadSingle(@RequestParam(required = false) Optional<MultipartFile> upload, HttpServletRequest request) throws Exception {
 
-        if (!file.isPresent()) {
+        if (!upload.isPresent()) {
             throw new ApiException(ExceptionEnum.RUNTIME_EXCEPTION.setMessage("Null MultipartFile"));
         }
 
         /** 업로드 디렉토리 */
         String uploadPath = ResourceUtils.getURL("classpath:static").getPath() + "uploaded/";
 
-        return fileUploadService.uploadSingle(file.get(), uploadPath, request);
+        return fileUploadService.uploadSingle(upload.get(), uploadPath, request);
     }
 }

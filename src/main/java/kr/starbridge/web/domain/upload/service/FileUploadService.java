@@ -48,7 +48,7 @@ public class FileUploadService {
         UploadedDTO uploadedDTO = UploadedDTO.builder()
                 .uploaded(1) /** 성공 여부 */
                 .fileName(fileName) /** 파일 이름 */
-                .refUploadPath(String.format("%s%s%s", domainURL, "/uploaded/", fileName)) /** 업로드 된 URL */
+                .url(String.format("%s%s%s", domainURL, "/uploaded/", fileName)) /** 업로드 된 URL */
                 .build();
 
         return uploadedDTO;

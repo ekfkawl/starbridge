@@ -14,5 +14,5 @@ public class UploadedDTO {
 
     private int uploaded;
     private String fileName;
-    private String refUploadPath;
+    private String url;
 }

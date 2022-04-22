@@ -228,7 +228,7 @@ if ($('#editor1').length) {
 $('#editor1').remove()
 }
 $(ele).append('<textarea id="editor1" name="editor1"></textarea>');
-var cke = {filebrowserUploadUrl: "upload", height: 50, extraPlugins: 'autogrow', removePlugins: 'resize'};
+var cke = {filebrowserUploadUrl: "/api/upload", height: 50, extraPlugins: 'autogrow', removePlugins: 'resize'};
 CKEDITOR.replace('editor1', cke)
 }
 

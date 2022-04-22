@@ -71,7 +71,7 @@
 <div style=display:none id=toText></div>
 <script src=https://code.jquery.com/jquery-3.6.0.js integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin=anonymous></script>
 <script th:src="@{|/js/common.js?t=${tick}|}"></script>
-<script type=text/javascript>var cke={filebrowserUploadUrl:"upload",height:500};CKEDITOR.replace('editor1',cke);</script>
+<script type=text/javascript>var cke={filebrowserUploadUrl:"/api/upload",height:500};CKEDITOR.replace('editor1',cke);</script>
 <script th:inline=javascript>let g_current_head = 0;
 let g_md = 0;
 let g_idx = 0;

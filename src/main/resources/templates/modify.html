@@ -17,7 +17,7 @@
 <div data-v-30374884 class=login-area__content-area__container>
 <form id=modifyimg-form name=modifyimg-form method=post enctype=multipart/form-data>
 <a id=profile-img href=#><img alt width=128 height=128 th:src="${memberDTO.img}" onerror="this.src='/image/default_profile.jpg'" class=avatar title="클릭하여 이미지 변경"></a>
-<input type=file id=file name=file accept=image/* onchange=loadFile(this)>
+<input type=file id=file name=upload accept=image/* onchange=loadFile(this)>
 </form>
 <form id=modify-form name=modify-form action="x" method=post target="iframe1">
 <iframe id="iframe1" name="iframe1" style="display:none"></iframe>
