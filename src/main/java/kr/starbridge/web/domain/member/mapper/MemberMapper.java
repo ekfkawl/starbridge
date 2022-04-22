@@ -30,6 +30,7 @@ public class MemberMapper {
                 .id(modifyDTO.getId())
                 .pw(modifyDTO.getMd5pw())
                 .name(modifyDTO.getName())
+                .img(modifyDTO.getImg())
                 .auth(modifyDTO.getAuth())
                 .build();
     }

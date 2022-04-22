@@ -9,5 +9,6 @@ public class Regex {
     public final static String MD5_HASH = "^[a-zA-Z0-9]{32,32}$";
     /** 앞 뒤 공백 제거 */
     public final static String TRIM = "(^\\p{Z}+|\\p{Z}+$)";
-
+    /** 이미지 파일 확장자 */
+    public final static String IS_IMAGE = "[^\\s]+(.*?)\\.(jpg|jpeg|png|gif|bmp)$";
 }

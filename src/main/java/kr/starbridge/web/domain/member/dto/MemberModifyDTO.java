@@ -2,6 +2,7 @@ package kr.starbridge.web.domain.member.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mysql.cj.util.StringUtils;
 import kr.starbridge.web.domain.member.enums.RoleEnum;
 import kr.starbridge.web.domain.member.validator.annotation.MemberValid;
 import kr.starbridge.web.global.Regex;
@@ -11,6 +12,7 @@ import lombok.ToString;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.regex.Pattern;
 
 import static kr.starbridge.web.global.common.response.ValidationGroups.NotEmptyGroup;
 import static kr.starbridge.web.global.common.response.ValidationGroups.SizeGroup;
@@ -45,20 +47,33 @@ public class MemberModifyDTO extends MemberMD5DTO {
     @JsonProperty("prev_name")
     private String prevName;
     /**
+     * 프로필 이미지 주소
+     */
+    private String img;
+    /**
      * 권한
      */
     @JsonIgnore
     private RoleEnum auth;
 
-    public MemberModifyDTO(String pw1, String pw2, String name) {
+    public MemberModifyDTO(String pw1, String pw2, String name, String img) {
         /** 공백 제거 */
         pw1 = pw1.replaceAll(Regex.VACUUM, "");
         pw2 = pw2.replaceAll(Regex.VACUUM, "");
         name = name.replaceAll(Regex.VACUUM, "");
 
+        /** 프로필 이미지 확장자 검증 */
+        if (!StringUtils.isNullOrEmpty(img)) {
+            String tmp = img.replaceAll(Regex.VACUUM, "");
+            img = Pattern.matches(Regex.IS_IMAGE, tmp) ? tmp : null;
+        }else {
+            img = null;
+        }
+
         this.pw1 = pw1;
         this.pw2 = pw2;
         this.name = name;
+        this.img = img;
 
         super.setMd5pw(this.pw1);
     }
