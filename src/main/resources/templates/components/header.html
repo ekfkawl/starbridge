@@ -42,7 +42,7 @@
                         th:src="@{|/image/logo_head_mob.svg?t=${tick}|}" class=template-logo/></a>
                 <nav role=navigation class="mobile-nav w-nav-menu">
                     <a th:href=@{/install} class="mobile-nav-link w-nav-link w--nav-link-open">다운로드</a>
-                    <a th:href=@{/forum/list} class="mobile-nav-link w-nav-link w--nav-link-open">포럼</a>
+                    <a th:href=@{/forum} class="mobile-nav-link w-nav-link w--nav-link-open">포럼</a>
                     <th:block th:if="${is_login}">
                         <a th:href="${URI_BLACKLIST_TAG}" class="mobile-nav-link w-nav-link w--nav-link-open">환경설정</a>
                     </th:block>
