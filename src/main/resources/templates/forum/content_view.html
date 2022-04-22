@@ -39,7 +39,7 @@
 <a href aria-hidden=true tabindex=-1 class=tabLoc></a>
 <div class=row>
 <div class=topic-avatar>
-<div class="trigger-user-card main-avatar" data-user-card=cameron aria-hidden=true><a th:href="${forumContentDTO.member.img}" target="_blank"><img alt width=45 height=45 th:src="${forumContentDTO.member.img}" class=avatar></a></div>
+<div class="trigger-user-card main-avatar" data-user-card=cameron aria-hidden=true><a th:href="${forumContentDTO.member.img}" target="_blank"><img alt width=45 height=45 th:src="${forumContentDTO.member.img}" onerror="this.src='/image/default_profile.jpg'" class=avatar></a></div>
 </div>
 <div class="topic-body clearfix">
 <div role=heading aria-level=2 class=topic-meta-data>
@@ -91,7 +91,7 @@
 <th:block th:if="${i.parentComment} == -1">
 <div class=row>
 <div class=topic-avatar>
-<div class="trigger-user-card main-avatar" data-user-card=cameron aria-hidden=true><a th:href="${i.member.img}" target="_blank"><img alt width=45 height=45 th:src="${i.member.img}" class=avatar></a></div>
+<div class="trigger-user-card main-avatar" data-user-card=cameron aria-hidden=true><a th:href="${i.member.img}" target="_blank"><img alt width=45 height=45 th:src="${i.member.img}" onerror="this.src='/image/default_profile.jpg'" class=avatar></a></div>
 </div>
 <div class="topic-body clearfix" style="width: calc(100%)">
 <div role=heading aria-level=2 class=topic-meta-data>
@@ -127,7 +127,7 @@
 <div class="re row">
 <div class=topic-avatar>
 <div class="trigger-user-card main-avatar" data-user-card=cameron aria-hidden=true>
-<a th:href="${j.member.img}" target="_blank"><img alt width=45 height=45 th:src="${j.member.img}" class=avatar></a>
+<a th:href="${j.member.img}" target="_blank"><img alt width=45 height=45 th:src="${j.member.img}" onerror="this.src='/image/default_profile.jpg'" class=avatar></a>
 </div>
 </div>
 <div class="topic-body clearfix" style="width: calc(100%)">

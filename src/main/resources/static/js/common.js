@@ -79,3 +79,5 @@ function getParameterByName(name, url = window.location.href) {
 }
 
 var MD5_HASH = /^[A-Za-z0-9]{32,32}$/;
+
+var IS_IMAGE = /[^\s](.*?)\.(jpg|jpeg|png|gif|bmp)$/;

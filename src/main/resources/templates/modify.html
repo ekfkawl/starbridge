@@ -16,7 +16,7 @@
 <div data-v-30374884 class=login-area__content-area>
 <div data-v-30374884 class=login-area__content-area__container>
 <form id=modifyimg-form name=modifyimg-form method=post enctype=multipart/form-data>
-<a id=profile-img href=#><img alt width=128 height=128 th:src="${#strings.isEmpty(memberDTO.img)} ? './image/default_profile.jpg' : ${memberDTO.img}" class=avatar title="클릭하여 이미지 변경"></a>
+<a id=profile-img href=#><img alt width=128 height=128 th:src="${#strings.isEmpty(memberDTO.img)}" onerror="this.src='/image/default_profile.jpg'" class=avatar title="클릭하여 이미지 변경"></a>
 <input type=file id=file name=file accept=image/* onchange=loadFile(this)>
 </form>
 <form id=modify-form name=modify-form action="x" method=post target="iframe1">
@@ -57,6 +57,7 @@
 <script th:src="@{|/js/valid.js?t=${tick}|}"></script>
 <script th:src="@{|/js/common.js?t=${tick}|}"></script>
 <script th:inline="javascript">
+let img = null;
 function loadFile(a) {
     var b = a.files[0];
     var e = document.createElement("img");
@@ -71,7 +72,7 @@ function loadFile(a) {
     $.ajax({
         type: "post",
         enctype: "multipart/form-data",
-        url: "api/upload",
+        url: "/api/upload",
         data: d,
         async: false,
         dataType: "json",
@@ -80,7 +81,7 @@ function loadFile(a) {
         cache: false,
         success: function (f) {
             if (f.uploaded == 1) {
-                $.ajax({type: "post", url: "modifyimg", data: {url: f.url}})
+                img = f.refUploadPath;
             }
         }
     })
@@ -95,11 +96,12 @@ $('#modify-btn').click(function () {
     let pw1 = $("#pw1").val();
     let pw2 = $("#pw2").val();
     if (pw1 && pw2 && name) {
-        _put('api/modify', {
+        _put('/api/modify', {
             prev_name: [[${memberDTO.name}]],
             name: name,
             pw1: pw1,
-            pw2: pw2
+            pw2: pw2,
+            img: img
         });
     }
 })

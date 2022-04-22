@@ -54,7 +54,7 @@
 </div></td>
 <td class=posters>
 <a th:each="u : ${i.memberImages}" th:classappend="${u.key == i.member.name ? 'latest' : ''}">
-<img alt width=25 height=25 th:src="${u.value}" class=avatar th:title="${u.key}">
+<img alt width=25 height=25 th:src="${u.value}" onerror="this.src='/image/default_profile.jpg'" class=avatar th:title="${u.key}">
 </a>
 </td>
 <td class="num age"><span class=number th:utext=${i.member.name} th:role="${i.member.auth}"></span></td>
@@ -132,7 +132,7 @@ imgClone.attr('class', 'latest');
 } else {
 imgClone.removeAttr('class');
 }
-att_img.attr({src: keys[j], title: j});
+att_img.attr({src: keys[j], onerror:"this.src='/image/default_profile.jpg'",  title: j});
 imgOrigin.before(imgClone.outerHTML());
 }
 
