@@ -64,7 +64,7 @@ public class ForumContentController extends ForumBaseController {
 
         ForumContentEntity forumContentEntity = forumContentService.save(toForumContentEntity(forumContentDTO));
 
-        return new ApiResult(toForumContentDTO(forumContentEntity), null, "/forum");
+        return new ApiResult(toForumContentDTO(forumContentEntity), null, String.format("/forum/view/%s", forumContentEntity.getSeq()));
     }
 
     /**

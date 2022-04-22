@@ -8,7 +8,7 @@
 <script type=text/javascript>WebFont.load({google:{families:["Inter:300,regular,700,800"]}});</script>
 <script src=https://code.jquery.com/jquery-3.6.0.js integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin=anonymous></script>
 <script th:src="@{|/js/common.js?t=${tick}|}"></script>
-<style type=text/css>body{font-size:15px}#view-content{word-break:break-all}.btn-flat{color:var(- -primary-medium)}.re{padding:1em 11px .25em 65px}.post-links-container-b{margin-left:11px}@media(min-width:1024px){.top-margin{margin-top:100px}}#view-content>p>img{height:auto !important;}span[role="ROLE_ADMIN"]{color: #0047ff}</style>
+<style type=text/css>body{font-size:15px}#view-content{word-break:break-all}.btn-flat{color:var(- -primary-medium)}.re{padding:1em 11px .25em 65px}.post-links-container-b{margin-left:11px}@media(min-width:1024px){.top-margin{margin-top:100px}}#view-content>p>img{height:auto !important;}div.cooked > div > p > img{height:auto !important;}span[role="ROLE_ADMIN"]{color: #0047ff}</style>
 </head>
 <body th:with="is_login=not ${#strings.isEmpty(memberDTO.id)}, is_cm=${is_login and #strings.contains(memberDTO.auth, 'ROLE_ADMIN')}">
 <div style=display:none id=toText></div>
