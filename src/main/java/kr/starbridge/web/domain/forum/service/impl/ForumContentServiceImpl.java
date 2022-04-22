@@ -97,6 +97,12 @@ public class ForumContentServiceImpl implements ForumContentService {
 
     @Transactional
     @Override
+    public long getForumContentCount() {
+        return forumContentRepository.count();
+    }
+
+    @Transactional
+    @Override
     public void delete(ForumContentEntity forumContentEntity) {
         Optional<ForumContentEntity> optionalForumContentEntity = forumContentRepository.findById(forumContentEntity.getSeq());
         forumContentRepository.delete(optionalForumContentEntity.get());

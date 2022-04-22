@@ -49,6 +49,12 @@ public interface ForumContentService {
     ForumContentEntity save(ForumContentEntity forumContentEntity);
 
     /**
+     * 게시물 수
+     * @return
+     */
+    long getForumContentCount();
+
+    /**
      * delete
      * @param forumContentEntity
      */
