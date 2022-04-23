@@ -1,0 +1,1 @@
+{https://github.com/faskdkasjd12/bridge/raw/main/?.stbr}
