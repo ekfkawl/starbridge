@@ -9,6 +9,7 @@ import kr.starbridge.web.global.Regex;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.apache.commons.validator.routines.UrlValidator;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -65,7 +66,12 @@ public class MemberModifyDTO extends MemberMD5DTO {
         /** 프로필 이미지 확장자 검증 */
         if (!StringUtils.isNullOrEmpty(img)) {
             String tmp = img.replaceAll(Regex.VACUUM, "");
-            img = Pattern.matches(Regex.IS_IMAGE, tmp) ? tmp : null;
+            UrlValidator urlValidator = new UrlValidator();
+            if (urlValidator.isValid(tmp)) {
+                img = Pattern.matches(Regex.IS_IMAGE, tmp) ? tmp : null;
+            }else {
+                img = null;
+            }
         }else {
             img = null;
         }
