@@ -29,15 +29,17 @@ public class StarBridgeAuthenticationProvider implements AuthenticationProvider 
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
         String loginId = authentication.getName();
-        /** PW: MD5 + BCryptPasswordEncoder */
+        /** PW: MD5 */
         String password = GenerateUtils.StrToMD5(authentication.getCredentials().toString());
 
         MemberEntity memberEntity = (MemberEntity)userDetailsService.loadUserByUsername(loginId);
 
-        if (!passwordEncoder.matches(password, memberEntity.getPassword())) {
+        if (!password.equals(memberEntity.getPassword())) {
             throw new BadCredentialsException("Invalid password");
         }
-
+//        if (!passwordEncoder.matches(password, memberEntity.getPassword())) {
+//            throw new BadCredentialsException("Invalid password");
+//        }
         return new UsernamePasswordAuthenticationToken(memberEntity, memberEntity.getPassword(), memberEntity.getAuthorities());
     }
 

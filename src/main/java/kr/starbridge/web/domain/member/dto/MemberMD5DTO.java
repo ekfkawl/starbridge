@@ -2,12 +2,10 @@ package kr.starbridge.web.domain.member.dto;
 
 import kr.starbridge.web.global.utils.GenerateUtils;
 import lombok.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * 아이디 -> MD5 HASH
- * 비밀번호 -> MD5 HASH + BCryptPasswordEncoder
+ * 비밀번호 -> MD5 HASH
  */
 @Getter
 @Setter
@@ -24,7 +22,8 @@ public class MemberMD5DTO {
     }
 
     public String getMd5pw() {
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.encode(GenerateUtils.StrToMD5(md5pw));
+        return GenerateUtils.StrToMD5(md5pw);
+//        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        return passwordEncoder.encode(GenerateUtils.StrToMD5(md5pw));
     }
 }
