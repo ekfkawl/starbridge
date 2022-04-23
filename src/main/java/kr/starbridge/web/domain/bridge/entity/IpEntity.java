@@ -8,9 +8,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -33,7 +31,8 @@ public class IpEntity implements Serializable {
     /**
      * seq
      */
-    private long seq;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long seq;
     /**
      * 메모
      */

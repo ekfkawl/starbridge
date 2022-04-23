@@ -22,7 +22,7 @@ public class IpDTO {
     /**
      * seq
      */
-    private long seq;
+    private Long seq;
     /**
      * 이전 배틀태그
      */
