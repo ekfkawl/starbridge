@@ -52,6 +52,14 @@ public interface MemberService {
     ApiResult<Object> modify(MemberEntity memberEntity);
 
     /**
+     * 외부에서 로그인 체크
+     * @param id
+     * @param pw
+     * @return
+     */
+    long isMemberForExternal(String id, String pw);
+
+    /**
      * save
      * @param memberEntity
      * @return

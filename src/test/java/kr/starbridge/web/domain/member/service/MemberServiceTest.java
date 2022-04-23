@@ -1,6 +1,5 @@
 package kr.starbridge.web.domain.member.service;
 
-import com.nhncorp.lucy.security.xss.XssPreventer;
 import kr.starbridge.web.domain.member.entity.MemberEntity;
 import kr.starbridge.web.domain.member.repository.MemberRepository;
 import kr.starbridge.web.domain.member.service.impl.MemberServiceImpl;
@@ -64,5 +63,11 @@ class MemberServiceTest {
             memberEntity.setImg(String.format("%s%d.png","/image/default/", x));
         }
 //        memberRepository.saveAll(memberEntities);
+    }
+
+    @Test
+    void countByIdAndPwTest() {
+        long l = memberRepository.countByIdAndPw("da4e4ce998c6014ec4f82c4512b65f0c", "b1b5de756ad2e4a8c266c8077c24db3b");
+        System.out.println("l = " + l);
     }
 }

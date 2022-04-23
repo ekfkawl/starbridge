@@ -75,6 +75,12 @@ public class MemberServiceImpl implements MemberService {
 
     @Transactional
     @Override
+    public long isMemberForExternal(String id, String pw) {
+        return memberRepository.countByIdAndPw(id, pw);
+    }
+
+    @Transactional
+    @Override
     public MemberEntity save(MemberEntity memberEntity) {
         Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(memberEntity.getId());
         if (optionalMemberEntity.isPresent()) {
