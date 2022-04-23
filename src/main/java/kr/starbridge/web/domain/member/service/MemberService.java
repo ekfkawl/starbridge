@@ -57,7 +57,7 @@ public interface MemberService {
      * @param pw
      * @return
      */
-    long isMemberForExternal(String id, String pw);
+    boolean isMemberForExternal(String id, String pw);
 
     /**
      * save

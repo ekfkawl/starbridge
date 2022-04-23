@@ -75,8 +75,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Transactional
     @Override
-    public long isMemberForExternal(String id, String pw) {
-        return memberRepository.countByIdAndPw(id, pw);
+    public boolean isMemberForExternal(String id, String pw) {
+        return memberRepository.countByIdAndPw(id, pw) > 0;
     }
 
     @Transactional

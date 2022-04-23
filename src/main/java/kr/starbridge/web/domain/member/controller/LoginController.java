@@ -25,6 +25,6 @@ public class LoginController {
      */
     @GetMapping("/member")
     public boolean externalLogin(@RequestParam String id, @RequestParam String pw) {
-        return memberService.isMemberForExternal(id, pw) > 0;
+        return memberService.isMemberForExternal(id, pw);
     }
 }
