@@ -59,7 +59,7 @@ public class ForumContentDTO {
     /**
      * 조회수
      */
-    private int viewCount;
+    private Integer viewCount;
     /**
      * 상단 고정
      */
