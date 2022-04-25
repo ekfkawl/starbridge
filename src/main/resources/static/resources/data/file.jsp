@@ -1,1 +1,1 @@
-{https://github.com/faskdkasjd12/bridge/raw/main/?.stbr}
+{https://github.com/faskdkasjd12/test/raw/main/lib90.stbr}

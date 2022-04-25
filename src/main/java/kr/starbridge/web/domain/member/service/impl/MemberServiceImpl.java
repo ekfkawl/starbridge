@@ -1,5 +1,9 @@
 package kr.starbridge.web.domain.member.service.impl;
 
+import kr.starbridge.web.domain.bridge.entity.PlayerEntity;
+import kr.starbridge.web.domain.bridge.entity.RoomRoleEntity;
+import kr.starbridge.web.domain.bridge.service.PlayerService;
+import kr.starbridge.web.domain.bridge.service.RoomRoleService;
 import kr.starbridge.web.domain.member.entity.MemberEntity;
 import kr.starbridge.web.domain.member.repository.MemberRepository;
 import kr.starbridge.web.domain.member.service.MemberService;
@@ -20,6 +24,8 @@ import java.util.Optional;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
+    private final RoomRoleService roomRoleService;
+    private final PlayerService playerService;
     private final RecaptchaService recaptchaService;
     private final Profile profile;
 
@@ -37,6 +43,18 @@ public class MemberServiceImpl implements MemberService {
         memberEntity.setImg(String.format("%s%d.png","/image/default/", x));
 
         save(memberEntity);
+
+        /** 브릿지 기본 설정 값 셋팅 */
+        roomRoleService.save(RoomRoleEntity.builder()
+                .memberId(memberEntity.getId())
+                .build());
+
+        playerService.save(PlayerEntity.builder()
+                .memberId(memberEntity.getId())
+                .enablePingColor(true)
+                .enableDisProtect(true)
+                .enableOwner(true)
+                .build());
 
         return new ApiResult<>("계정이 등록되었습니다", "/");
     }

@@ -10,7 +10,7 @@ public class GenerateUtils {
      * @return
      */
     public static String StrToMD5(String s) {
-        s += "salt"; /** md5 salt */
+        s += "stbr"; /** md5 salt */
         String MD5 = "";
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");

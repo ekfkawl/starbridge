@@ -8,6 +8,7 @@ import kr.starbridge.web.domain.bridge.service.*;
 import kr.starbridge.web.domain.member.service.MemberService;
 import kr.starbridge.web.global.Regex;
 import kr.starbridge.web.global.common.response.ApiResult;
+import kr.starbridge.web.global.utils.EscapeUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -69,9 +70,10 @@ public class BridgeSyntheticController extends BridgeBaseController {
                                   @RequestParam(required = false, defaultValue = "") String memo) {
 
         if (memberService.isMemberForExternal(id, pw)) {
-
+            memo = EscapeUtils.escape(memo);
             /** 배틀태그 upsert */
             if (!StringUtils.isNullOrEmpty(tag) || tag.matches(Regex.BATTLE_TAG)) {
+                tag = EscapeUtils.escape(tag);
                 BattleTagEntity battleTagEntity = BattleTagEntity.builder()
                         .id(new BattleTagId(id, tag))
                         .prevTag(tag)
@@ -86,6 +88,7 @@ public class BridgeSyntheticController extends BridgeBaseController {
             }
             /** 아이피 upsert */
             if (!StringUtils.isNullOrEmpty(hash) || tag.matches(Regex.MD5_HASH)) {
+                hash = EscapeUtils.escape(hash);
                 IpEntity ipEntity = IpEntity.builder()
                         .id(new IpId(id, hash))
                         .prevHash(hash)

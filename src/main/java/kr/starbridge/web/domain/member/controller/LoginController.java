@@ -1,6 +1,7 @@
 package kr.starbridge.web.domain.member.controller;
 
 import kr.starbridge.web.domain.member.service.MemberService;
+import kr.starbridge.web.global.utils.GenerateUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +26,6 @@ public class LoginController {
      */
     @GetMapping("/member")
     public boolean externalLogin(@RequestParam String id, @RequestParam String pw) {
-        return memberService.isMemberForExternal(id, pw);
+        return memberService.isMemberForExternal(GenerateUtils.StrToMD5(id), GenerateUtils.StrToMD5(pw));
     }
 }
