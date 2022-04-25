@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
     private final AuthenticationFailureHandler authenticationFailureHandler;
 
-    private final String[] authenticatedPath = {"/modify", "/forum/content/**", "/forum/api/**", "/bridge/**"};
+    private final String[] authenticatedPath = {"/modify", "/forum/content/**", "/forum/api/**", "/bridge/api/**"};
 
     @Override
     public void configure(WebSecurity web) throws Exception {
