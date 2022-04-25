@@ -57,7 +57,7 @@
 <script th:src="@{|/js/valid.js?t=${tick}|}"></script>
 <script th:src="@{|/js/common.js?t=${tick}|}"></script>
 <script th:inline="javascript">
-let img = null;
+var imgurl = '';
 function loadFile(a) {
     var b = a.files[0];
     var e = document.createElement("img");
@@ -81,7 +81,7 @@ function loadFile(a) {
         cache: false,
         success: function (f) {
             if (f.uploaded == 1) {
-                img = f.refUploadPath;
+                imgurl = f.url;
             }
         }
     })
@@ -101,7 +101,7 @@ $('#modify-btn').click(function () {
             name: name,
             pw1: pw1,
             pw2: pw2,
-            img: img
+            img: imgurl
         });
     }
 })
