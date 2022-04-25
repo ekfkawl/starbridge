@@ -212,9 +212,7 @@ location.href = '/forum';
 })
 
 $('#content-edit').click(function () {
-location.href = [[@{/forum/content /
-}]]
-+[[${forumContentDTO.seq}]];
+location.href = '/forum/content/'+[[${forumContentDTO.seq}]];
 })
 $('#content-remove').click(function () {
 if (confirm("삭제하시겠습니까?")) {
