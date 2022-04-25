@@ -32,7 +32,7 @@ public class BridgeSyntheticController extends BridgeBaseController {
      * @param id
      * @return
      */
-    @GetMapping("/client/api/bridge")
+    @GetMapping("/client/api/synthetic")
     public BridgeSyntheticDTO bridge(@RequestParam String id) {
 
         BridgeSyntheticDTO bridgeSyntheticDTO = new BridgeSyntheticDTO();
