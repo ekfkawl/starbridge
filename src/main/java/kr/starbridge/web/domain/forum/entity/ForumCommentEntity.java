@@ -50,6 +50,10 @@ public class ForumCommentEntity implements Serializable {
      */
     private long parentComment;
     /**
+     * ip
+     */
+    private String ip;
+    /**
      * 생성일
      */
     @CreationTimestamp

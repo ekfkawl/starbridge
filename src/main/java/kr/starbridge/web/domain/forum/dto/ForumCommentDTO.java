@@ -47,6 +47,10 @@ public class ForumCommentDTO {
     @JsonProperty("parent_comment")
     private long parentComment;
     /**
+     * ip
+     */
+    private String ip;
+    /**
      * 생성일
      */
     @JsonIgnore

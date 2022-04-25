@@ -22,6 +22,7 @@ public class ForumCommentMapper {
                 .member(forumCommentDTO.getMember() != null ? MemberMapper.toMemberEntity(forumCommentDTO.getMember()) : null)
                 .comment(forumCommentDTO.getComment() != null ? XssPreventer.escape(forumCommentDTO.getComment()) : null)
                 .parentComment(forumCommentDTO.getParentComment())
+                .ip(forumCommentDTO.getIp())
                 .build();
     }
 
@@ -50,6 +51,7 @@ public class ForumCommentMapper {
                 .member(MemberMapper.toMemberDTO(forumCommentEntity.getMember()))
                 .comment(forumCommentEntity.getComment())
                 .parentComment(forumCommentEntity.getParentComment())
+                .ip(forumCommentEntity.getIp())
                 .createDt(forumCommentEntity.getCreateDt())
                 .modifyDt(forumCommentEntity.getModifyDt())
                 .build();

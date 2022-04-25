@@ -71,6 +71,9 @@
 <span class=d-button-label th:utext="|댓글 ${forumContentDTO.commentCount}개|"></span>
 </a>
 <th:block th:if="(${is_login}) and (${forumContentDTO.member.id} == ${memberDTO.id} or ${is_cm})">
+<a style=float:right id=content-ban class="user-ban" th:if="${is_cm} and (${forumContentDTO.member.id} != ${memberDTO.id})">
+<span class=d-button-label style=margin-left:10px>차단</span>
+</a>
 <a style=float:right id=content-remove class>
 <span class=d-button-label style=margin-left:10px>삭제</span>
 </a>
@@ -208,14 +211,26 @@ $('#content-list').click(function () {
 location.href = '/forum';
 })
 
-$('#content-edit').click(function(){
-location.href=[[@{/forum/content/}]]+[[${forumContentDTO.seq}]];
+$('#content-edit').click(function () {
+location.href = [[@{/forum/content /
+}]]
++[[${forumContentDTO.seq}]];
 })
 $('#content-remove').click(function () {
 if (confirm("삭제하시겠습니까?")) {
 _delete("/forum/api/content", {
 seq: [[${forumContentDTO.seq}]]
-});
+})
+}
+})
+</script>
+<script th:inline=javascript th:if="${is_cm}">
+$('#content-ban').click(function () {
+if (confirm("밴 목록에 추가하시겠습니까?")) {
+_post("/forum/api/ban", {
+ip: [[${forumContentDTO.ip}]],
+name: [[${forumContentDTO.member.name}]]
+})
 }
 })
 </script>

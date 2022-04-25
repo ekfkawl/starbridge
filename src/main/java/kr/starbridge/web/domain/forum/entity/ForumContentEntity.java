@@ -60,6 +60,10 @@ public class ForumContentEntity implements Serializable {
      */
     private boolean isFix;
     /**
+     * ip
+     */
+    private String ip;
+    /**
      * 생성일
      */
     @CreationTimestamp

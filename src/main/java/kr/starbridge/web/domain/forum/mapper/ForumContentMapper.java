@@ -24,6 +24,7 @@ public class ForumContentMapper {
                 .content(forumContentDTO.getContent() != null ? XssPreventer.escape(forumContentDTO.getContent()): null)
                 .viewCount(forumContentDTO.getViewCount())
                 .isFix(forumContentDTO.isFix())
+                .ip(forumContentDTO.getIp())
                 .build();
     }
 
@@ -54,6 +55,7 @@ public class ForumContentMapper {
                 .content(forumContentEntity.getContent())
                 .viewCount(forumContentEntity.getViewCount())
                 .isFix(forumContentEntity.isFix())
+                .ip(forumContentEntity.getIp())
                 .createDt(forumContentEntity.getCreateDt())
                 .comment(forumContentEntity.getComment() != null ? ForumCommentMapper.toForumCommentDTO(forumContentEntity.getComment()) : null)
                 .build();

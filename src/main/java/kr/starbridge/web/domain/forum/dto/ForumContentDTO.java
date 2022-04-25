@@ -65,6 +65,10 @@ public class ForumContentDTO {
      */
     private boolean isFix;
     /**
+     * ip
+     */
+    private String ip;
+    /**
      * 생성일
      */
     @JsonIgnore

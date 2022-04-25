@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Optional;
@@ -59,8 +60,9 @@ public class ForumContentController extends ForumBaseController {
      * @return
      */
     @PostMapping("/api/content")
-    public ApiResult<ForumContentDTO> apiForumContent(@Validated(ValidationSequence.class) @RequestBody ForumContentDTO forumContentDTO) {
+    public ApiResult<ForumContentDTO> apiForumContent(@Validated(ValidationSequence.class) @RequestBody ForumContentDTO forumContentDTO, HttpServletRequest request) {
         forumContentDTO.setMember(SecurityUtils.getSelfInfo());
+        forumContentDTO.setIp(SecurityUtils.getRemoteAddress(request));
 
         ForumContentEntity forumContentEntity = forumContentService.save(toForumContentEntity(forumContentDTO));
 
