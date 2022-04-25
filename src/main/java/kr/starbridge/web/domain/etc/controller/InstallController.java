@@ -15,6 +15,8 @@ public class InstallController {
 
         ModelAndView mv = new ModelAndView("install");
 
+        mv.addObject("downloadURL", "https://github.com/faskdkasjd12/bridge/raw/main/starbridge2.zip");
+
         return mv;
     }
 }
