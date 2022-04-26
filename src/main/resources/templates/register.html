@@ -6,6 +6,14 @@
     <link th:href="@{|css/chunk-vendors.e9eecb51.css?t=${tick}|}" rel=stylesheet>
     <link th:href="@{|css/app.541fac21.css?t=${tick}|}" rel=stylesheet>
     <link th:href="@{|css/chunk-7b098fe2.262ee47f.css?t=${tick}|}" rel=stylesheet>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LeAAaAfAAAAAGUOMk60tasOeKnjmZU4a1AK0ouX"></script>
+    <script>
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6LeAAaAfAAAAAGUOMk60tasOeKnjmZU4a1AK0ouX', {action: 'click'}).then(function(token) {
+                $('#g-recaptcha-response').val(token);
+            });
+        });
+    </script>
 </head>
 <body>
 <div id=app>
@@ -136,25 +144,13 @@
                     </div>
                     <div data-v-59bf0011 class=register-area__input-area__container__recaptcha-wrapper>
                         <div data-v-59bf0011>
-                            <div class=grecaptcha-badge data-style=bottomright
-                                 style="width:256px;height:60px;display:block;transition:right .3s ease 0s;position:fixed;bottom:14px;right:-186px;box-shadow:gray 0 0 5px;border-radius:2px;overflow:hidden">
-                                <div class=grecaptcha-logo>
-                                    <iframe title=reCAPTCHA
-                                            src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LcF6Q8cAAAAAHd3eaH-qnOL4fZ16ybMcRhZtY33&amp;co=aHR0cHM6Ly9hcDEuc3RvcmouaW86NDQz&amp;hl=ko&amp;v=YhkYx1k-yvvb8OonJPmOpoJY&amp;size=invisible&amp;cb=pzgk1t1k3s0"
-                                            width=256 height=60 role=presentation name=a-41ay5t64m881 frameborder=0
-                                            scrolling=no
-                                            sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe>
-                                </div>
-                                <div class=grecaptcha-error></div>
-                                <textarea id=g-recaptcha-response name=g-recaptcha-response class=g-recaptcha-response
-                                          style="width:250px;height:40px;border:1px solid #c1c1c1;margin:10px 25px;padding:0;resize:none;display:none"></textarea>
-                            </div>
-                            <iframe style=display:none></iframe>
+                            <textarea id=g-recaptcha-response name=g-recaptcha-response class=g-recaptcha-response
+                                      style="width:250px;height:40px;border:1px solid #c1c1c1;margin:10px 25px;padding:0;resize:none;display:none"></textarea>
                         </div>
                     </div>
                     <input type=button value=회원가입 data-wait="Please wait..." id=signup-submit2
                            class="button full-width _100 pt signup-button w-button"/>
-                    <div class=g-recaptcha data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+                    <div class="g-recaptcha" data-sitekey="6LcULO4cAAAAAB3YZ-FcJ21zy9ubJLzGZ34uQSAX"></div>
                 </div>
             </div>
         </div>
@@ -165,7 +161,6 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         crossorigin="anonymous"></script>
-<script src="https://www.google.com/recaptcha/api.js"></script>
 <script th:src="@{|js/valid.js?t=${tick}|}"></script>
 <script th:src="@{|js/common.js?t=${tick}|}"></script>
 <script th:inline="javascript">

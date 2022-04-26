@@ -2,8 +2,8 @@ package kr.starbridge.web.domain.member.service;
 
 import kr.starbridge.web.domain.member.entity.MemberEntity;
 import kr.starbridge.web.global.common.response.ApiResult;
+import org.json.simple.parser.ParseException;
 
-import java.io.IOException;
 import java.util.Optional;
 
 public interface MemberService {
@@ -13,9 +13,9 @@ public interface MemberService {
      * @param memberEntity
      * @param recaptcha
      * @return
-     * @throws IOException
+     * @throws ParseException
      */
-    ApiResult<Object> register(MemberEntity memberEntity, String recaptcha) throws IOException;
+    ApiResult<Object> register(MemberEntity memberEntity, String recaptcha) throws ParseException;
 
     /**
      * 회원 정보

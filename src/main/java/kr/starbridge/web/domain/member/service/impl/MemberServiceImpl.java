@@ -12,11 +12,11 @@ import kr.starbridge.web.global.Profile;
 import kr.starbridge.web.global.common.response.ApiResult;
 import kr.starbridge.web.global.utils.BeanSubUtils;
 import lombok.RequiredArgsConstructor;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
 import java.util.Optional;
 
 @Service
@@ -30,12 +30,12 @@ public class MemberServiceImpl implements MemberService {
     private final Profile profile;
 
     @Override
-    public ApiResult<Object> register(MemberEntity memberEntity, String recaptcha) throws IOException {
+    public ApiResult<Object> register(MemberEntity memberEntity, String recaptcha) throws ParseException {
         /** prod 환경일 경우 recaptcha 체크 */
         if ("prod".equals(profile.getProfileName())) {
-            boolean isVerify = recaptchaService.verify(recaptcha);
-            if (!isVerify) {
-                return new ApiResult<>("reCAPTCHA 스팸방지 기능을 체크해 주십시오");
+            Float score = recaptchaService.verify(recaptcha);;
+            if (score < 0.8) {
+                return new ApiResult<>("봇 의심되어 가입이 중단되었습니다");
             }
         }
         /** 프로필 이미지 랜덤 */

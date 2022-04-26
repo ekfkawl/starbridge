@@ -1,74 +1,44 @@
 package kr.starbridge.web.domain.member.service;
 
-import com.mysql.cj.util.StringUtils;
+import lombok.RequiredArgsConstructor;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import javax.net.ssl.HttpsURLConnection;
-import java.io.*;
-import java.net.URL;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 @Service
+@RequiredArgsConstructor
 public class RecaptchaService {
-    public final String url = "https://www.google.com/recaptcha/api/siteverify";
-    private final String USER_AGENT = "Mozilla/5.0";
+    private final RestTemplateBuilder builder;
+
+    public static final String SITE_VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify";
+
     @Value("${reCAPTCHA}")
     private String secret;
 
-    public boolean verify(String gRecaptchaResponse) throws IOException {
-        if (StringUtils.isNullOrEmpty(gRecaptchaResponse)) {
-            return false;
-        }
+    public Float verify(String gRecaptchaResponse) throws ParseException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-        try{
-            URL obj = new URL(url);
-            HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+        MultiValueMap<String, String> map= new LinkedMultiValueMap<>();
+        map.add("secret", secret);
+        map.add("response", gRecaptchaResponse);
 
-            // add reuqest header
-            con.setRequestMethod("POST");
-            con.setRequestProperty("User-Agent", USER_AGENT);
-            con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
 
-            String postParams = "secret=" + secret + "&response="
-                    + gRecaptchaResponse;
+        ResponseEntity<String> response = builder.build().postForEntity(SITE_VERIFY_URL, request, String.class);
 
-            // Send post request
-            con.setDoOutput(true);
-            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-            wr.writeBytes(postParams);
-            wr.flush();
-            wr.close();
+        JSONParser jsonParse = new JSONParser();
+        JSONObject jsonObject = (JSONObject)jsonParse.parse(response.getBody());
 
-            int responseCode = con.getResponseCode();
-//            System.out.println("\nSending 'POST' request to URL : " + url);
-//            System.out.println("Post parameters : " + postParams);
-//            System.out.println("Response Code : " + responseCode);
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                    con.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-
-            // print result
-//            System.out.println(response.toString());
-
-            //parse JSON response and return 'success' value
-            JsonReader jsonReader = Json.createReader(new StringReader(response.toString()));
-            JsonObject jsonObject = jsonReader.readObject();
-            jsonReader.close();
-
-            return jsonObject.getBoolean("success");
-        }catch(Exception e){
-            e.printStackTrace();
-            return false;
-        }
+        return Float.parseFloat(jsonObject.get("score").toString());
     }
 }
