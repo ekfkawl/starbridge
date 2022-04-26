@@ -4,6 +4,8 @@ import kr.starbridge.web.domain.forum.dto.ForumCommentDTO;
 import kr.starbridge.web.domain.forum.dto.ForumContentDTO;
 import kr.starbridge.web.domain.forum.entity.ForumContentEntity;
 import kr.starbridge.web.domain.forum.service.ForumContentService;
+import kr.starbridge.web.global.common.enums.ExceptionEnum;
+import kr.starbridge.web.global.common.response.ApiException;
 import kr.starbridge.web.global.common.response.ApiResult;
 import kr.starbridge.web.global.common.response.ValidationSequence;
 import kr.starbridge.web.global.utils.SecurityUtils;
@@ -16,7 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.mysql.cj.util.StringUtils.isNullOrEmpty;
 import static kr.starbridge.web.domain.forum.mapper.ForumContentMapper.toForumContentDTO;
@@ -63,6 +67,22 @@ public class ForumContentController extends ForumBaseController {
     public ApiResult<ForumContentDTO> apiForumContent(@Validated(ValidationSequence.class) @RequestBody ForumContentDTO forumContentDTO, HttpServletRequest request) {
         forumContentDTO.setMember(SecurityUtils.getSelfInfo());
         forumContentDTO.setIp(SecurityUtils.getRemoteAddress(request));
+
+        /** 최근 게시물 목록 조회후 이전 글이 연속 2번이상 자신이면 작성할 수 없다 */
+        List<ForumContentEntity> forumContentEntities = forumContentService.getContents(0, "").stream()
+                .filter(p -> !p.isFix())
+                .collect(Collectors.toList());
+        int continueCount = 0;
+        for (ForumContentEntity forumContentEntity : forumContentEntities) {
+            if (forumContentEntity.getMember().getId().equals(SecurityUtils.getSelfInfo().getId())) {
+                continueCount++;
+            }else {
+                break;
+            }
+        }
+        if (continueCount >= 2) {
+            throw new ApiException(ExceptionEnum.ACCESS_DENIED_EXCEPTION.setMessage(String.format("글을 연달아 3번 이상 작성 할 수 없습니다*href=%s", "/forum")));
+        }
 
         ForumContentEntity forumContentEntity = forumContentService.save(toForumContentEntity(forumContentDTO));
 

@@ -71,7 +71,10 @@ public class ForumCommentDTO {
     }
 
     public String getBetweenTime() {
-        return modifyDt == null ? null : DateUtils.getBeforeDiffToString(modifyDt);
+        if (modifyDt == null) {
+            return createDt == null ? null : DateUtils.getBeforeDiffToString(createDt);
+        }
+        return DateUtils.getBeforeDiffToString(modifyDt);
     }
 
 }
