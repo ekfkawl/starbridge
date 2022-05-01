@@ -36,7 +36,7 @@ public class RoomFilterDTO {
     private boolean isExport;
 
     public RoomFilterId getId() {
-        id.setKeyword(escape(id.getKeyword().replaceAll(Regex.VACUUM, "")));
+        id.setKeyword(escape(id.getKeyword()));
         return id;
     }
 }
