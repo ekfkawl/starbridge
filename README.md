@@ -11,16 +11,16 @@
 ----------
 
 ## 스타브리지란 무엇입니까?
-스타브리지는 온라인 PC게임 [스타크래프트 리마스터](https://starcraft.com)에 다양한 플러그인(부가기능)을 적용할 수 있게 해주는 런처입니다.<br/>
-기존 서비스의 단점을 보완하여 더 나은 환경을 제공하는 것이 목적입니다.
+스타브리지는 온라인 게임 [스타크래프트 리마스터](https://starcraft.com)에 다양한 플러그인(부가기능)을 적용할 수 있게 해주는 런처입니다.<br/>
+기존 서비스의 단점을 보완하여 더 나은 환경을 제공하는 것이 목적입니다.<br/><br/>
 
 ## 스타브리지는 어떻게 작동합니까?
-![61821](https://user-images.githubusercontent.com/99597985/165524184-c3870d45-e65b-42c1-98fb-0f9a2faaeef5.png)<br/>
-스타브리지는 [Web](https://sbr.kr)과 [Windows 환경 클라이언트](https://sbr.kr/install) 각 플랫폼이 상호작용합니다.<br/><br/>
-* Web
+![21512412](https://user-images.githubusercontent.com/99597985/165559035-735184b8-bd7e-4f0a-a0bf-454d14768b04.png)<br/>
+스타브리지는 [Web Application](https://sbr.kr)과 [Windows Application](https://sbr.kr/install) 각 플랫폼이 상호작용합니다.<br/><br/>
+* Web Application
   * 서비스 동작에 필요한 데이터를 사용자가 직접 등록/수정할 수 있는 환경을 제공합니다.
   * 사용자 데이터를 종합하여 JSON 형식으로 반환해 주는 API를 제공합니다.
-* Client
+* Client (Windows Application)
   * 리버싱 엔지니어링(DLL Injection)을 통하여 새로운 서비스 로직을 생성합니다.
   * 서비스에 응용될 데이터는 IdHTTP 컴포넌트로 웹 API를 호출하여 실시간 매핑합니다.
 > SW 부분은 악용될 가능성이 존재하여 오픈소스로 제공되지 않습니다.
@@ -42,6 +42,9 @@
   > 외에도 다양한 플러그인을 제공하고 있으며 지속적으로 추가 중에 있습니다.
    <br/>
    
+* 테스트 영상은 아래 유튜브 링크에서 시청할 수 있습니다.</br></br>
+  [![test starbridge](http://img.youtube.com/vi/nCeNGw5W7ew/0.jpg)](https://www.youtube.com/watch?v=nCeNGw5W7ew)
+<br/><br/>
 ## 사용 기술 스택
 * Spring Boot
 * Gradle
