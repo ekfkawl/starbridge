@@ -9983,7 +9983,7 @@ button.close {
 }
 body {
   font-family: var(--mdb-font-roboto);
-  line-height: 1.6;
+  /*line-height: 1.6;*/
   color: #4f4f4f;
 }
 a {

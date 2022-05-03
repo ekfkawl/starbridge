@@ -6,7 +6,7 @@
 	<link rel=stylesheet href=https://use.fontawesome.com/releases/v5.14.0/css/all.css />
 	<link rel=stylesheet th:href="@{|/css/mdb.min.css?t=${tick}|}"/>
 	<link rel=stylesheet th:href="@{|/css/table-editor.min.css?t=${tick}|}"/>
-	<style>.ps__rail-x,.ps__rail-y{display:none !important}body{-ms-overflow-style:none;scrollbar-width:none;line-height:1.7}body::-webkit-scrollbar{display:none}.w--current{font-weight:700}.p--range{padding-top:15px;padding-bottom:80px}.p-range{padding-top:10px;padding-bottom:20px;color:black}.prange{padding-bottom:30px}</style>
+	<style>.ps__rail-x,.ps__rail-y{display:none !important}.w--current{font-weight:700}.p--range{padding-top:15px;padding-bottom:80px}.p-range{padding-top:10px;padding-bottom:20px;color:black}.prange{padding-bottom:30px}</style>
 	<th:block th:if="${#strings.contains(uri, 'export') or #strings.contains(uri, 'import')}">
 		<style>table > tbody > tr:nth-child(n) > td:nth-child(4), table > thead > tr > th:nth-child(4) {
 			display: none
