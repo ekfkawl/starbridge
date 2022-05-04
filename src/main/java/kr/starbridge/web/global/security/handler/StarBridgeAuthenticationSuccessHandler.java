@@ -26,6 +26,8 @@ public class StarBridgeAuthenticationSuccessHandler extends SimpleUrlAuthenticat
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest request, final HttpServletResponse response, final Authentication authentication) throws IOException {
 
+        request.getSession(false).setMaxInactiveInterval(-1);
+
         setDefaultTargetUrl("/");
 
         redirectStrategy.sendRedirect(request, response, getDefaultTargetUrl());
