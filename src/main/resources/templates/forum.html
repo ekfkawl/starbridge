@@ -3,7 +3,7 @@
 <head>
 <title>StarBridge | Forum</title>
 <th:block th:include="components/base_forum :: base"></th:block>
-<style type=text/css>body{font-size:15px}.comt{color:red;font-size:13px}.title-sz{vertical-align:bottom;max-width:93%;display:inline-block;text-overflow:ellipsis;overflow:hidden;white-space:nowrap}@media(max-width :600px){.title-sz{max-width:83%}}table tr td:nth-child(n+3){white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.link-top-line:hover{text-decoration:underline}tr[fix="true"]{background-color:#f8f8f8}span[fix="true"]{color:#0047ff;font-weight:600}span[fixw="true"]{color:black}span[role="ROLE_ADMIN"]{color: #0047ff}</style>
+<style type=text/css>body{font-size:15px}.comt{color:red;font-size:13px}.title-sz{vertical-align:bottom;max-width:93%;display:inline-block;text-overflow:ellipsis;overflow:hidden;white-space:nowrap}@media(max-width :600px){.title-sz{max-width:83%}}table tr td:nth-child(n+3){white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.link-top-line:hover{text-decoration:underline}tr[fix="true"]{background-color:#f8f8f8}span[fix="true"]{color:#0047ff;font-weight:600}span[fixw="true"]{color:black}span[role="ROLE_ADMIN"]{color: #0047ff}.title-img{color:#00c164}</style>
 </head>
 <body th:with="is_login=not ${#strings.isEmpty(memberDTO.id)}, is_cm=${is_login and #strings.contains(memberDTO.auth, 'ROLE_ADMIN')}">
 <header th:include="components/header_forum :: header(@{/})"></header>
@@ -40,6 +40,11 @@
 <th:block th:if="${i.commentCount} > 0">
 <script th:inline=javascript>document.write("<span class='comt'>["+"[[${i.commentCount}]]]</span>");</script>
 </th:block>
+<th:block th:if="${i.isUploadedImg}">
+<svg class="btn-flat fa svg-icon svg-node title-img" aria-hidden="true">
+<use xlink:href="#far-image"></use>
+</svg>
+</th:block>
 </a><span class=topic-post-badges></span>
 </span>
 <div class=link-bottom-line>
@@ -74,7 +79,7 @@
 </span> </a>
 </div></td>
 <td class=posters><a><img alt width=25 height=25 src class=avatar title></a></td>
-<td class="num age"><span class=number></span></td>
+<td class="num age"><span class="number" role=''></span></td>
 <td class="num age coldmap-med"><span></span></td>
 <td class="num views"><span class=number></span></td>
 </tr>
@@ -135,13 +140,16 @@ imgClone.removeAttr('class');
 att_img.attr({src: keys[j], onerror:"this.src='/image/default_profile.jpg'",  title: j});
 imgOrigin.before(imgClone.outerHTML());
 }
-
 imgOrigin.remove();
 clone.find('td.num.age span.number').text(res.data[i].member.name);
+clone.find('td.num.age span.number').attr('role', res.data[i].member.auth);
 clone.find('td.num.age.coldmap-med span').text(res.data[i].betweenTime);
 clone.find('td.num.views span.number').text(res.data[i].viewCount);
 if (res.data[i].commentCount > 0) {
-clone.find('a.title.raw-link.raw-topic-link').after(`<span class='comt'>[${res.data[i].commentCount}]</span>`)
+clone.find('a.title.raw-link.raw-topic-link').append(`<span class='comt'>[${res.data[i].commentCount}]</span>`)
+}
+if (res.data[i].uploadedImg) {
+clone.find('a.title.raw-link.raw-topic-link').append(` <svg class="btn-flat fa svg-icon svg-node title-img" aria-hidden="true"><use xlink:href="#far-image"></use></svg>`);
 }
 if (res.data[i].categoryColor == 15540347) {
 clone.find('span.badge-category-bg').before('<span class="badge-category-parent-bg" style="background-color: #BF1E2E;"></span>')

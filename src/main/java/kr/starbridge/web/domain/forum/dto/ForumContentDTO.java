@@ -90,6 +90,10 @@ public class ForumContentDTO {
      * 게시물 내의 멤버 프로필 이미지
      */
     private LinkedHashMap<String, String> memberImages;
+    /**
+     * 이미지 포함 여부
+     */
+    private boolean isUploadedImg;
 
     public int getCategory() {
         /** request 검증 */
@@ -176,5 +180,9 @@ public class ForumContentDTO {
         }
 
         return lhm;
+    }
+
+    public boolean isUploadedImg() {
+        return getContent().contains("&lt;img alt=");
     }
 }
