@@ -2,6 +2,7 @@ package kr.starbridge.web.domain.bridge.controller;
 
 import com.mysql.cj.util.StringUtils;
 import kr.starbridge.web.domain.bridge.dto.BridgeSyntheticDTO;
+import kr.starbridge.web.domain.bridge.dto.RoomFilterDTO;
 import kr.starbridge.web.domain.bridge.entity.*;
 import kr.starbridge.web.domain.bridge.mapper.*;
 import kr.starbridge.web.domain.bridge.service.*;
@@ -40,6 +41,9 @@ public class BridgeSyntheticController extends BridgeBaseController {
         bridgeSyntheticDTO.setBattleTagDTOList(BattleTagMapper.toBattleTagDTO(battleTagService.getBattleTags(id)));
         bridgeSyntheticDTO.setIpDTOList(IpMapper.toIpDTO(ipService.getHashes(id)));
         bridgeSyntheticDTO.setRoomFilterDTOList(RoomFilterMapper.toRoomFilterDTO(roomFilterService.getKeywords(id)));
+        for (RoomFilterDTO roomFilterDTO : bridgeSyntheticDTO.getRoomFilterDTOList()) {
+            roomFilterDTO.getId().setKeyword( roomFilterDTO.getId().getKeyword().replaceAll(Regex.VACUUM, ""));
+        }
 
         Optional<RoomRoleEntity> optionalRoomRoleEntity = roomRoleService.getRole(id);
         if (optionalRoomRoleEntity.isPresent()) {
